@@ -4,7 +4,7 @@
 #
 Name     : qtimageformats
 Version  : 5.10.1
-Release  : 8
+Release  : 9
 URL      : http://download.qt.io/official_releases/qt/5.10/5.10.1/submodules/qtimageformats-everywhere-src-5.10.1.tar.xz
 Source0  : http://download.qt.io/official_releases/qt/5.10/5.10.1/submodules/qtimageformats-everywhere-src-5.10.1.tar.xz
 Summary  : A library of functions for manipulating MNG format files.
@@ -17,6 +17,7 @@ BuildRequires : pkgconfig(Qt5Gui)
 BuildRequires : pkgconfig(Qt5Test)
 BuildRequires : python-dev
 BuildRequires : qtbase-dev
+BuildRequires : qtbase-extras
 BuildRequires : scons
 BuildRequires : tiff-dev
 
