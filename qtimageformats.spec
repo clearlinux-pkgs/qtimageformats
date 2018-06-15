@@ -15,7 +15,7 @@ BuildRequires : libwebp-dev
 BuildRequires : pkgconfig(Qt5Core)
 BuildRequires : pkgconfig(Qt5Gui)
 BuildRequires : pkgconfig(Qt5Test)
-BuildRequires : python-dev
+
 BuildRequires : qtbase-dev
 BuildRequires : qtbase-extras
 BuildRequires : scons
