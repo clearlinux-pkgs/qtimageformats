@@ -1,6 +1,8 @@
-Qt 5.11 introduces many new features and improvements as well as bugfixes
-over the 5.10.x series. For more details, refer to the online documentation
-included in this distribution. The documentation is also available online:
+Qt 5.11.1 is a bug-fix release. It maintains both forward and backward
+compatibility (source and binary) with Qt 5.11.0.
+
+For more details, refer to the online documentation included in this
+distribution. The documentation is also available online:
 
 http://doc.qt.io/qt-5/index.html
 
@@ -16,15 +18,17 @@ Each of these identifiers can be entered in the bug tracker to obtain more
 information about a particular change.
 
 ****************************************************************************
-*                            Qt 5.11.0 Changes                             *
+*                              Qt 5.11.1 Changes                           *
 ****************************************************************************
 
-Third-Party Code
-----------------
+****************************************************************************
+*                                   TIFF                                   *
+****************************************************************************
 
- - Bundled libwebp was updated to version 0.6.1
+ - [QTBUG-68609] Ensure saved tiffs have suitable ROWSPERSTRIP tag set
 
-Native Darwin jp2 and heic handlers
------------------------------------
+****************************************************************************
+*                             Third-Party Code                             *
+****************************************************************************
 
- - iOS support fixed
+ - Update bundled libwebp to version 1.0.0.
