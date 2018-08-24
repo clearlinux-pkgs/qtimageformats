@@ -4,7 +4,7 @@
 #
 Name     : qtimageformats
 Version  : 5.11.1
-Release  : 13
+Release  : 14
 URL      : http://download.qt.io/official_releases/qt/5.11/5.11.1/submodules/qtimageformats-everywhere-src-5.11.1.tar.xz
 Source0  : http://download.qt.io/official_releases/qt/5.11/5.11.1/submodules/qtimageformats-everywhere-src-5.11.1.tar.xz
 Summary  : A library of functions for manipulating MNG format files.
