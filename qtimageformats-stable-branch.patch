@@ -1,0 +1,43 @@
+Antti Kokko (1):
+      Add changes file for Qt 5.15.2
+
+Christian Ehrlicher (1):
+      TGA Plugin: don't print warning in QTgaHandler::canRead(QIODevice*)
+
+Eirik Aavitsland (1):
+      Avoid oob access when reading certain corrupt tiled tiffs
+
+Jani Heikkinen (1):
+      Bump version
+
+Tarja Sundqvist (2):
+      Update commercial license headers
+      Revert "Update commercial license headers"
+
+diff --git a/src/plugins/imageformats/tiff/qtiffhandler.cpp b/src/plugins/imageformats/tiff/qtiffhandler.cpp
+index bf4bc36..a41bb36 100644
+--- a/src/plugins/imageformats/tiff/qtiffhandler.cpp
++++ b/src/plugins/imageformats/tiff/qtiffhandler.cpp
+@@ -423,14 +423,19 @@ bool QTiffHandler::read(QImage *image)
+             quint32 tileWidth, tileLength;
+             TIFFGetField(tiff, TIFFTAG_TILEWIDTH, &tileWidth);
+             TIFFGetField(tiff, TIFFTAG_TILELENGTH, &tileLength);
+-            uchar *buf = (uchar *)_TIFFmalloc(TIFFTileSize(tiff));
+-            if (!tileWidth || !tileLength || !buf) {
+-                _TIFFfree(buf);
++            if (!tileWidth || !tileLength || tileWidth % 16 || tileLength % 16) {
+                 d->close();
+                 return false;
+             }
+             quint32 byteWidth = (format == QImage::Format_Mono) ? (width + 7)/8 : (width * bytesPerPixel);
+             quint32 byteTileWidth = (format == QImage::Format_Mono) ? tileWidth/8 : (tileWidth * bytesPerPixel);
++            tmsize_t byteTileSize = TIFFTileSize(tiff);
++            uchar *buf = (uchar *)_TIFFmalloc(byteTileSize);
++            if (!buf || byteTileSize / tileLength < byteTileWidth) {
++                _TIFFfree(buf);
++                d->close();
++                return false;
++            }
+             for (quint32 y = 0; y < height; y += tileLength) {
+                 for (quint32 x = 0; x < width; x += tileWidth) {
+                     if (TIFFReadTile(tiff, buf, x, y, 0, 0) < 0) {

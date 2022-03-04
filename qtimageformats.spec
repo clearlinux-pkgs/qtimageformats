@@ -4,7 +4,7 @@
 #
 Name     : qtimageformats
 Version  : 5.15.2
-Release  : 29
+Release  : 30
 URL      : https://download.qt.io/official_releases/qt/5.15/5.15.2/submodules/qtimageformats-everywhere-src-5.15.2.tar.xz
 Source0  : https://download.qt.io/official_releases/qt/5.15/5.15.2/submodules/qtimageformats-everywhere-src-5.15.2.tar.xz
 Summary  : No detailed summary available
@@ -20,6 +20,7 @@ BuildRequires : pkgconfig(Qt5Gui)
 BuildRequires : pkgconfig(Qt5Test)
 BuildRequires : qtbase-dev
 BuildRequires : tiff-dev
+Patch1: qtimageformats-stable-branch.patch
 
 %description
 [Useful links]
@@ -57,6 +58,7 @@ license components for the qtimageformats package.
 %prep
 %setup -q -n qtimageformats-everywhere-src-5.15.2
 cd %{_builddir}/qtimageformats-everywhere-src-5.15.2
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -69,7 +71,7 @@ test -r config.log && cat config.log
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1630803922
+export SOURCE_DATE_EPOCH=1646409791
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/qtimageformats
 cp %{_builddir}/qtimageformats-everywhere-src-5.15.2/LICENSE.FDL %{buildroot}/usr/share/package-licenses/qtimageformats/61907422fefcd2313a9b570c31d203a6dbebd333
