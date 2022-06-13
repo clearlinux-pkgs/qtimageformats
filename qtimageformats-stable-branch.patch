@@ -16,6 +16,9 @@ Jani Heikkinen (2):
       Bump version
       Bump version
 
+Robert Loehning (1):
+      Check earlier to avoid sanitzer warnings
+
 Tarja Sundqvist (3):
       Update commercial license headers
       Revert "Update commercial license headers"
@@ -7656,20 +7659,35 @@ index 655166e..b4c599d 100644
    //   INPUT
    //////////////
 diff --git a/src/plugins/imageformats/icns/qicnshandler.cpp b/src/plugins/imageformats/icns/qicnshandler.cpp
-index dde783c..d6fc589 100644
+index dde783c..1bf9074 100644
 --- a/src/plugins/imageformats/icns/qicnshandler.cpp
 +++ b/src/plugins/imageformats/icns/qicnshandler.cpp
-@@ -515,6 +515,9 @@ static bool parseIconEntryInfo(ICNSEntry &icon)
+@@ -462,8 +462,12 @@ static bool parseIconEntryInfo(ICNSEntry &icon)
+     if (isIconCompressed(icon))
+         return true;
+     // Icon depth:
+-    if (!depth.isEmpty())
+-        icon.depth = ICNSEntry::Depth(depth.toUInt());
++    if (!depth.isEmpty()) {
++        const uint depthUInt = depth.toUInt();
++        if (depthUInt > 32)
++            return false;
++        icon.depth = ICNSEntry::Depth(depthUInt);
++    }
+     // Try mono if depth not found
+     if (icon.depth == ICNSEntry::DepthUnknown)
+         icon.depth = ICNSEntry::DepthMono;
+@@ -515,6 +519,9 @@ static bool parseIconEntryInfo(ICNSEntry &icon)
          }
          icon.height = icon.width;
      }
 +    // Sanity check
-+    if (icon.width == 0 || icon.width > 4096 || icon.depth > 32)
++    if (icon.width == 0 || icon.width > 4096)
 +        return false;
      return true;
  }
  
-@@ -685,7 +688,7 @@ bool QICNSHandler::canRead() const
+@@ -685,7 +692,7 @@ bool QICNSHandler::canRead() const
  bool QICNSHandler::read(QImage *outImage)
  {
      QImage img;
@@ -7678,7 +7696,7 @@ index dde783c..d6fc589 100644
          qWarning("QICNSHandler::read(): The device wasn't parsed properly!");
          return false;
      }
-@@ -892,7 +895,7 @@ bool QICNSHandler::scanDevice()
+@@ -892,7 +899,7 @@ bool QICNSHandler::scanDevice()
              return false;
  
          const qint64 blockDataOffset = device()->pos();
@@ -7687,7 +7705,7 @@ index dde783c..d6fc589 100644
              qWarning("QICNSHandler::scanDevice(): Failed, bad header at pos %s. OSType \"%s\", length %u",
                       QByteArray::number(blockDataOffset).constData(),
                       nameFromOSType(blockHeader.ostype).constData(), blockHeader.length);
-@@ -927,11 +930,14 @@ bool QICNSHandler::scanDevice()
+@@ -927,11 +934,14 @@ bool QICNSHandler::scanDevice()
          case ICNSBlockHeader::TypeOdrp:
              // Icns container seems to have an embedded icon variant container
              // Let's start a scan for entries
@@ -7704,7 +7722,7 @@ index dde783c..d6fc589 100644
                      break;
                  if (!addEntry(icon, device()->pos(), blockHeader.ostype))
                      return false;
-@@ -1003,7 +1009,7 @@ bool QICNSHandler::scanDevice()
+@@ -1003,7 +1013,7 @@ bool QICNSHandler::scanDevice()
              break;
          }
      }
