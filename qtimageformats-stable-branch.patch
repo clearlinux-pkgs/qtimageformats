@@ -19,10 +19,12 @@ Jani Heikkinen (2):
 Robert Loehning (1):
       Check earlier to avoid sanitzer warnings
 
-Tarja Sundqvist (3):
+Tarja Sundqvist (5):
       Update commercial license headers
       Revert "Update commercial license headers"
+      Bump version
       Merge remote-tracking branch 'origin/tqtc/lts-5.15.4' into tqtc/lts-5.15-opensource
+      Merge remote-tracking branch 'origin/tqtc/lts-5.15.5' into tqtc/lts-5.15-opensource
 
 diff --git a/src/3rdparty/libtiff/ChangeLog b/src/3rdparty/libtiff/ChangeLog
 index 01e2182..452dcb3 100644

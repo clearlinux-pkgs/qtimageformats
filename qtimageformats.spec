@@ -4,7 +4,7 @@
 #
 Name     : qtimageformats
 Version  : 5.15.2
-Release  : 33
+Release  : 34
 URL      : https://download.qt.io/official_releases/qt/5.15/5.15.2/submodules/qtimageformats-everywhere-src-5.15.2.tar.xz
 Source0  : https://download.qt.io/official_releases/qt/5.15/5.15.2/submodules/qtimageformats-everywhere-src-5.15.2.tar.xz
 Summary  : No detailed summary available
@@ -71,7 +71,7 @@ test -r config.log && cat config.log
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1655128836
+export SOURCE_DATE_EPOCH=1655664358
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/qtimageformats
 cp %{_builddir}/qtimageformats-everywhere-src-5.15.2/LICENSE.FDL %{buildroot}/usr/share/package-licenses/qtimageformats/61907422fefcd2313a9b570c31d203a6dbebd333
