@@ -16,6 +16,9 @@ Jani Heikkinen (2):
       Bump version
       Bump version
 
+Moody Liu (1):
+      jp2: use correct buffer_size for jas_stream_memopen
+
 Robert Loehning (1):
       Check earlier to avoid sanitzer warnings
 
@@ -7733,6 +7736,19 @@ index dde783c..1bf9074 100644
  }
  
  const ICNSEntry &QICNSHandler::getIconMask(const ICNSEntry &icon) const
+diff --git a/src/plugins/imageformats/jp2/qjp2handler.cpp b/src/plugins/imageformats/jp2/qjp2handler.cpp
+index 5082023..a77c10d 100644
+--- a/src/plugins/imageformats/jp2/qjp2handler.cpp
++++ b/src/plugins/imageformats/jp2/qjp2handler.cpp
+@@ -857,7 +857,7 @@ bool Jpeg2000JasperReader::write(const QImage &image, int quality)
+     }
+ 
+     // Open an empty jasper stream that grows automatically
+-    jas_stream_t * memory_stream = jas_stream_memopen(0, -1);
++    jas_stream_t * memory_stream = jas_stream_memopen(0, 0);
+ 
+     // Jasper wants a non-const string.
+     char *str = qstrdup(jasperFormatString.toLatin1().constData());
 diff --git a/src/plugins/imageformats/tiff/qtiffhandler.cpp b/src/plugins/imageformats/tiff/qtiffhandler.cpp
 index bf4bc36..55eb216 100644
 --- a/src/plugins/imageformats/tiff/qtiffhandler.cpp
