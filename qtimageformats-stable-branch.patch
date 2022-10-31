@@ -4,7 +4,7 @@ Antti Kokko (1):
 Christian Ehrlicher (1):
       TGA Plugin: don't print warning in QTgaHandler::canRead(QIODevice*)
 
-Eirik Aavitsland (9):
+Eirik Aavitsland (10):
       Avoid oob access when reading certain corrupt tiled tiffs
       Avoid oob access when reading certain corrupt tiled tiffs
       Update bundled libwebp to version 1.2.0
@@ -12,6 +12,7 @@ Eirik Aavitsland (9):
       Avoid scanline overflow when reading corrupt tiffs
       Update bundled libtiff to version 4.3.0
       Patch bundled libtiff to compile on Integrity
+      Update bundled libwebp to version 1.2.1
       Add some basic checking against corrupt input
       Reject tiled tiffs with corrupt tile size early
 
@@ -26,14 +27,16 @@ Moody Liu (2):
 Robert Loehning (1):
       Check earlier to avoid sanitzer warnings
 
-Tarja Sundqvist (7):
+Tarja Sundqvist (9):
       Update commercial license headers
       Revert "Update commercial license headers"
+      Bump version
       Bump version
       Bump version
       Merge remote-tracking branch 'origin/tqtc/lts-5.15.4' into tqtc/lts-5.15-opensource
       Merge remote-tracking branch 'origin/tqtc/lts-5.15.5' into tqtc/lts-5.15-opensource
       Merge remote-tracking branch 'origin/tqtc/lts-5.15.6' into tqtc/lts-5.15-opensource
+      Merge remote-tracking branch 'origin/tqtc/lts-5.15.7' into tqtc/lts-5.15-opensource
 
 diff --git a/src/3rdparty/libtiff.pri b/src/3rdparty/libtiff.pri
 index c57c668..f9b8f42 100644
@@ -30611,37 +30614,154 @@ index 283f5e6..9d7837e 100644
      "Copyright": "Copyright (c) 1988-1997 Sam Leffler\nCopyright (c) 1991-1997 Silicon Graphics, Inc."
  }
 +
+diff --git a/src/3rdparty/libwebp.pri b/src/3rdparty/libwebp.pri
+index c193ddf..22f82bf 100644
+--- a/src/3rdparty/libwebp.pri
++++ b/src/3rdparty/libwebp.pri
+@@ -71,6 +71,7 @@ SOURCES += \
+     $$PWD/libwebp/src/dsp/yuv.c \
+     $$PWD/libwebp/src/dsp/yuv_mips_dsp_r2.c \
+     $$PWD/libwebp/src/dsp/lossless_sse2.c \
++    $$PWD/libwebp/src/dsp/lossless_sse41.c \
+     $$PWD/libwebp/src/dsp/yuv_mips32.c \
+     $$PWD/libwebp/src/dsp/yuv_sse2.c \
+     $$PWD/libwebp/src/dsp/yuv_sse41.c \
 diff --git a/src/3rdparty/libwebp/AUTHORS b/src/3rdparty/libwebp/AUTHORS
-index 32ff2fb..8a6e262 100644
+index 32ff2fb..30abde0 100644
 --- a/src/3rdparty/libwebp/AUTHORS
 +++ b/src/3rdparty/libwebp/AUTHORS
-@@ -6,6 +6,7 @@ Contributors:
+@@ -4,8 +4,12 @@ Contributors:
+ - Charles Munger (clm at google dot com)
+ - Cheng Yi (cyi at google dot com)
  - Christian Duvivier (cduvivier at google dot com)
++- Christopher Degawa (ccom at randomderp dot com)
++- Clement Courbet (courbet at google dot com)
  - Djordje Pesut (djordje dot pesut at imgtec dot com)
  - Hui Su (huisu at google dot com)
++- Ilya Kurdyukov (jpegqs at gmail dot com)
 +- Ingvar Stepanyan (rreverser at google dot com)
  - James Zern (jzern at google dot com)
  - Jan Engelhardt (jengelh at medozas dot de)
  - Jehan (jehan at girinstud dot io)
-@@ -41,5 +42,6 @@ Contributors:
+@@ -41,5 +45,7 @@ Contributors:
  - Vikas Arora (vikasa at google dot com)
  - Vincent Rabaud (vrabaud at google dot com)
  - Vlad Tsyrklevich (vtsyrklevich at chromium dot org)
 +- Wan-Teh Chang (wtc at google dot com)
  - Yang Zhang (yang dot zhang at arm dot com)
  - Yannis Guyon (yguyon at google dot com)
++- Zhi An Ng (zhin at chromium dot org)
 diff --git a/src/3rdparty/libwebp/ChangeLog b/src/3rdparty/libwebp/ChangeLog
-index 0a286fc..895ae99 100644
+index 0a286fc..6185fb6 100644
 --- a/src/3rdparty/libwebp/ChangeLog
 +++ b/src/3rdparty/libwebp/ChangeLog
-@@ -1,4 +1,82 @@
+@@ -1,4 +1,181 @@
++d9191588 fuzzer/*: normalize src/ includes
++53b6f762 fix indent
++731246ba update ChangeLog (tag: v1.2.1-rc2)
++d250f01d dsp/*: use WEBP_HAVE_* to determine Init availability
++3a4d3ecd update NEWS
++b2bc8093 bump version to 1.2.1
++e542fc7a update AUTHORS
++e0241154 Merge "libwebp/CMake: Add <BUILD_INTERFACE> to webp incl" into main
++edea6444 libwebp/CMake: Add <BUILD_INTERFACE> to webp incl
++ece18e55 dsp.h: respect --disable-sse2/sse4.1/neon
++a89a3230 wicdec: support alpha from WebP WIC decoder
++26f4aa01 Merge "alpha_processing: fix visual studio warnings" into main
++8f594663 alpha_processing: fix visual studio warnings
++46d844e6 Merge "cpu.cmake: fix compiler flag detection w/3.17.0+" into main
++298d26ea Merge changes I593adf92,If20675e7,Ifac68eac into main
++a1e5dae0 alpha_processing*: use WEBP_RESTRICT qualifier
++327ef24f cpu.cmake: fix compiler flag detection w/3.17.0+
++f70819de configure: enable libwebpmux by default
++dc7e2b42 configure: add informational notices when disabling binaries
++9df23ddd configure: move lib flag checks before binaries
++a2e18f10 Merge "WebPConfig.config.in: correct WEBP_INCLUDE_DIRS" into main
++e1a8d4f3 Merge "bit_reader_inl_utils: uniformly apply WEBP_RESTRICT" into main
++4de35f43 rescaler.c: fix alignment
++0f13eec7 bit_reader_inl_utils: uniformly apply WEBP_RESTRICT
++277d3074 Fix size_t overflow in  WebPRescalerInit
++97adbba5 WebPConfig.config.in: correct WEBP_INCLUDE_DIRS
++b60d4603 advanced_api_fuzzer: add extreme config value coverage
++72fe52f6 anim_encode.c,cosmetics: normalize indent
++116d235c anim_encode: Fix encoded_frames_[] overflow
++6f445b3e CMake: set CMP0072 to NEW
++b1cf887f define WEBP_RESTRICT for MSVC
++3e265136 Add WEBP_RESTRICT & use it in VP8BitReader
++f6d29247 vp8l_dec::ProcessRows: fix int overflow in multiply
++de3b4ba8 CMake: add WEBP_BUILD_LIBWEBPMUX
++7f09d3d1 CMakeLists.txt: rm libwebpmux dep from anim_{diff,dump}
++4edea4a6 Init{RGB,YUV}Rescaler: fix a few more int overflows
++c9e26bdb rescaler_utils: set max valid scaled w/h to INT_MAX/2
++28d488e6 utils.h: add SizeOverflow()
++695bdaa2 Export/EmitRescaledRowsRGBA: fix pointer offset int overflow
++685d073e Init{RGB,YUV}Rescaler: fix int overflows in multiplication
++d38bd0dd WebPFlipBuffer: fix integer overflow
++109ff0f1 utils: allow MALLOC_LIMIT to indicate a max
++a2fce867 WebPRescalerImportRowExpand_C: promote some vals before multiply
++776983d4 AllocateBuffer: fix int multiplication overflow check
++315abbd6 Merge "Revert "Do not use a palette for one color images.""
++eae815d0 Merge changes Ica3bbf75,I82f82954
++afbca5a1 Require Emscripten 2.0.18
++3320416b CMakeLists,emscripten: use EXPORTED_RUNTIME_METHODS
++29145ed6 Update README instructions for using Emscripten
++1f579139 cosmetics: remove use of 'sanity' / 'master'
++29b6129c WebPAnimEncoderNewInternal: remove some unnecessary inits
++b60869a1 Revert "Do not use a palette for one color images."
++6fb4cddc demux: move padded size calc post unpadded validation
++05b72d42 vp8l_enc.c: normalize index types
++b6513fba Do not use a palette for one color images.
++98bbe35b Fix multi-threading with palettes.
++b1674240 Add modified Zeng's method to palette sorting.
++88c90c45 add CONTRIBUTING.md
++6a9916d7 WebPRescalerInit: add missing int64_t promotion
++b6cf52d5 WebPIoInitFromOptions: treat use_scaling as a bool
++3b12b7f4 WebPIoInitFromOptions: treat use_cropping as a bool
++595fa13f add WebPCheckCropDimensions()
++8fdaecb0 Disable cross-color when palette is used.
++8933bac2 WebPIoInitFromOptions: respect incoming bypass_filtering val
++7d416ff0 webpdec,cosmetics: match error text to function call
++ec6cfeb5 Fix typo on WebPPictureAlloc() in README
++7e58a1a2 *.cmake: add license header
++5651a6b2 cmake: fix .so versioning
++25ae67b3 xcframeworkbuild.sh: add arm64 simulator target
++5d4ee4c3 cosmetics: remove use of the term 'dummy'
++01b38ee1 faster CollectColorXXXTransforms_SSE41
++652aa344 Merge "Use BitCtz for FastSLog2Slow_C"
++0320e1e3 add the missing default BitsCtz() code
++8886f620 Use BitCtz for FastSLog2Slow_C
++fae41617 faster CombinedShannonEntropy_SSE2
++5bd2704e Introduce the BitCtz() function.
++fee64287 Merge "wicdec,icc: treat unsupported op as non-fatal"
++33ddb894 lossless_sse{2,41}: remove some unneeded includes
++b27ea852 wicdec,icc: treat unsupported op as non-fatal
++b78494a9 Merge "Fix undefined signed shift."
++e79974cd Fix undefined signed shift.
++a8853394 SSE4.1 versions of BGRA to RGB/BGR color-space conversions
++a09a6472 SSE4.1 version of TransformColorInverse
++401da22b Merge "pngdec: check version before using png_get_chunk_malloc_max"
++26907822 pngdec: check version before using png_get_chunk_malloc_max
++06c1e72e Code cleanup
++8f0d41aa Merge changes Id135bbf4,I99e59797
++373eb170 gif2webp: don't store loop-count if there's only 1 frame
++759b9d5a cmake: add WEBP_USE_THREAD option
++926ce921 cmake: don't install binaries from extras/
++9c367bc6 WebPAnimDecoderNewInternal: validate bitstream before alloc
++47f64f6e filters_sse2: import Chromium change
++cc3577e9 fuzzer/*: use src/ based include paths
++004d77ff Merge tag 'v1.2.0'
++fedac6cc update ChangeLog (tag: v1.2.0-rc3, tag: v1.2.0)
 +170a8712 Fix check_c_source_compiles with pthread.
++ceddb5fc Fix check_c_source_compiles with pthread.
 +85995719 disable CombinedShannonEntropy_SSE2 on x86
++289757fe TiffDec: enforce stricter mem/dimension limit on tiles
 +8af7436f Merge "{ios,xcframework}build.sh: make min version(s) more visible" into 1.2.0
 +e56c3c5b pngdec: raise memory limit if needed
++8696147d pngdec: raise memory limit if needed
 +13b8e9fe {ios,xcframework}build.sh: make min version(s) more visible
 +a9225410 animdecoder_fuzzer: fix memory leak
 +d6c2285d update gradle to 6.1.1
++8df77fb1 animdecoder_fuzzer: fix memory leak
 +52ce6333 update NEWS
 +28c49820 bump version to 1.2.0
 +7363dff2 webp/encode.h: restore WEBP_ENCODER_ABI_VERSION to v1.1.0
@@ -30718,10 +30838,22 @@ index 0a286fc..895ae99 100644
  30f09551 bump version to 1.1.0
  a76694a1 update AUTHORS
 diff --git a/src/3rdparty/libwebp/NEWS b/src/3rdparty/libwebp/NEWS
-index 46daa09..5b87b3a 100644
+index 46daa09..a691761 100644
 --- a/src/3rdparty/libwebp/NEWS
 +++ b/src/3rdparty/libwebp/NEWS
-@@ -1,3 +1,15 @@
+@@ -1,3 +1,27 @@
++- 7/20/2021: version 1.2.1
++  This is a binary compatible release.
++  * minor lossless encoder improvements and x86 color conversion speed up
++  * add ARM64 simulator support to xcframeworkbuild.sh (#510)
++  * further security related hardening in libwebp & examples
++    (issues: #497, #508, #518)
++    (chromium: #1196480, #1196773, #1196775, #1196777, #1196778, #1196850)
++    (oss-fuzz: #28658, #28978)
++  * toolchain updates and bug fixes (#498, #501, #502, #504, #505, #506, #509,
++                                     #533)
++  * use more inclusive language within the source (#507)
++
 +- 12/23/2020: version 1.2.0
 +  * API changes:
 +    - libwebp:
@@ -30738,7 +30870,7 @@ index 46daa09..5b87b3a 100644
    * API changes:
      - libwebp:
 diff --git a/src/3rdparty/libwebp/README b/src/3rdparty/libwebp/README
-index 0592727..bbe2c81 100644
+index 0592727..54c5175 100644
 --- a/src/3rdparty/libwebp/README
 +++ b/src/3rdparty/libwebp/README
 @@ -4,7 +4,7 @@
@@ -30746,7 +30878,7 @@ index 0592727..bbe2c81 100644
                  / _/ /    \    \ /  _ \/ _/
                 /  \_/   / /   \ \   __/  \__
 -               \____/____/\_____/_____/____/v1.1.0
-+               \____/____/\_____/_____/____/v1.2.0
++               \____/____/\_____/_____/____/v1.2.1
  
  Description:
  ============
@@ -30804,8 +30936,17 @@ index 0592727..bbe2c81 100644
      - These libraries should be available in the OpenGL / GLUT frameworks.
    Windows:
      http://freeglut.sourceforge.net/index.php#download
+@@ -613,7 +619,7 @@ The encoding flow looks like:
+   pic.width = width;
+   pic.height = height;
+   // allocated picture of dimension width x height
+-  if (!WebPPictureAllocate(&pic)) {
++  if (!WebPPictureAlloc(&pic)) {
+     return 0;   // memory error
+   }
+   // at this point, 'pic' has been initialized as a container,
 diff --git a/src/3rdparty/libwebp/qt_attribution.json b/src/3rdparty/libwebp/qt_attribution.json
-index 618c31c..bb7577e 100644
+index 618c31c..f854c64 100644
 --- a/src/3rdparty/libwebp/qt_attribution.json
 +++ b/src/3rdparty/libwebp/qt_attribution.json
 @@ -6,7 +6,7 @@
@@ -30813,12 +30954,83 @@ index 618c31c..bb7577e 100644
      "Description": "WebP is a new image format that provides lossless and lossy compression for images on the web.",
      "Homepage": "https://developers.google.com/speed/webp/",
 -    "Version": "1.1.0",
-+    "Version": "1.2.0",
++    "Version": "1.2.1",
      "License": "BSD 3-clause \"New\" or \"Revised\" License",
      "LicenseId": "BSD-3-Clause",
      "LicenseFile": "COPYING",
+diff --git a/src/3rdparty/libwebp/src/dec/alpha_dec.c b/src/3rdparty/libwebp/src/dec/alpha_dec.c
+index bce735b..0b93a30 100644
+--- a/src/3rdparty/libwebp/src/dec/alpha_dec.c
++++ b/src/3rdparty/libwebp/src/dec/alpha_dec.c
+@@ -183,7 +183,7 @@ const uint8_t* VP8DecompressAlphaRows(VP8Decoder* const dec,
+   assert(dec != NULL && io != NULL);
+ 
+   if (row < 0 || num_rows <= 0 || row + num_rows > height) {
+-    return NULL;    // sanity check.
++    return NULL;
+   }
+ 
+   if (!dec->is_alpha_decoded_) {
+diff --git a/src/3rdparty/libwebp/src/dec/buffer_dec.c b/src/3rdparty/libwebp/src/dec/buffer_dec.c
+index 3cd94eb..4786cf0 100644
+--- a/src/3rdparty/libwebp/src/dec/buffer_dec.c
++++ b/src/3rdparty/libwebp/src/dec/buffer_dec.c
+@@ -102,7 +102,7 @@ static VP8StatusCode AllocateBuffer(WebPDecBuffer* const buffer) {
+     int stride;
+     uint64_t size;
+ 
+-    if ((uint64_t)w * kModeBpp[mode] >= (1ull << 32)) {
++    if ((uint64_t)w * kModeBpp[mode] >= (1ull << 31)) {
+       return VP8_STATUS_INVALID_PARAM;
+     }
+     stride = w * kModeBpp[mode];
+@@ -117,7 +117,6 @@ static VP8StatusCode AllocateBuffer(WebPDecBuffer* const buffer) {
+     }
+     total_size = size + 2 * uv_size + a_size;
+ 
+-    // Security/sanity checks
+     output = (uint8_t*)WebPSafeMalloc(total_size, sizeof(*output));
+     if (output == NULL) {
+       return VP8_STATUS_OUT_OF_MEMORY;
+@@ -156,11 +155,11 @@ VP8StatusCode WebPFlipBuffer(WebPDecBuffer* const buffer) {
+   }
+   if (WebPIsRGBMode(buffer->colorspace)) {
+     WebPRGBABuffer* const buf = &buffer->u.RGBA;
+-    buf->rgba += (buffer->height - 1) * buf->stride;
++    buf->rgba += (int64_t)(buffer->height - 1) * buf->stride;
+     buf->stride = -buf->stride;
+   } else {
+     WebPYUVABuffer* const buf = &buffer->u.YUVA;
+-    const int H = buffer->height;
++    const int64_t H = buffer->height;
+     buf->y += (H - 1) * buf->y_stride;
+     buf->y_stride = -buf->y_stride;
+     buf->u += ((H - 1) >> 1) * buf->u_stride;
+@@ -188,8 +187,7 @@ VP8StatusCode WebPAllocateDecBuffer(int width, int height,
+       const int ch = options->crop_height;
+       const int x = options->crop_left & ~1;
+       const int y = options->crop_top & ~1;
+-      if (x < 0 || y < 0 || cw <= 0 || ch <= 0 ||
+-          x + cw > width || y + ch > height) {
++      if (!WebPCheckCropDimensions(width, height, x, y, cw, ch)) {
+         return VP8_STATUS_INVALID_PARAM;   // out of frame boundary.
+       }
+       width = cw;
+diff --git a/src/3rdparty/libwebp/src/dec/frame_dec.c b/src/3rdparty/libwebp/src/dec/frame_dec.c
+index 04609a8..91ca1f8 100644
+--- a/src/3rdparty/libwebp/src/dec/frame_dec.c
++++ b/src/3rdparty/libwebp/src/dec/frame_dec.c
+@@ -705,7 +705,7 @@ static int AllocateMemory(VP8Decoder* const dec) {
+                         + cache_size + alpha_size + WEBP_ALIGN_CST;
+   uint8_t* mem;
+ 
+-  if (needed != (size_t)needed) return 0;  // check for overflow
++  if (!CheckSizeOverflow(needed)) return 0;  // check for overflow
+   if (needed > dec->mem_size_) {
+     WebPSafeFree(dec->mem_);
+     dec->mem_size_ = 0;
 diff --git a/src/3rdparty/libwebp/src/dec/io_dec.c b/src/3rdparty/libwebp/src/dec/io_dec.c
-index e603f19..29dc634 100644
+index e603f19..5ef6298 100644
 --- a/src/3rdparty/libwebp/src/dec/io_dec.c
 +++ b/src/3rdparty/libwebp/src/dec/io_dec.c
 @@ -25,21 +25,16 @@
@@ -30906,7 +31118,83 @@ index e603f19..29dc634 100644
      const int num_lines_out = Rescale(io->a, io->width, io->mb_h, p->scaler_a);
      assert(expected_num_lines_out == num_lines_out);
      if (num_lines_out > 0) {   // unmultiply the Y
-@@ -356,7 +351,7 @@ static int ExportRGB(WebPDecParams* const p, int y_pos) {
+@@ -303,46 +298,57 @@ static int InitYUVRescaler(const VP8Io* const io, WebPDecParams* const p) {
+   const int uv_out_height = (out_height + 1) >> 1;
+   const int uv_in_width  = (io->mb_w + 1) >> 1;
+   const int uv_in_height = (io->mb_h + 1) >> 1;
+-  const size_t work_size = 2 * out_width;   // scratch memory for luma rescaler
++  // scratch memory for luma rescaler
++  const size_t work_size = 2 * (size_t)out_width;
+   const size_t uv_work_size = 2 * uv_out_width;  // and for each u/v ones
+-  size_t tmp_size, rescaler_size;
++  uint64_t total_size;
++  size_t rescaler_size;
+   rescaler_t* work;
+   WebPRescaler* scalers;
+   const int num_rescalers = has_alpha ? 4 : 3;
+ 
+-  tmp_size = (work_size + 2 * uv_work_size) * sizeof(*work);
++  total_size = ((uint64_t)work_size + 2 * uv_work_size) * sizeof(*work);
+   if (has_alpha) {
+-    tmp_size += work_size * sizeof(*work);
++    total_size += (uint64_t)work_size * sizeof(*work);
+   }
+   rescaler_size = num_rescalers * sizeof(*p->scaler_y) + WEBP_ALIGN_CST;
++  total_size += rescaler_size;
++  if (!CheckSizeOverflow(total_size)) {
++    return 0;
++  }
+ 
+-  p->memory = WebPSafeMalloc(1ULL, tmp_size + rescaler_size);
++  p->memory = WebPSafeMalloc(1ULL, (size_t)total_size);
+   if (p->memory == NULL) {
+     return 0;   // memory error
+   }
+   work = (rescaler_t*)p->memory;
+ 
+-  scalers = (WebPRescaler*)WEBP_ALIGN((const uint8_t*)work + tmp_size);
++  scalers = (WebPRescaler*)WEBP_ALIGN(
++      (const uint8_t*)work + total_size - rescaler_size);
+   p->scaler_y = &scalers[0];
+   p->scaler_u = &scalers[1];
+   p->scaler_v = &scalers[2];
+   p->scaler_a = has_alpha ? &scalers[3] : NULL;
+ 
+-  WebPRescalerInit(p->scaler_y, io->mb_w, io->mb_h,
+-                   buf->y, out_width, out_height, buf->y_stride, 1,
+-                   work);
+-  WebPRescalerInit(p->scaler_u, uv_in_width, uv_in_height,
+-                   buf->u, uv_out_width, uv_out_height, buf->u_stride, 1,
+-                   work + work_size);
+-  WebPRescalerInit(p->scaler_v, uv_in_width, uv_in_height,
+-                   buf->v, uv_out_width, uv_out_height, buf->v_stride, 1,
+-                   work + work_size + uv_work_size);
++  if (!WebPRescalerInit(p->scaler_y, io->mb_w, io->mb_h,
++                        buf->y, out_width, out_height, buf->y_stride, 1,
++                        work) ||
++      !WebPRescalerInit(p->scaler_u, uv_in_width, uv_in_height,
++                        buf->u, uv_out_width, uv_out_height, buf->u_stride, 1,
++                        work + work_size) ||
++      !WebPRescalerInit(p->scaler_v, uv_in_width, uv_in_height,
++                        buf->v, uv_out_width, uv_out_height, buf->v_stride, 1,
++                        work + work_size + uv_work_size)) {
++    return 0;
++  }
+   p->emit = EmitRescaledYUV;
+ 
+   if (has_alpha) {
+-    WebPRescalerInit(p->scaler_a, io->mb_w, io->mb_h,
+-                     buf->a, out_width, out_height, buf->a_stride, 1,
+-                     work + work_size + 2 * uv_work_size);
++    if (!WebPRescalerInit(p->scaler_a, io->mb_w, io->mb_h,
++                          buf->a, out_width, out_height, buf->a_stride, 1,
++                          work + work_size + 2 * uv_work_size)) {
++      return 0;
++    }
+     p->emit_alpha = EmitRescaledAlphaYUV;
+     WebPInitAlphaProcessing();
+   }
+@@ -356,7 +362,7 @@ static int ExportRGB(WebPDecParams* const p, int y_pos) {
    const WebPYUV444Converter convert =
        WebPYUV444Converters[p->output->colorspace];
    const WebPRGBABuffer* const buf = &p->output->u.RGBA;
@@ -30915,7 +31203,7 @@ index e603f19..29dc634 100644
    int num_lines_out = 0;
    // For RGB rescaling, because of the YUV420, current scan position
    // U/V can be +1/-1 line from the Y one.  Hence the double test.
-@@ -383,15 +378,15 @@ static int EmitRescaledRGB(const VP8Io* const io, WebPDecParams* const p) {
+@@ -383,15 +389,15 @@ static int EmitRescaledRGB(const VP8Io* const io, WebPDecParams* const p) {
    while (j < mb_h) {
      const int y_lines_in =
          WebPRescalerImport(p->scaler_y, mb_h - j,
@@ -30938,7 +31226,7 @@ index e603f19..29dc634 100644
        (void)v_lines_in;   // remove a gcc warning
        assert(u_lines_in == v_lines_in);
        uv_j += u_lines_in;
-@@ -403,7 +398,7 @@ static int EmitRescaledRGB(const VP8Io* const io, WebPDecParams* const p) {
+@@ -403,7 +409,7 @@ static int EmitRescaledRGB(const VP8Io* const io, WebPDecParams* const p) {
  
  static int ExportAlpha(WebPDecParams* const p, int y_pos, int max_lines_out) {
    const WebPRGBABuffer* const buf = &p->output->u.RGBA;
@@ -30947,7 +31235,7 @@ index e603f19..29dc634 100644
    const WEBP_CSP_MODE colorspace = p->output->colorspace;
    const int alpha_first =
        (colorspace == MODE_ARGB || colorspace == MODE_Argb);
-@@ -431,7 +426,7 @@ static int ExportAlpha(WebPDecParams* const p, int y_pos, int max_lines_out) {
+@@ -431,7 +437,7 @@ static int ExportAlpha(WebPDecParams* const p, int y_pos, int max_lines_out) {
  static int ExportAlphaRGBA4444(WebPDecParams* const p, int y_pos,
                                 int max_lines_out) {
    const WebPRGBABuffer* const buf = &p->output->u.RGBA;
@@ -30956,7 +31244,7 @@ index e603f19..29dc634 100644
  #if (WEBP_SWAP_16BIT_CSP == 1)
    uint8_t* alpha_dst = base_rgba;
  #else
-@@ -470,7 +465,7 @@ static int EmitRescaledAlphaRGB(const VP8Io* const io, WebPDecParams* const p,
+@@ -470,7 +476,7 @@ static int EmitRescaledAlphaRGB(const VP8Io* const io, WebPDecParams* const p,
      int lines_left = expected_num_out_lines;
      const int y_end = p->last_y + lines_left;
      while (lines_left > 0) {
@@ -30965,10 +31253,100 @@ index e603f19..29dc634 100644
        WebPRescalerImport(scaler, io->mb_h + io->mb_y - scaler->src_y,
                           io->a + row_offset * io->width, io->width);
        lines_left -= p->emit_alpha_row(p, y_end - lines_left, lines_left);
+@@ -485,51 +491,58 @@ static int InitRGBRescaler(const VP8Io* const io, WebPDecParams* const p) {
+   const int out_height = io->scaled_height;
+   const int uv_in_width  = (io->mb_w + 1) >> 1;
+   const int uv_in_height = (io->mb_h + 1) >> 1;
+-  const size_t work_size = 2 * out_width;   // scratch memory for one rescaler
++  // scratch memory for one rescaler
++  const size_t work_size = 2 * (size_t)out_width;
+   rescaler_t* work;  // rescalers work area
+   uint8_t* tmp;   // tmp storage for scaled YUV444 samples before RGB conversion
+-  size_t tmp_size1, tmp_size2, total_size, rescaler_size;
++  uint64_t tmp_size1, tmp_size2, total_size;
++  size_t rescaler_size;
+   WebPRescaler* scalers;
+   const int num_rescalers = has_alpha ? 4 : 3;
+ 
+-  tmp_size1 = 3 * work_size;
+-  tmp_size2 = 3 * out_width;
+-  if (has_alpha) {
+-    tmp_size1 += work_size;
+-    tmp_size2 += out_width;
+-  }
++  tmp_size1 = (uint64_t)num_rescalers * work_size;
++  tmp_size2 = (uint64_t)num_rescalers * out_width;
+   total_size = tmp_size1 * sizeof(*work) + tmp_size2 * sizeof(*tmp);
+   rescaler_size = num_rescalers * sizeof(*p->scaler_y) + WEBP_ALIGN_CST;
++  total_size += rescaler_size;
++  if (!CheckSizeOverflow(total_size)) {
++    return 0;
++  }
+ 
+-  p->memory = WebPSafeMalloc(1ULL, total_size + rescaler_size);
++  p->memory = WebPSafeMalloc(1ULL, (size_t)total_size);
+   if (p->memory == NULL) {
+     return 0;   // memory error
+   }
+   work = (rescaler_t*)p->memory;
+   tmp = (uint8_t*)(work + tmp_size1);
+ 
+-  scalers = (WebPRescaler*)WEBP_ALIGN((const uint8_t*)work + total_size);
++  scalers = (WebPRescaler*)WEBP_ALIGN(
++      (const uint8_t*)work + total_size - rescaler_size);
+   p->scaler_y = &scalers[0];
+   p->scaler_u = &scalers[1];
+   p->scaler_v = &scalers[2];
+   p->scaler_a = has_alpha ? &scalers[3] : NULL;
+ 
+-  WebPRescalerInit(p->scaler_y, io->mb_w, io->mb_h,
+-                   tmp + 0 * out_width, out_width, out_height, 0, 1,
+-                   work + 0 * work_size);
+-  WebPRescalerInit(p->scaler_u, uv_in_width, uv_in_height,
+-                   tmp + 1 * out_width, out_width, out_height, 0, 1,
+-                   work + 1 * work_size);
+-  WebPRescalerInit(p->scaler_v, uv_in_width, uv_in_height,
+-                   tmp + 2 * out_width, out_width, out_height, 0, 1,
+-                   work + 2 * work_size);
++  if (!WebPRescalerInit(p->scaler_y, io->mb_w, io->mb_h,
++                        tmp + 0 * out_width, out_width, out_height, 0, 1,
++                        work + 0 * work_size) ||
++      !WebPRescalerInit(p->scaler_u, uv_in_width, uv_in_height,
++                        tmp + 1 * out_width, out_width, out_height, 0, 1,
++                        work + 1 * work_size) ||
++      !WebPRescalerInit(p->scaler_v, uv_in_width, uv_in_height,
++                        tmp + 2 * out_width, out_width, out_height, 0, 1,
++                        work + 2 * work_size)) {
++    return 0;
++  }
+   p->emit = EmitRescaledRGB;
+   WebPInitYUV444Converters();
+ 
+   if (has_alpha) {
+-    WebPRescalerInit(p->scaler_a, io->mb_w, io->mb_h,
+-                     tmp + 3 * out_width, out_width, out_height, 0, 1,
+-                     work + 3 * work_size);
++    if (!WebPRescalerInit(p->scaler_a, io->mb_w, io->mb_h,
++                          tmp + 3 * out_width, out_width, out_height, 0, 1,
++                          work + 3 * work_size)) {
++      return 0;
++    }
+     p->emit_alpha = EmitRescaledAlphaRGB;
+     if (p->output->colorspace == MODE_RGBA_4444 ||
+         p->output->colorspace == MODE_rgbA_4444) {
 diff --git a/src/3rdparty/libwebp/src/dec/vp8_dec.c b/src/3rdparty/libwebp/src/dec/vp8_dec.c
-index 57efb69..8f73697 100644
+index 57efb69..5f405e4 100644
 --- a/src/3rdparty/libwebp/src/dec/vp8_dec.c
 +++ b/src/3rdparty/libwebp/src/dec/vp8_dec.c
+@@ -335,7 +335,7 @@ int VP8GetHeaders(VP8Decoder* const dec, VP8Io* const io) {
+     io->scaled_width = io->width;
+     io->scaled_height = io->height;
+ 
+-    io->mb_w = io->width;   // sanity check
++    io->mb_w = io->width;   // for soundness
+     io->mb_h = io->height;  // ditto
+ 
+     VP8ResetProba(&dec->proba_);
 @@ -494,13 +494,11 @@ static int GetCoeffsAlt(VP8BitReader* const br,
    return 16;
  }
@@ -30989,23 +31367,76 @@ index 57efb69..8f73697 100644
  }
  
 diff --git a/src/3rdparty/libwebp/src/dec/vp8i_dec.h b/src/3rdparty/libwebp/src/dec/vp8i_dec.h
-index 600a684..a0c0af1 100644
+index 600a684..20526a8 100644
 --- a/src/3rdparty/libwebp/src/dec/vp8i_dec.h
 +++ b/src/3rdparty/libwebp/src/dec/vp8i_dec.h
-@@ -31,7 +31,7 @@ extern "C" {
+@@ -31,8 +31,8 @@ extern "C" {
  
  // version numbers
  #define DEC_MAJ_VERSION 1
 -#define DEC_MIN_VERSION 1
+-#define DEC_REV_VERSION 0
 +#define DEC_MIN_VERSION 2
- #define DEC_REV_VERSION 0
++#define DEC_REV_VERSION 1
  
  // YUV-cache parameters. Cache is 32-bytes wide (= one cacheline).
+ // Constraints are: We need to store one 16x16 block of luma samples (y),
 diff --git a/src/3rdparty/libwebp/src/dec/vp8l_dec.c b/src/3rdparty/libwebp/src/dec/vp8l_dec.c
-index 93615d4..2d603b4 100644
+index 93615d4..73c3b54 100644
 --- a/src/3rdparty/libwebp/src/dec/vp8l_dec.c
 +++ b/src/3rdparty/libwebp/src/dec/vp8l_dec.c
-@@ -947,7 +947,6 @@ static WEBP_INLINE void CopyBlock8b(uint8_t* const dst, int dist, int length) {
+@@ -559,8 +559,11 @@ static int AllocateAndInitRescaler(VP8LDecoder* const dec, VP8Io* const io) {
+   memory += work_size * sizeof(*work);
+   scaled_data = (uint32_t*)memory;
+ 
+-  WebPRescalerInit(dec->rescaler, in_width, in_height, (uint8_t*)scaled_data,
+-                   out_width, out_height, 0, num_channels, work);
++  if (!WebPRescalerInit(dec->rescaler, in_width, in_height,
++                        (uint8_t*)scaled_data, out_width, out_height,
++                        0, num_channels, work)) {
++    return 0;
++  }
+   return 1;
+ }
+ #endif   // WEBP_REDUCE_SIZE
+@@ -574,13 +577,14 @@ static int AllocateAndInitRescaler(VP8LDecoder* const dec, VP8Io* const io) {
+ static int Export(WebPRescaler* const rescaler, WEBP_CSP_MODE colorspace,
+                   int rgba_stride, uint8_t* const rgba) {
+   uint32_t* const src = (uint32_t*)rescaler->dst;
++  uint8_t* dst = rgba;
+   const int dst_width = rescaler->dst_width;
+   int num_lines_out = 0;
+   while (WebPRescalerHasPendingOutput(rescaler)) {
+-    uint8_t* const dst = rgba + num_lines_out * rgba_stride;
+     WebPRescalerExportRow(rescaler);
+     WebPMultARGBRow(src, dst_width, 1);
+     VP8LConvertFromBGRA(src, dst_width, colorspace, dst);
++    dst += rgba_stride;
+     ++num_lines_out;
+   }
+   return num_lines_out;
+@@ -594,8 +598,8 @@ static int EmitRescaledRowsRGBA(const VP8LDecoder* const dec,
+   int num_lines_in = 0;
+   int num_lines_out = 0;
+   while (num_lines_in < mb_h) {
+-    uint8_t* const row_in = in + num_lines_in * in_stride;
+-    uint8_t* const row_out = out + num_lines_out * out_stride;
++    uint8_t* const row_in = in + (uint64_t)num_lines_in * in_stride;
++    uint8_t* const row_out = out + (uint64_t)num_lines_out * out_stride;
+     const int lines_left = mb_h - num_lines_in;
+     const int needed_lines = WebPRescaleNeededLines(dec->rescaler, lines_left);
+     int lines_imported;
+@@ -796,7 +800,8 @@ static void ProcessRows(VP8LDecoder* const dec, int row) {
+       const WebPDecBuffer* const output = dec->output_;
+       if (WebPIsRGBMode(output->colorspace)) {  // convert to RGBA
+         const WebPRGBABuffer* const buf = &output->u.RGBA;
+-        uint8_t* const rgba = buf->rgba + dec->last_out_row_ * buf->stride;
++        uint8_t* const rgba =
++            buf->rgba + (int64_t)dec->last_out_row_ * buf->stride;
+         const int num_rows_out =
+ #if !defined(WEBP_REDUCE_SIZE)
+          io->use_scaling ?
+@@ -947,7 +952,6 @@ static WEBP_INLINE void CopyBlock8b(uint8_t* const dst, int dist, int length) {
          break;
        default:
          goto Copy;
@@ -31013,11 +31444,146 @@ index 93615d4..2d603b4 100644
      }
      CopySmallPattern8b(src, dst, length, pattern);
      return;
+@@ -1515,7 +1519,7 @@ static int AllocateInternalBuffers32b(VP8LDecoder* const dec, int final_width) {
+   assert(dec->width_ <= final_width);
+   dec->pixels_ = (uint32_t*)WebPSafeMalloc(total_num_pixels, sizeof(uint32_t));
+   if (dec->pixels_ == NULL) {
+-    dec->argb_cache_ = NULL;    // for sanity check
++    dec->argb_cache_ = NULL;    // for soundness
+     dec->status_ = VP8_STATUS_OUT_OF_MEMORY;
+     return 0;
+   }
+@@ -1525,7 +1529,7 @@ static int AllocateInternalBuffers32b(VP8LDecoder* const dec, int final_width) {
+ 
+ static int AllocateInternalBuffers8b(VP8LDecoder* const dec) {
+   const uint64_t total_num_pixels = (uint64_t)dec->width_ * dec->height_;
+-  dec->argb_cache_ = NULL;    // for sanity check
++  dec->argb_cache_ = NULL;    // for soundness
+   dec->pixels_ = (uint32_t*)WebPSafeMalloc(total_num_pixels, sizeof(uint8_t));
+   if (dec->pixels_ == NULL) {
+     dec->status_ = VP8_STATUS_OUT_OF_MEMORY;
+@@ -1667,7 +1671,6 @@ int VP8LDecodeImage(VP8LDecoder* const dec) {
+   VP8Io* io = NULL;
+   WebPDecParams* params = NULL;
+ 
+-  // Sanity checks.
+   if (dec == NULL) return 0;
+ 
+   assert(dec->hdr_.huffman_tables_ != NULL);
+diff --git a/src/3rdparty/libwebp/src/dec/webp_dec.c b/src/3rdparty/libwebp/src/dec/webp_dec.c
+index 42d0988..77a54c5 100644
+--- a/src/3rdparty/libwebp/src/dec/webp_dec.c
++++ b/src/3rdparty/libwebp/src/dec/webp_dec.c
+@@ -785,6 +785,13 @@ VP8StatusCode WebPDecode(const uint8_t* data, size_t data_size,
+ //------------------------------------------------------------------------------
+ // Cropping and rescaling.
+ 
++int WebPCheckCropDimensions(int image_width, int image_height,
++                            int x, int y, int w, int h) {
++  return !(x < 0 || y < 0 || w <= 0 || h <= 0 ||
++           x >= image_width || w > image_width || w > image_width - x ||
++           y >= image_height || h > image_height || h > image_height - y);
++}
++
+ int WebPIoInitFromOptions(const WebPDecoderOptions* const options,
+                           VP8Io* const io, WEBP_CSP_MODE src_colorspace) {
+   const int W = io->width;
+@@ -792,7 +799,7 @@ int WebPIoInitFromOptions(const WebPDecoderOptions* const options,
+   int x = 0, y = 0, w = W, h = H;
+ 
+   // Cropping
+-  io->use_cropping = (options != NULL) && (options->use_cropping > 0);
++  io->use_cropping = (options != NULL) && options->use_cropping;
+   if (io->use_cropping) {
+     w = options->crop_width;
+     h = options->crop_height;
+@@ -802,7 +809,7 @@ int WebPIoInitFromOptions(const WebPDecoderOptions* const options,
+       x &= ~1;
+       y &= ~1;
+     }
+-    if (x < 0 || y < 0 || w <= 0 || h <= 0 || x + w > W || y + h > H) {
++    if (!WebPCheckCropDimensions(W, H, x, y, w, h)) {
+       return 0;  // out of frame boundary error
+     }
+   }
+@@ -814,7 +821,7 @@ int WebPIoInitFromOptions(const WebPDecoderOptions* const options,
+   io->mb_h = h;
+ 
+   // Scaling
+-  io->use_scaling = (options != NULL) && (options->use_scaling > 0);
++  io->use_scaling = (options != NULL) && options->use_scaling;
+   if (io->use_scaling) {
+     int scaled_width = options->scaled_width;
+     int scaled_height = options->scaled_height;
+@@ -835,8 +842,8 @@ int WebPIoInitFromOptions(const WebPDecoderOptions* const options,
+ 
+   if (io->use_scaling) {
+     // disable filter (only for large downscaling ratio).
+-    io->bypass_filtering = (io->scaled_width < W * 3 / 4) &&
+-                           (io->scaled_height < H * 3 / 4);
++    io->bypass_filtering |= (io->scaled_width < W * 3 / 4) &&
++                            (io->scaled_height < H * 3 / 4);
+     io->fancy_upsampling = 0;
+   }
+   return 1;
+diff --git a/src/3rdparty/libwebp/src/dec/webpi_dec.h b/src/3rdparty/libwebp/src/dec/webpi_dec.h
+index 24baff5..3b97388 100644
+--- a/src/3rdparty/libwebp/src/dec/webpi_dec.h
++++ b/src/3rdparty/libwebp/src/dec/webpi_dec.h
+@@ -77,6 +77,10 @@ VP8StatusCode WebPParseHeaders(WebPHeaderStructure* const headers);
+ //------------------------------------------------------------------------------
+ // Misc utils
+ 
++// Returns true if crop dimensions are within image bounds.
++int WebPCheckCropDimensions(int image_width, int image_height,
++                            int x, int y, int w, int h);
++
+ // Initializes VP8Io with custom setup, io and teardown functions. The default
+ // hooks will use the supplied 'params' as io->opaque handle.
+ void WebPInitCustomIo(WebPDecParams* const params, VP8Io* const io);
 diff --git a/src/3rdparty/libwebp/src/demux/anim_decode.c b/src/3rdparty/libwebp/src/demux/anim_decode.c
-index 05dd707..3dcacc3 100644
+index 05dd707..2bf4dcf 100644
 --- a/src/3rdparty/libwebp/src/demux/anim_decode.c
 +++ b/src/3rdparty/libwebp/src/demux/anim_decode.c
-@@ -346,12 +346,15 @@ int WebPAnimDecoderGetNext(WebPAnimDecoder* dec,
+@@ -87,11 +87,19 @@ WebPAnimDecoder* WebPAnimDecoderNewInternal(
+     int abi_version) {
+   WebPAnimDecoderOptions options;
+   WebPAnimDecoder* dec = NULL;
++  WebPBitstreamFeatures features;
+   if (webp_data == NULL ||
+       WEBP_ABI_IS_INCOMPATIBLE(abi_version, WEBP_DEMUX_ABI_VERSION)) {
+     return NULL;
+   }
+ 
++  // Validate the bitstream before doing expensive allocations. The demuxer may
++  // be more tolerant than the decoder.
++  if (WebPGetFeatures(webp_data->bytes, webp_data->size, &features) !=
++      VP8_STATUS_OK) {
++    return NULL;
++  }
++
+   // Note: calloc() so that the pointer members are initialized to NULL.
+   dec = (WebPAnimDecoder*)WebPSafeCalloc(1ULL, sizeof(*dec));
+   if (dec == NULL) goto Error;
+@@ -145,7 +153,7 @@ static int ZeroFillCanvas(uint8_t* buf, uint32_t canvas_width,
+                           uint32_t canvas_height) {
+   const uint64_t size =
+       (uint64_t)canvas_width * canvas_height * NUM_CHANNELS * sizeof(*buf);
+-  if (size != (size_t)size) return 0;
++  if (!CheckSizeOverflow(size)) return 0;
+   memset(buf, 0, (size_t)size);
+   return 1;
+ }
+@@ -166,7 +174,7 @@ static void ZeroFillFrameRect(uint8_t* buf, int buf_stride, int x_offset,
+ static int CopyCanvas(const uint8_t* src, uint8_t* dst,
+                       uint32_t width, uint32_t height) {
+   const uint64_t size = (uint64_t)width * height * NUM_CHANNELS;
+-  if (size != (size_t)size) return 0;
++  if (!CheckSizeOverflow(size)) return 0;
+   assert(src != NULL && dst != NULL);
+   memcpy(dst, src, (size_t)size);
+   return 1;
+@@ -346,12 +354,15 @@ int WebPAnimDecoderGetNext(WebPAnimDecoder* dec,
    {
      const uint8_t* in = iter.fragment.bytes;
      const size_t in_size = iter.fragment.size;
@@ -31038,19 +31604,42 @@ index 05dd707..3dcacc3 100644
  
      if (WebPDecode(in, in_size, config) != VP8_STATUS_OK) {
 diff --git a/src/3rdparty/libwebp/src/demux/demux.c b/src/3rdparty/libwebp/src/demux/demux.c
-index 1b3cc2e..860e2ce 100644
+index 1b3cc2e..547a772 100644
 --- a/src/3rdparty/libwebp/src/demux/demux.c
 +++ b/src/3rdparty/libwebp/src/demux/demux.c
-@@ -24,7 +24,7 @@
+@@ -24,8 +24,8 @@
  #include "src/webp/format_constants.h"
  
  #define DMUX_MAJ_VERSION 1
 -#define DMUX_MIN_VERSION 1
+-#define DMUX_REV_VERSION 0
 +#define DMUX_MIN_VERSION 2
- #define DMUX_REV_VERSION 0
++#define DMUX_REV_VERSION 1
  
  typedef struct {
-@@ -312,6 +312,7 @@ static ParseStatus ParseAnimationFrame(
+   size_t start_;        // start location of the data
+@@ -221,12 +221,16 @@ static ParseStatus StoreFrame(int frame_num, uint32_t min_size,
+     const size_t chunk_start_offset = mem->start_;
+     const uint32_t fourcc = ReadLE32(mem);
+     const uint32_t payload_size = ReadLE32(mem);
+-    const uint32_t payload_size_padded = payload_size + (payload_size & 1);
+-    const size_t payload_available = (payload_size_padded > MemDataSize(mem))
+-                                   ? MemDataSize(mem) : payload_size_padded;
+-    const size_t chunk_size = CHUNK_HEADER_SIZE + payload_available;
++    uint32_t payload_size_padded;
++    size_t payload_available;
++    size_t chunk_size;
+ 
+     if (payload_size > MAX_CHUNK_PAYLOAD) return PARSE_ERROR;
++
++    payload_size_padded = payload_size + (payload_size & 1);
++    payload_available = (payload_size_padded > MemDataSize(mem))
++                      ? MemDataSize(mem) : payload_size_padded;
++    chunk_size = CHUNK_HEADER_SIZE + payload_available;
+     if (SizeIsInvalid(mem, payload_size_padded)) return PARSE_ERROR;
+     if (payload_size_padded > MemDataSize(mem)) status = PARSE_NEED_MORE_DATA;
+ 
+@@ -312,6 +316,7 @@ static ParseStatus ParseAnimationFrame(
    int bits;
    MemBuffer* const mem = &dmux->mem_;
    Frame* frame;
@@ -31058,7 +31647,7 @@ index 1b3cc2e..860e2ce 100644
    ParseStatus status =
        NewFrame(mem, ANMF_CHUNK_SIZE, frame_chunk_size, &frame);
    if (status != PARSE_OK) return status;
-@@ -332,7 +333,11 @@ static ParseStatus ParseAnimationFrame(
+@@ -332,7 +337,11 @@ static ParseStatus ParseAnimationFrame(
  
    // Store a frame only if the animation flag is set there is some data for
    // this frame is available.
@@ -31070,11 +31659,103 @@ index 1b3cc2e..860e2ce 100644
    if (status != PARSE_ERROR && is_animation && frame->frame_num_ > 0) {
      added_frame = AddFrame(dmux, frame);
      if (added_frame) {
+@@ -446,9 +455,11 @@ static ParseStatus ParseVP8XChunks(WebPDemuxer* const dmux) {
+     const size_t chunk_start_offset = mem->start_;
+     const uint32_t fourcc = ReadLE32(mem);
+     const uint32_t chunk_size = ReadLE32(mem);
+-    const uint32_t chunk_size_padded = chunk_size + (chunk_size & 1);
++    uint32_t chunk_size_padded;
+ 
+     if (chunk_size > MAX_CHUNK_PAYLOAD) return PARSE_ERROR;
++
++    chunk_size_padded = chunk_size + (chunk_size & 1);
+     if (SizeIsInvalid(mem, chunk_size_padded)) return PARSE_ERROR;
+ 
+     switch (fourcc) {
 diff --git a/src/3rdparty/libwebp/src/dsp/alpha_processing.c b/src/3rdparty/libwebp/src/dsp/alpha_processing.c
-index 819d139..3a27990 100644
+index 819d139..1892929 100644
 --- a/src/3rdparty/libwebp/src/dsp/alpha_processing.c
 +++ b/src/3rdparty/libwebp/src/dsp/alpha_processing.c
-@@ -359,6 +359,11 @@ static int HasAlpha32b_C(const uint8_t* src, int length) {
+@@ -157,7 +157,8 @@ void WebPMultARGBRow_C(uint32_t* const ptr, int width, int inverse) {
+   }
+ }
+ 
+-void WebPMultRow_C(uint8_t* const ptr, const uint8_t* const alpha,
++void WebPMultRow_C(uint8_t* WEBP_RESTRICT const ptr,
++                   const uint8_t* WEBP_RESTRICT const alpha,
+                    int width, int inverse) {
+   int x;
+   for (x = 0; x < width; ++x) {
+@@ -178,7 +179,8 @@ void WebPMultRow_C(uint8_t* const ptr, const uint8_t* const alpha,
+ #undef MFIX
+ 
+ void (*WebPMultARGBRow)(uint32_t* const ptr, int width, int inverse);
+-void (*WebPMultRow)(uint8_t* const ptr, const uint8_t* const alpha,
++void (*WebPMultRow)(uint8_t* WEBP_RESTRICT const ptr,
++                    const uint8_t* WEBP_RESTRICT const alpha,
+                     int width, int inverse);
+ 
+ //------------------------------------------------------------------------------
+@@ -193,8 +195,8 @@ void WebPMultARGBRows(uint8_t* ptr, int stride, int width, int num_rows,
+   }
+ }
+ 
+-void WebPMultRows(uint8_t* ptr, int stride,
+-                  const uint8_t* alpha, int alpha_stride,
++void WebPMultRows(uint8_t* WEBP_RESTRICT ptr, int stride,
++                  const uint8_t* WEBP_RESTRICT alpha, int alpha_stride,
+                   int width, int num_rows, int inverse) {
+   int n;
+   for (n = 0; n < num_rows; ++n) {
+@@ -290,9 +292,9 @@ static void ApplyAlphaMultiply_16b_C(uint8_t* rgba4444,
+ }
+ 
+ #if !WEBP_NEON_OMIT_C_CODE
+-static int DispatchAlpha_C(const uint8_t* alpha, int alpha_stride,
++static int DispatchAlpha_C(const uint8_t* WEBP_RESTRICT alpha, int alpha_stride,
+                            int width, int height,
+-                           uint8_t* dst, int dst_stride) {
++                           uint8_t* WEBP_RESTRICT dst, int dst_stride) {
+   uint32_t alpha_mask = 0xff;
+   int i, j;
+ 
+@@ -309,9 +311,10 @@ static int DispatchAlpha_C(const uint8_t* alpha, int alpha_stride,
+   return (alpha_mask != 0xff);
+ }
+ 
+-static void DispatchAlphaToGreen_C(const uint8_t* alpha, int alpha_stride,
+-                                   int width, int height,
+-                                   uint32_t* dst, int dst_stride) {
++static void DispatchAlphaToGreen_C(const uint8_t* WEBP_RESTRICT alpha,
++                                   int alpha_stride, int width, int height,
++                                   uint32_t* WEBP_RESTRICT dst,
++                                   int dst_stride) {
+   int i, j;
+   for (j = 0; j < height; ++j) {
+     for (i = 0; i < width; ++i) {
+@@ -322,9 +325,9 @@ static void DispatchAlphaToGreen_C(const uint8_t* alpha, int alpha_stride,
+   }
+ }
+ 
+-static int ExtractAlpha_C(const uint8_t* argb, int argb_stride,
++static int ExtractAlpha_C(const uint8_t* WEBP_RESTRICT argb, int argb_stride,
+                           int width, int height,
+-                          uint8_t* alpha, int alpha_stride) {
++                          uint8_t* WEBP_RESTRICT alpha, int alpha_stride) {
+   uint8_t alpha_mask = 0xff;
+   int i, j;
+ 
+@@ -340,7 +343,8 @@ static int ExtractAlpha_C(const uint8_t* argb, int argb_stride,
+   return (alpha_mask == 0xff);
+ }
+ 
+-static void ExtractGreen_C(const uint32_t* argb, uint8_t* alpha, int size) {
++static void ExtractGreen_C(const uint32_t* WEBP_RESTRICT argb,
++                           uint8_t* WEBP_RESTRICT alpha, int size) {
+   int i;
+   for (i = 0; i < size; ++i) alpha[i] = argb[i] >> 8;
+ }
+@@ -359,6 +363,11 @@ static int HasAlpha32b_C(const uint8_t* src, int length) {
    return 0;
  }
  
@@ -31086,7 +31767,59 @@ index 819d139..3a27990 100644
  //------------------------------------------------------------------------------
  // Simple channel manipulations.
  
-@@ -400,6 +405,7 @@ void (*WebPPackRGB)(const uint8_t* r, const uint8_t* g, const uint8_t* b,
+@@ -367,8 +376,11 @@ static WEBP_INLINE uint32_t MakeARGB32(int a, int r, int g, int b) {
+ }
+ 
+ #ifdef WORDS_BIGENDIAN
+-static void PackARGB_C(const uint8_t* a, const uint8_t* r, const uint8_t* g,
+-                       const uint8_t* b, int len, uint32_t* out) {
++static void PackARGB_C(const uint8_t* WEBP_RESTRICT a,
++                       const uint8_t* WEBP_RESTRICT r,
++                       const uint8_t* WEBP_RESTRICT g,
++                       const uint8_t* WEBP_RESTRICT b,
++                       int len, uint32_t* WEBP_RESTRICT out) {
+   int i;
+   for (i = 0; i < len; ++i) {
+     out[i] = MakeARGB32(a[4 * i], r[4 * i], g[4 * i], b[4 * i]);
+@@ -376,8 +388,10 @@ static void PackARGB_C(const uint8_t* a, const uint8_t* r, const uint8_t* g,
+ }
+ #endif
+ 
+-static void PackRGB_C(const uint8_t* r, const uint8_t* g, const uint8_t* b,
+-                      int len, int step, uint32_t* out) {
++static void PackRGB_C(const uint8_t* WEBP_RESTRICT r,
++                      const uint8_t* WEBP_RESTRICT g,
++                      const uint8_t* WEBP_RESTRICT b,
++                      int len, int step, uint32_t* WEBP_RESTRICT out) {
+   int i, offset = 0;
+   for (i = 0; i < len; ++i) {
+     out[i] = MakeARGB32(0xff, r[offset], g[offset], b[offset]);
+@@ -387,19 +401,26 @@ static void PackRGB_C(const uint8_t* r, const uint8_t* g, const uint8_t* b,
+ 
+ void (*WebPApplyAlphaMultiply)(uint8_t*, int, int, int, int);
+ void (*WebPApplyAlphaMultiply4444)(uint8_t*, int, int, int);
+-int (*WebPDispatchAlpha)(const uint8_t*, int, int, int, uint8_t*, int);
+-void (*WebPDispatchAlphaToGreen)(const uint8_t*, int, int, int, uint32_t*, int);
+-int (*WebPExtractAlpha)(const uint8_t*, int, int, int, uint8_t*, int);
+-void (*WebPExtractGreen)(const uint32_t* argb, uint8_t* alpha, int size);
++int (*WebPDispatchAlpha)(const uint8_t* WEBP_RESTRICT, int, int, int,
++                         uint8_t* WEBP_RESTRICT, int);
++void (*WebPDispatchAlphaToGreen)(const uint8_t* WEBP_RESTRICT, int, int, int,
++                                 uint32_t* WEBP_RESTRICT, int);
++int (*WebPExtractAlpha)(const uint8_t* WEBP_RESTRICT, int, int, int,
++                        uint8_t* WEBP_RESTRICT, int);
++void (*WebPExtractGreen)(const uint32_t* WEBP_RESTRICT argb,
++                         uint8_t* WEBP_RESTRICT alpha, int size);
+ #ifdef WORDS_BIGENDIAN
+ void (*WebPPackARGB)(const uint8_t* a, const uint8_t* r, const uint8_t* g,
+                      const uint8_t* b, int, uint32_t*);
+ #endif
+-void (*WebPPackRGB)(const uint8_t* r, const uint8_t* g, const uint8_t* b,
+-                    int len, int step, uint32_t* out);
++void (*WebPPackRGB)(const uint8_t* WEBP_RESTRICT r,
++                    const uint8_t* WEBP_RESTRICT g,
++                    const uint8_t* WEBP_RESTRICT b,
++                    int len, int step, uint32_t* WEBP_RESTRICT out);
  
  int (*WebPHasAlpha8b)(const uint8_t* src, int length);
  int (*WebPHasAlpha32b)(const uint8_t* src, int length);
@@ -31094,7 +31827,7 @@ index 819d139..3a27990 100644
  
  //------------------------------------------------------------------------------
  // Init function
-@@ -428,6 +434,7 @@ WEBP_DSP_INIT_FUNC(WebPInitAlphaProcessing) {
+@@ -428,13 +449,14 @@ WEBP_DSP_INIT_FUNC(WebPInitAlphaProcessing) {
  
    WebPHasAlpha8b = HasAlpha8b_C;
    WebPHasAlpha32b = HasAlpha32b_C;
@@ -31102,17 +31835,128 @@ index 819d139..3a27990 100644
  
    // If defined, use CPUInfo() to overwrite some pointers with faster versions.
    if (VP8GetCPUInfo != NULL) {
-@@ -469,4 +476,5 @@ WEBP_DSP_INIT_FUNC(WebPInitAlphaProcessing) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       WebPInitAlphaProcessingSSE2();
+-#if defined(WEBP_USE_SSE41)
++#if defined(WEBP_HAVE_SSE41)
+       if (VP8GetCPUInfo(kSSE4_1)) {
+         WebPInitAlphaProcessingSSE41();
+       }
+@@ -448,7 +470,7 @@ WEBP_DSP_INIT_FUNC(WebPInitAlphaProcessing) {
+ #endif
+   }
+ 
+-#if defined(WEBP_USE_NEON)
++#if defined(WEBP_HAVE_NEON)
+   if (WEBP_NEON_OMIT_C_CODE ||
+       (VP8GetCPUInfo != NULL && VP8GetCPUInfo(kNEON))) {
+     WebPInitAlphaProcessingNEON();
+@@ -469,4 +491,5 @@ WEBP_DSP_INIT_FUNC(WebPInitAlphaProcessing) {
    assert(WebPPackRGB != NULL);
    assert(WebPHasAlpha8b != NULL);
    assert(WebPHasAlpha32b != NULL);
 +  assert(WebPAlphaReplace != NULL);
  }
+diff --git a/src/3rdparty/libwebp/src/dsp/alpha_processing_neon.c b/src/3rdparty/libwebp/src/dsp/alpha_processing_neon.c
+index 9d55421..9e0ace9 100644
+--- a/src/3rdparty/libwebp/src/dsp/alpha_processing_neon.c
++++ b/src/3rdparty/libwebp/src/dsp/alpha_processing_neon.c
+@@ -80,9 +80,9 @@ static void ApplyAlphaMultiply_NEON(uint8_t* rgba, int alpha_first,
+ 
+ //------------------------------------------------------------------------------
+ 
+-static int DispatchAlpha_NEON(const uint8_t* alpha, int alpha_stride,
+-                              int width, int height,
+-                              uint8_t* dst, int dst_stride) {
++static int DispatchAlpha_NEON(const uint8_t* WEBP_RESTRICT alpha,
++                              int alpha_stride, int width, int height,
++                              uint8_t* WEBP_RESTRICT dst, int dst_stride) {
+   uint32_t alpha_mask = 0xffffffffu;
+   uint8x8_t mask8 = vdup_n_u8(0xff);
+   uint32_t tmp[2];
+@@ -112,9 +112,10 @@ static int DispatchAlpha_NEON(const uint8_t* alpha, int alpha_stride,
+   return (alpha_mask != 0xffffffffu);
+ }
+ 
+-static void DispatchAlphaToGreen_NEON(const uint8_t* alpha, int alpha_stride,
+-                                      int width, int height,
+-                                      uint32_t* dst, int dst_stride) {
++static void DispatchAlphaToGreen_NEON(const uint8_t* WEBP_RESTRICT alpha,
++                                      int alpha_stride, int width, int height,
++                                      uint32_t* WEBP_RESTRICT dst,
++                                      int dst_stride) {
+   int i, j;
+   uint8x8x4_t greens;   // leave A/R/B channels zero'd.
+   greens.val[0] = vdup_n_u8(0);
+@@ -131,9 +132,9 @@ static void DispatchAlphaToGreen_NEON(const uint8_t* alpha, int alpha_stride,
+   }
+ }
+ 
+-static int ExtractAlpha_NEON(const uint8_t* argb, int argb_stride,
++static int ExtractAlpha_NEON(const uint8_t* WEBP_RESTRICT argb, int argb_stride,
+                              int width, int height,
+-                             uint8_t* alpha, int alpha_stride) {
++                             uint8_t* WEBP_RESTRICT alpha, int alpha_stride) {
+   uint32_t alpha_mask = 0xffffffffu;
+   uint8x8_t mask8 = vdup_n_u8(0xff);
+   uint32_t tmp[2];
+@@ -161,8 +162,8 @@ static int ExtractAlpha_NEON(const uint8_t* argb, int argb_stride,
+   return (alpha_mask == 0xffffffffu);
+ }
+ 
+-static void ExtractGreen_NEON(const uint32_t* argb,
+-                              uint8_t* alpha, int size) {
++static void ExtractGreen_NEON(const uint32_t* WEBP_RESTRICT argb,
++                              uint8_t* WEBP_RESTRICT alpha, int size) {
+   int i;
+   for (i = 0; i + 16 <= size; i += 16) {
+     const uint8x16x4_t rgbX = vld4q_u8((const uint8_t*)(argb + i));
 diff --git a/src/3rdparty/libwebp/src/dsp/alpha_processing_sse2.c b/src/3rdparty/libwebp/src/dsp/alpha_processing_sse2.c
-index 2871c56..f6c6e0f 100644
+index 2871c56..a5f8c9f 100644
 --- a/src/3rdparty/libwebp/src/dsp/alpha_processing_sse2.c
 +++ b/src/3rdparty/libwebp/src/dsp/alpha_processing_sse2.c
-@@ -265,6 +265,27 @@ static int HasAlpha32b_SSE2(const uint8_t* src, int length) {
+@@ -18,9 +18,9 @@
+ 
+ //------------------------------------------------------------------------------
+ 
+-static int DispatchAlpha_SSE2(const uint8_t* alpha, int alpha_stride,
+-                              int width, int height,
+-                              uint8_t* dst, int dst_stride) {
++static int DispatchAlpha_SSE2(const uint8_t* WEBP_RESTRICT alpha,
++                              int alpha_stride, int width, int height,
++                              uint8_t* WEBP_RESTRICT dst, int dst_stride) {
+   // alpha_and stores an 'and' operation of all the alpha[] values. The final
+   // value is not 0xff if any of the alpha[] is not equal to 0xff.
+   uint32_t alpha_and = 0xff;
+@@ -72,9 +72,10 @@ static int DispatchAlpha_SSE2(const uint8_t* alpha, int alpha_stride,
+   return (alpha_and != 0xff);
+ }
+ 
+-static void DispatchAlphaToGreen_SSE2(const uint8_t* alpha, int alpha_stride,
+-                                      int width, int height,
+-                                      uint32_t* dst, int dst_stride) {
++static void DispatchAlphaToGreen_SSE2(const uint8_t* WEBP_RESTRICT alpha,
++                                      int alpha_stride, int width, int height,
++                                      uint32_t* WEBP_RESTRICT dst,
++                                      int dst_stride) {
+   int i, j;
+   const __m128i zero = _mm_setzero_si128();
+   const int limit = width & ~15;
+@@ -98,9 +99,9 @@ static void DispatchAlphaToGreen_SSE2(const uint8_t* alpha, int alpha_stride,
+   }
+ }
+ 
+-static int ExtractAlpha_SSE2(const uint8_t* argb, int argb_stride,
++static int ExtractAlpha_SSE2(const uint8_t* WEBP_RESTRICT argb, int argb_stride,
+                              int width, int height,
+-                             uint8_t* alpha, int alpha_stride) {
++                             uint8_t* WEBP_RESTRICT alpha, int alpha_stride) {
+   // alpha_and stores an 'and' operation of all the alpha[] values. The final
+   // value is not 0xff if any of the alpha[] is not equal to 0xff.
+   uint32_t alpha_and = 0xff;
+@@ -265,6 +266,27 @@ static int HasAlpha32b_SSE2(const uint8_t* src, int length) {
    return 0;
  }
  
@@ -31140,7 +31984,17 @@ index 2871c56..f6c6e0f 100644
  // -----------------------------------------------------------------------------
  // Apply alpha value to rows
  
-@@ -334,6 +355,7 @@ WEBP_TSAN_IGNORE_FUNCTION void WebPInitAlphaProcessingSSE2(void) {
+@@ -296,7 +318,8 @@ static void MultARGBRow_SSE2(uint32_t* const ptr, int width, int inverse) {
+   if (width > 0) WebPMultARGBRow_C(ptr + x, width, inverse);
+ }
+ 
+-static void MultRow_SSE2(uint8_t* const ptr, const uint8_t* const alpha,
++static void MultRow_SSE2(uint8_t* WEBP_RESTRICT const ptr,
++                         const uint8_t* WEBP_RESTRICT const alpha,
+                          int width, int inverse) {
+   int x = 0;
+   if (!inverse) {
+@@ -334,6 +357,7 @@ WEBP_TSAN_IGNORE_FUNCTION void WebPInitAlphaProcessingSSE2(void) {
  
    WebPHasAlpha8b = HasAlpha8b_SSE2;
    WebPHasAlpha32b = HasAlpha32b_SSE2;
@@ -31148,8 +32002,44 @@ index 2871c56..f6c6e0f 100644
  }
  
  #else  // !WEBP_USE_SSE2
+diff --git a/src/3rdparty/libwebp/src/dsp/alpha_processing_sse41.c b/src/3rdparty/libwebp/src/dsp/alpha_processing_sse41.c
+index 56040f9..cdf877c 100644
+--- a/src/3rdparty/libwebp/src/dsp/alpha_processing_sse41.c
++++ b/src/3rdparty/libwebp/src/dsp/alpha_processing_sse41.c
+@@ -19,9 +19,9 @@
+ 
+ //------------------------------------------------------------------------------
+ 
+-static int ExtractAlpha_SSE41(const uint8_t* argb, int argb_stride,
+-                              int width, int height,
+-                              uint8_t* alpha, int alpha_stride) {
++static int ExtractAlpha_SSE41(const uint8_t* WEBP_RESTRICT argb,
++                              int argb_stride, int width, int height,
++                              uint8_t* WEBP_RESTRICT alpha, int alpha_stride) {
+   // alpha_and stores an 'and' operation of all the alpha[] values. The final
+   // value is not 0xff if any of the alpha[] is not equal to 0xff.
+   uint32_t alpha_and = 0xff;
+diff --git a/src/3rdparty/libwebp/src/dsp/cost.c b/src/3rdparty/libwebp/src/dsp/cost.c
+index cc681cd..460ec4f 100644
+--- a/src/3rdparty/libwebp/src/dsp/cost.c
++++ b/src/3rdparty/libwebp/src/dsp/cost.c
+@@ -395,12 +395,12 @@ WEBP_DSP_INIT_FUNC(VP8EncDspCostInit) {
+       VP8EncDspCostInitMIPSdspR2();
+     }
+ #endif
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       VP8EncDspCostInitSSE2();
+     }
+ #endif
+-#if defined(WEBP_USE_NEON)
++#if defined(WEBP_HAVE_NEON)
+     if (VP8GetCPUInfo(kNEON)) {
+       VP8EncDspCostInitNEON();
+     }
 diff --git a/src/3rdparty/libwebp/src/dsp/cpu.c b/src/3rdparty/libwebp/src/dsp/cpu.c
-index 0fa5b6a..4ca90d8 100644
+index 0fa5b6a..3145e19 100644
 --- a/src/3rdparty/libwebp/src/dsp/cpu.c
 +++ b/src/3rdparty/libwebp/src/dsp/cpu.c
 @@ -55,12 +55,18 @@ static WEBP_INLINE void GetCPUInfo(int cpu_info[4], int info_type) {
@@ -31183,25 +32073,28 @@ index 0fa5b6a..4ca90d8 100644
  
  // helper function for run-time detection of slow SSSE3 platforms
  static int CheckSlowModel(int info) {
-@@ -179,6 +185,30 @@ static int AndroidCPUInfo(CPUFeature feature) {
+@@ -179,9 +185,34 @@ static int AndroidCPUInfo(CPUFeature feature) {
    return 0;
  }
  VP8CPUInfo VP8GetCPUInfo = AndroidCPUInfo;
+-#elif defined(WEBP_USE_NEON)
+-// define a dummy function to enable turning off NEON at runtime by setting
+-// VP8DecGetCPUInfo = NULL
 +#elif defined(EMSCRIPTEN) // also needs to be before generic NEON test
 +// Use compile flags as an indicator of SIMD support instead of a runtime check.
 +static int wasmCPUInfo(CPUFeature feature) {
 +  switch (feature) {
-+#ifdef WEBP_USE_SSE2
++#ifdef WEBP_HAVE_SSE2
 +    case kSSE2:
 +      return 1;
 +#endif
-+#ifdef WEBP_USE_SSE41
++#ifdef WEBP_HAVE_SSE41
 +    case kSSE3:
 +    case kSlowSSSE3:
 +    case kSSE4_1:
 +      return 1;
 +#endif
-+#ifdef WEBP_USE_NEON
++#ifdef WEBP_HAVE_NEON
 +    case kNEON:
 +      return 1;
 +#endif
@@ -31211,9 +32104,39 @@ index 0fa5b6a..4ca90d8 100644
 +  return 0;
 +}
 +VP8CPUInfo VP8GetCPUInfo = wasmCPUInfo;
- #elif defined(WEBP_USE_NEON)
- // define a dummy function to enable turning off NEON at runtime by setting
- // VP8DecGetCPUInfo = NULL
++#elif defined(WEBP_HAVE_NEON)
++// In most cases this function doesn't check for NEON support (it's assumed by
++// the configuration), but enables turning off NEON at runtime, for testing
++// purposes, by setting VP8DecGetCPUInfo = NULL.
+ static int armCPUInfo(CPUFeature feature) {
+   if (feature != kNEON) return 0;
+ #if defined(__linux__) && defined(WEBP_HAVE_NEON_RTCD)
+diff --git a/src/3rdparty/libwebp/src/dsp/dec.c b/src/3rdparty/libwebp/src/dsp/dec.c
+index 1119842..537c701 100644
+--- a/src/3rdparty/libwebp/src/dsp/dec.c
++++ b/src/3rdparty/libwebp/src/dsp/dec.c
+@@ -807,10 +807,10 @@ WEBP_DSP_INIT_FUNC(VP8DspInit) {
+ 
+   // If defined, use CPUInfo() to overwrite some pointers with faster versions.
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       VP8DspInitSSE2();
+-#if defined(WEBP_USE_SSE41)
++#if defined(WEBP_HAVE_SSE41)
+       if (VP8GetCPUInfo(kSSE4_1)) {
+         VP8DspInitSSE41();
+       }
+@@ -834,7 +834,7 @@ WEBP_DSP_INIT_FUNC(VP8DspInit) {
+ #endif
+   }
+ 
+-#if defined(WEBP_USE_NEON)
++#if defined(WEBP_HAVE_NEON)
+   if (WEBP_NEON_OMIT_C_CODE ||
+       (VP8GetCPUInfo != NULL && VP8GetCPUInfo(kNEON))) {
+     VP8DspInitNEON();
 diff --git a/src/3rdparty/libwebp/src/dsp/dec_neon.c b/src/3rdparty/libwebp/src/dsp/dec_neon.c
 index 239ec41..fa85170 100644
 --- a/src/3rdparty/libwebp/src/dsp/dec_neon.c
@@ -31326,10 +32249,34 @@ index 239ec41..fa85170 100644
        const uint16x8_t s23 = vaddq_u16(s2, s3);
        const uint16x8_t sum = vaddq_u16(s01, s23);
 diff --git a/src/3rdparty/libwebp/src/dsp/dsp.h b/src/3rdparty/libwebp/src/dsp/dsp.h
-index 7c75b26..6df48cf 100644
+index 7c75b26..35085e0 100644
 --- a/src/3rdparty/libwebp/src/dsp/dsp.h
 +++ b/src/3rdparty/libwebp/src/dsp/dsp.h
-@@ -51,9 +51,7 @@ extern "C" {
+@@ -26,6 +26,23 @@ extern "C" {
+ 
+ #define BPS 32   // this is the common stride for enc/dec
+ 
++//------------------------------------------------------------------------------
++// WEBP_RESTRICT
++
++// Declares a pointer with the restrict type qualifier if available.
++// This allows code to hint to the compiler that only this pointer references a
++// particular object or memory region within the scope of the block in which it
++// is declared. This may allow for improved optimizations due to the lack of
++// pointer aliasing. See also:
++// https://en.cppreference.com/w/c/language/restrict
++#if defined(__GNUC__)
++#define WEBP_RESTRICT __restrict__
++#elif defined(_MSC_VER)
++#define WEBP_RESTRICT __restrict
++#else
++#define WEBP_RESTRICT
++#endif
++
+ //------------------------------------------------------------------------------
+ // CPU detection
+ 
+@@ -51,9 +68,7 @@ extern "C" {
  # define __has_builtin(x) 0
  #endif
  
@@ -31340,7 +32287,7 @@ index 7c75b26..6df48cf 100644
  #if defined(_MSC_VER) && _MSC_VER > 1310 && \
      (defined(_M_X64) || defined(_M_IX86)) && !defined(__clang__)
  #define WEBP_MSC_SSE2  // Visual C++ SSE2 targets
-@@ -63,6 +61,7 @@ extern "C" {
+@@ -63,23 +78,37 @@ extern "C" {
      (defined(_M_X64) || defined(_M_IX86)) && !defined(__clang__)
  #define WEBP_MSC_SSE41  // Visual C++ SSE4.1 targets
  #endif
@@ -31348,17 +32295,52 @@ index 7c75b26..6df48cf 100644
  
  // WEBP_HAVE_* are used to indicate the presence of the instruction set in dsp
  // files without intrinsics, allowing the corresponding Init() to be called.
-@@ -76,6 +75,9 @@ extern "C" {
+ // Files containing intrinsics will need to be built targeting the instruction
+ // set so should succeed on one of the earlier tests.
+-#if defined(__SSE2__) || defined(WEBP_MSC_SSE2) || defined(WEBP_HAVE_SSE2)
++#if (defined(__SSE2__) || defined(WEBP_MSC_SSE2)) && \
++    (!defined(HAVE_CONFIG_H) || defined(WEBP_HAVE_SSE2))
+ #define WEBP_USE_SSE2
+ #endif
+ 
+-#if defined(__SSE4_1__) || defined(WEBP_MSC_SSE41) || defined(WEBP_HAVE_SSE41)
++#if defined(WEBP_USE_SSE2) && !defined(WEBP_HAVE_SSE2)
++#define WEBP_HAVE_SSE2
++#endif
++
++#if (defined(__SSE4_1__) || defined(WEBP_MSC_SSE41)) && \
++    (!defined(HAVE_CONFIG_H) || defined(WEBP_HAVE_SSE41))
  #define WEBP_USE_SSE41
  #endif
  
++#if defined(WEBP_USE_SSE41) && !defined(WEBP_HAVE_SSE41)
++#define WEBP_HAVE_SSE41
++#endif
++
 +#undef WEBP_MSC_SSE41
 +#undef WEBP_MSC_SSE2
 +
  // The intrinsics currently cause compiler errors with arm-nacl-gcc and the
  // inline assembly would need to be modified for use with Native Client.
- #if (defined(__ARM_NEON__) || \
-@@ -110,8 +112,6 @@ extern "C" {
+-#if (defined(__ARM_NEON__) || \
+-     defined(__aarch64__) || defined(WEBP_HAVE_NEON)) && \
++#if ((defined(__ARM_NEON__) || defined(__aarch64__)) && \
++     (!defined(HAVE_CONFIG_H) || defined(WEBP_HAVE_NEON))) && \
+     !defined(__native_client__)
+ #define WEBP_USE_NEON
+ #endif
+@@ -95,6 +124,10 @@ extern "C" {
+ #define WEBP_USE_INTRINSICS
+ #endif
+ 
++#if defined(WEBP_USE_NEON) && !defined(WEBP_HAVE_NEON)
++#define WEBP_HAVE_NEON
++#endif
++
+ #if defined(__mips__) && !defined(__mips64) && \
+     defined(__mips_isa_rev) && (__mips_isa_rev >= 1) && (__mips_isa_rev < 6)
+ #define WEBP_USE_MIPS32
+@@ -110,13 +143,11 @@ extern "C" {
  #define WEBP_USE_MSA
  #endif
  
@@ -31367,7 +32349,13 @@ index 7c75b26..6df48cf 100644
  #ifndef WEBP_DSP_OMIT_C_CODE
  #define WEBP_DSP_OMIT_C_CODE 1
  #endif
-@@ -193,6 +193,12 @@ extern "C" {
+ 
+-#if (defined(__aarch64__) || defined(__ARM_NEON__)) && WEBP_DSP_OMIT_C_CODE
++#if defined(WEBP_USE_NEON) && WEBP_DSP_OMIT_C_CODE
+ #define WEBP_NEON_OMIT_C_CODE 1
+ #else
+ #define WEBP_NEON_OMIT_C_CODE 0
+@@ -193,6 +224,12 @@ extern "C" {
  #endif
  #endif
  
@@ -31380,7 +32368,90 @@ index 7c75b26..6df48cf 100644
  // Regularize the definition of WEBP_SWAP_16BIT_CSP (backward compatibility)
  #if !defined(WEBP_SWAP_16BIT_CSP)
  #define WEBP_SWAP_16BIT_CSP 0
-@@ -632,6 +638,8 @@ extern void (*WebPPackRGB)(const uint8_t* r, const uint8_t* g, const uint8_t* b,
+@@ -572,26 +609,29 @@ extern void (*WebPApplyAlphaMultiply4444)(
+ 
+ // Dispatch the values from alpha[] plane to the ARGB destination 'dst'.
+ // Returns true if alpha[] plane has non-trivial values different from 0xff.
+-extern int (*WebPDispatchAlpha)(const uint8_t* alpha, int alpha_stride,
+-                                int width, int height,
+-                                uint8_t* dst, int dst_stride);
++extern int (*WebPDispatchAlpha)(const uint8_t* WEBP_RESTRICT alpha,
++                                int alpha_stride, int width, int height,
++                                uint8_t* WEBP_RESTRICT dst, int dst_stride);
+ 
+ // Transfer packed 8b alpha[] values to green channel in dst[], zero'ing the
+ // A/R/B values. 'dst_stride' is the stride for dst[] in uint32_t units.
+-extern void (*WebPDispatchAlphaToGreen)(const uint8_t* alpha, int alpha_stride,
+-                                        int width, int height,
+-                                        uint32_t* dst, int dst_stride);
++extern void (*WebPDispatchAlphaToGreen)(const uint8_t* WEBP_RESTRICT alpha,
++                                        int alpha_stride, int width, int height,
++                                        uint32_t* WEBP_RESTRICT dst,
++                                        int dst_stride);
+ 
+ // Extract the alpha values from 32b values in argb[] and pack them into alpha[]
+ // (this is the opposite of WebPDispatchAlpha).
+ // Returns true if there's only trivial 0xff alpha values.
+-extern int (*WebPExtractAlpha)(const uint8_t* argb, int argb_stride,
+-                               int width, int height,
+-                               uint8_t* alpha, int alpha_stride);
++extern int (*WebPExtractAlpha)(const uint8_t* WEBP_RESTRICT argb,
++                               int argb_stride, int width, int height,
++                               uint8_t* WEBP_RESTRICT alpha,
++                               int alpha_stride);
+ 
+ // Extract the green values from 32b values in argb[] and pack them into alpha[]
+ // (this is the opposite of WebPDispatchAlphaToGreen).
+-extern void (*WebPExtractGreen)(const uint32_t* argb, uint8_t* alpha, int size);
++extern void (*WebPExtractGreen)(const uint32_t* WEBP_RESTRICT argb,
++                                uint8_t* WEBP_RESTRICT alpha, int size);
+ 
+ // Pre-Multiply operation transforms x into x * A / 255  (where x=Y,R,G or B).
+ // Un-Multiply operation transforms x into x * 255 / A.
+@@ -604,34 +644,42 @@ void WebPMultARGBRows(uint8_t* ptr, int stride, int width, int num_rows,
+                       int inverse);
+ 
+ // Same for a row of single values, with side alpha values.
+-extern void (*WebPMultRow)(uint8_t* const ptr, const uint8_t* const alpha,
++extern void (*WebPMultRow)(uint8_t* WEBP_RESTRICT const ptr,
++                           const uint8_t* WEBP_RESTRICT const alpha,
+                            int width, int inverse);
+ 
+ // Same a WebPMultRow(), but for several 'num_rows' rows.
+-void WebPMultRows(uint8_t* ptr, int stride,
+-                  const uint8_t* alpha, int alpha_stride,
++void WebPMultRows(uint8_t* WEBP_RESTRICT ptr, int stride,
++                  const uint8_t* WEBP_RESTRICT alpha, int alpha_stride,
+                   int width, int num_rows, int inverse);
+ 
+ // Plain-C versions, used as fallback by some implementations.
+-void WebPMultRow_C(uint8_t* const ptr, const uint8_t* const alpha,
++void WebPMultRow_C(uint8_t* WEBP_RESTRICT const ptr,
++                   const uint8_t* WEBP_RESTRICT const alpha,
+                    int width, int inverse);
+ void WebPMultARGBRow_C(uint32_t* const ptr, int width, int inverse);
+ 
+ #ifdef WORDS_BIGENDIAN
+ // ARGB packing function: a/r/g/b input is rgba or bgra order.
+-extern void (*WebPPackARGB)(const uint8_t* a, const uint8_t* r,
+-                            const uint8_t* g, const uint8_t* b, int len,
+-                            uint32_t* out);
++extern void (*WebPPackARGB)(const uint8_t* WEBP_RESTRICT a,
++                            const uint8_t* WEBP_RESTRICT r,
++                            const uint8_t* WEBP_RESTRICT g,
++                            const uint8_t* WEBP_RESTRICT b,
++                            int len, uint32_t* WEBP_RESTRICT out);
+ #endif
+ 
+ // RGB packing function. 'step' can be 3 or 4. r/g/b input is rgb or bgr order.
+-extern void (*WebPPackRGB)(const uint8_t* r, const uint8_t* g, const uint8_t* b,
+-                           int len, int step, uint32_t* out);
++extern void (*WebPPackRGB)(const uint8_t* WEBP_RESTRICT r,
++                           const uint8_t* WEBP_RESTRICT g,
++                           const uint8_t* WEBP_RESTRICT b,
++                           int len, int step, uint32_t* WEBP_RESTRICT out);
+ 
+ // This function returns true if src[i] contains a value different from 0xff.
  extern int (*WebPHasAlpha8b)(const uint8_t* src, int length);
  // This function returns true if src[4*i] contains a value different from 0xff.
  extern int (*WebPHasAlpha32b)(const uint8_t* src, int length);
@@ -31389,8 +32460,73 @@ index 7c75b26..6df48cf 100644
  
  // To be called first before using the above.
  void WebPInitAlphaProcessing(void);
+diff --git a/src/3rdparty/libwebp/src/dsp/enc.c b/src/3rdparty/libwebp/src/dsp/enc.c
+index 2fddbc4..ea47a3f 100644
+--- a/src/3rdparty/libwebp/src/dsp/enc.c
++++ b/src/3rdparty/libwebp/src/dsp/enc.c
+@@ -773,10 +773,10 @@ WEBP_DSP_INIT_FUNC(VP8EncDspInit) {
+ 
+   // If defined, use CPUInfo() to overwrite some pointers with faster versions.
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       VP8EncDspInitSSE2();
+-#if defined(WEBP_USE_SSE41)
++#if defined(WEBP_HAVE_SSE41)
+       if (VP8GetCPUInfo(kSSE4_1)) {
+         VP8EncDspInitSSE41();
+       }
+@@ -800,7 +800,7 @@ WEBP_DSP_INIT_FUNC(VP8EncDspInit) {
+ #endif
+   }
+ 
+-#if defined(WEBP_USE_NEON)
++#if defined(WEBP_HAVE_NEON)
+   if (WEBP_NEON_OMIT_C_CODE ||
+       (VP8GetCPUInfo != NULL && VP8GetCPUInfo(kNEON))) {
+     VP8EncDspInitNEON();
+diff --git a/src/3rdparty/libwebp/src/dsp/filters.c b/src/3rdparty/libwebp/src/dsp/filters.c
+index 9e910d9..4506567 100644
+--- a/src/3rdparty/libwebp/src/dsp/filters.c
++++ b/src/3rdparty/libwebp/src/dsp/filters.c
+@@ -254,7 +254,7 @@ WEBP_DSP_INIT_FUNC(VP8FiltersInit) {
+ #endif
+ 
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       VP8FiltersInitSSE2();
+     }
+@@ -271,7 +271,7 @@ WEBP_DSP_INIT_FUNC(VP8FiltersInit) {
+ #endif
+   }
+ 
+-#if defined(WEBP_USE_NEON)
++#if defined(WEBP_HAVE_NEON)
+   if (WEBP_NEON_OMIT_C_CODE ||
+       (VP8GetCPUInfo != NULL && VP8GetCPUInfo(kNEON))) {
+     VP8FiltersInitNEON();
+diff --git a/src/3rdparty/libwebp/src/dsp/filters_sse2.c b/src/3rdparty/libwebp/src/dsp/filters_sse2.c
+index 4b3f2d0..5c33ec1 100644
+--- a/src/3rdparty/libwebp/src/dsp/filters_sse2.c
++++ b/src/3rdparty/libwebp/src/dsp/filters_sse2.c
+@@ -320,7 +320,12 @@ extern void VP8FiltersInitSSE2(void);
+ 
+ WEBP_TSAN_IGNORE_FUNCTION void VP8FiltersInitSSE2(void) {
+   WebPUnfilters[WEBP_FILTER_HORIZONTAL] = HorizontalUnfilter_SSE2;
++#if defined(CHROMIUM)
++  // TODO(crbug.com/654974)
++  (void)VerticalUnfilter_SSE2;
++#else
+   WebPUnfilters[WEBP_FILTER_VERTICAL] = VerticalUnfilter_SSE2;
++#endif
+   WebPUnfilters[WEBP_FILTER_GRADIENT] = GradientUnfilter_SSE2;
+ 
+   WebPFilters[WEBP_FILTER_HORIZONTAL] = HorizontalFilter_SSE2;
 diff --git a/src/3rdparty/libwebp/src/dsp/lossless.c b/src/3rdparty/libwebp/src/dsp/lossless.c
-index aad5f43..46b220e 100644
+index aad5f43..d8bbb02 100644
 --- a/src/3rdparty/libwebp/src/dsp/lossless.c
 +++ b/src/3rdparty/libwebp/src/dsp/lossless.c
 @@ -107,62 +107,62 @@ static WEBP_INLINE uint32_t Select(uint32_t a, uint32_t b, uint32_t c) {
@@ -31509,7 +32645,15 @@ index aad5f43..46b220e 100644
  
  VP8LTransformColorInverseFunc VP8LTransformColorInverse;
  
-@@ -600,8 +599,7 @@ extern void VP8LDspInitMSA(void);
+@@ -576,6 +575,7 @@ VP8LMapARGBFunc VP8LMapColor32b;
+ VP8LMapAlphaFunc VP8LMapColor8b;
+ 
+ extern void VP8LDspInitSSE2(void);
++extern void VP8LDspInitSSE41(void);
+ extern void VP8LDspInitNEON(void);
+ extern void VP8LDspInitMIPSdspR2(void);
+ extern void VP8LDspInitMSA(void);
+@@ -600,8 +600,7 @@ extern void VP8LDspInitMSA(void);
  } while (0);
  
  WEBP_DSP_INIT_FUNC(VP8LDspInit) {
@@ -31519,6 +32663,31 @@ index aad5f43..46b220e 100644
    COPY_PREDICTOR_ARRAY(PredictorAdd, VP8LPredictorsAdd)
    COPY_PREDICTOR_ARRAY(PredictorAdd, VP8LPredictorsAdd_C)
  
+@@ -623,9 +622,14 @@ WEBP_DSP_INIT_FUNC(VP8LDspInit) {
+ 
+   // If defined, use CPUInfo() to overwrite some pointers with faster versions.
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       VP8LDspInitSSE2();
++#if defined(WEBP_HAVE_SSE41)
++      if (VP8GetCPUInfo(kSSE4_1)) {
++        VP8LDspInitSSE41();
++      }
++#endif
+     }
+ #endif
+ #if defined(WEBP_USE_MIPS_DSP_R2)
+@@ -640,7 +644,7 @@ WEBP_DSP_INIT_FUNC(VP8LDspInit) {
+ #endif
+   }
+ 
+-#if defined(WEBP_USE_NEON)
++#if defined(WEBP_HAVE_NEON)
+   if (WEBP_NEON_OMIT_C_CODE ||
+       (VP8GetCPUInfo != NULL && VP8GetCPUInfo(kNEON))) {
+     VP8LDspInitNEON();
 diff --git a/src/3rdparty/libwebp/src/dsp/lossless.h b/src/3rdparty/libwebp/src/dsp/lossless.h
 index f709cc8..ebd316d 100644
 --- a/src/3rdparty/libwebp/src/dsp/lossless.h
@@ -31572,10 +32741,57 @@ index 9c2ebe6..96a106f 100644
  }    // extern "C"
  #endif
 diff --git a/src/3rdparty/libwebp/src/dsp/lossless_enc.c b/src/3rdparty/libwebp/src/dsp/lossless_enc.c
-index 9c36055..a0c7ab9 100644
+index 9c36055..c3e8537 100644
 --- a/src/3rdparty/libwebp/src/dsp/lossless_enc.c
 +++ b/src/3rdparty/libwebp/src/dsp/lossless_enc.c
-@@ -702,140 +702,6 @@ void VP8LHistogramAdd(const VP8LHistogram* const a,
+@@ -329,6 +329,15 @@ const uint8_t kPrefixEncodeExtraBitsValue[PREFIX_LOOKUP_IDX_MAX] = {
+ static float FastSLog2Slow_C(uint32_t v) {
+   assert(v >= LOG_LOOKUP_IDX_MAX);
+   if (v < APPROX_LOG_WITH_CORRECTION_MAX) {
++#if !defined(WEBP_HAVE_SLOW_CLZ_CTZ)
++    // use clz if available
++    const int log_cnt = BitsLog2Floor(v) - 7;
++    const uint32_t y = 1 << log_cnt;
++    int correction = 0;
++    const float v_f = (float)v;
++    const uint32_t orig_v = v;
++    v >>= log_cnt;
++#else
+     int log_cnt = 0;
+     uint32_t y = 1;
+     int correction = 0;
+@@ -339,6 +348,7 @@ static float FastSLog2Slow_C(uint32_t v) {
+       v = v >> 1;
+       y = y << 1;
+     } while (v >= LOG_LOOKUP_IDX_MAX);
++#endif
+     // vf = (2^log_cnt) * Xf; where y = 2^log_cnt and Xf < 256
+     // Xf = floor(Xf) * (1 + (v % y) / v)
+     // log2(Xf) = log2(floor(Xf)) + log2(1 + (v % y) / v)
+@@ -355,6 +365,14 @@ static float FastSLog2Slow_C(uint32_t v) {
+ static float FastLog2Slow_C(uint32_t v) {
+   assert(v >= LOG_LOOKUP_IDX_MAX);
+   if (v < APPROX_LOG_WITH_CORRECTION_MAX) {
++#if !defined(WEBP_HAVE_SLOW_CLZ_CTZ)
++    // use clz if available
++    const int log_cnt = BitsLog2Floor(v) - 7;
++    const uint32_t y = 1 << log_cnt;
++    const uint32_t orig_v = v;
++    double log_2;
++    v >>= log_cnt;
++#else
+     int log_cnt = 0;
+     uint32_t y = 1;
+     const uint32_t orig_v = v;
+@@ -364,6 +382,7 @@ static float FastLog2Slow_C(uint32_t v) {
+       v = v >> 1;
+       y = y << 1;
+     } while (v >= LOG_LOOKUP_IDX_MAX);
++#endif
+     log_2 = kLog2Table[v] + log_cnt;
+     if (orig_v >= APPROX_LOG_MAX) {
+       // Since the division is still expensive, add this correction factor only
+@@ -702,140 +721,6 @@ void VP8LHistogramAdd(const VP8LHistogram* const a,
  //------------------------------------------------------------------------------
  // Image transforms.
  
@@ -31716,7 +32932,7 @@ index 9c36055..a0c7ab9 100644
  static void PredictorSub0_C(const uint32_t* in, const uint32_t* upper,
                              int num_pixels, uint32_t* out) {
    int i;
-@@ -850,18 +716,33 @@ static void PredictorSub1_C(const uint32_t* in, const uint32_t* upper,
+@@ -850,18 +735,33 @@ static void PredictorSub1_C(const uint32_t* in, const uint32_t* upper,
    (void)upper;
  }
  
@@ -31762,28 +32978,150 @@ index 9c36055..a0c7ab9 100644
  
  //------------------------------------------------------------------------------
  
+@@ -962,10 +862,10 @@ WEBP_DSP_INIT_FUNC(VP8LEncDspInit) {
+ 
+   // If defined, use CPUInfo() to overwrite some pointers with faster versions.
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       VP8LEncDspInitSSE2();
+-#if defined(WEBP_USE_SSE41)
++#if defined(WEBP_HAVE_SSE41)
+       if (VP8GetCPUInfo(kSSE4_1)) {
+         VP8LEncDspInitSSE41();
+       }
+@@ -989,7 +889,7 @@ WEBP_DSP_INIT_FUNC(VP8LEncDspInit) {
+ #endif
+   }
+ 
+-#if defined(WEBP_USE_NEON)
++#if defined(WEBP_HAVE_NEON)
+   if (WEBP_NEON_OMIT_C_CODE ||
+       (VP8GetCPUInfo != NULL && VP8GetCPUInfo(kNEON))) {
+     VP8LEncDspInitNEON();
 diff --git a/src/3rdparty/libwebp/src/dsp/lossless_enc_sse2.c b/src/3rdparty/libwebp/src/dsp/lossless_enc_sse2.c
-index e676f6f..90c2637 100644
+index e676f6f..b2f83b8 100644
 --- a/src/3rdparty/libwebp/src/dsp/lossless_enc_sse2.c
 +++ b/src/3rdparty/libwebp/src/dsp/lossless_enc_sse2.c
-@@ -249,6 +249,7 @@ static void AddVectorEq_SSE2(const uint32_t* a, uint32_t* out, int size) {
-     }                                  \
-   } while (0)
+@@ -232,76 +232,55 @@ static void AddVectorEq_SSE2(const uint32_t* a, uint32_t* out, int size) {
+ //------------------------------------------------------------------------------
+ // Entropy
  
-+#if !(defined(__i386__) || defined(_M_IX86))
+-// Checks whether the X or Y contribution is worth computing and adding.
+-// Used in loop unrolling.
+-#define ANALYZE_X_OR_Y(x_or_y, j)                                           \
+-  do {                                                                      \
+-    if ((x_or_y)[i + (j)] != 0) retval -= VP8LFastSLog2((x_or_y)[i + (j)]); \
+-  } while (0)
+-
+-// Checks whether the X + Y contribution is worth computing and adding.
+-// Used in loop unrolling.
+-#define ANALYZE_XY(j)                  \
+-  do {                                 \
+-    if (tmp[j] != 0) {                 \
+-      retval -= VP8LFastSLog2(tmp[j]); \
+-      ANALYZE_X_OR_Y(X, j);            \
+-    }                                  \
+-  } while (0)
++// TODO(https://crbug.com/webp/499): this function produces different results
++// from the C code due to use of double/float resulting in output differences
++// when compared to -noasm.
++#if !(defined(WEBP_HAVE_SLOW_CLZ_CTZ) || defined(__i386__) || defined(_M_IX86))
+ 
  static float CombinedShannonEntropy_SSE2(const int X[256], const int Y[256]) {
    int i;
    double retval = 0.;
-@@ -300,6 +301,8 @@ static float CombinedShannonEntropy_SSE2(const int X[256], const int Y[256]) {
+-  int sumX, sumXY;
+-  int32_t tmp[4];
+-  __m128i zero = _mm_setzero_si128();
+-  // Sums up X + Y, 4 ints at a time (and will merge it at the end for sumXY).
+-  __m128i sumXY_128 = zero;
+-  __m128i sumX_128 = zero;
+-
+-  for (i = 0; i < 256; i += 4) {
+-    const __m128i x = _mm_loadu_si128((const __m128i*)(X + i));
+-    const __m128i y = _mm_loadu_si128((const __m128i*)(Y + i));
+-
+-    // Check if any X is non-zero: this actually provides a speedup as X is
+-    // usually sparse.
+-    if (_mm_movemask_epi8(_mm_cmpeq_epi32(x, zero)) != 0xFFFF) {
+-      const __m128i xy_128 = _mm_add_epi32(x, y);
+-      sumXY_128 = _mm_add_epi32(sumXY_128, xy_128);
+-
+-      sumX_128 = _mm_add_epi32(sumX_128, x);
+-
+-      // Analyze the different X + Y.
+-      _mm_storeu_si128((__m128i*)tmp, xy_128);
+-
+-      ANALYZE_XY(0);
+-      ANALYZE_XY(1);
+-      ANALYZE_XY(2);
+-      ANALYZE_XY(3);
+-    } else {
+-      // X is fully 0, so only deal with Y.
+-      sumXY_128 = _mm_add_epi32(sumXY_128, y);
+-
+-      ANALYZE_X_OR_Y(Y, 0);
+-      ANALYZE_X_OR_Y(Y, 1);
+-      ANALYZE_X_OR_Y(Y, 2);
+-      ANALYZE_X_OR_Y(Y, 3);
++  int sumX = 0, sumXY = 0;
++  const __m128i zero = _mm_setzero_si128();
++
++  for (i = 0; i < 256; i += 16) {
++    const __m128i x0 = _mm_loadu_si128((const __m128i*)(X + i +  0));
++    const __m128i y0 = _mm_loadu_si128((const __m128i*)(Y + i +  0));
++    const __m128i x1 = _mm_loadu_si128((const __m128i*)(X + i +  4));
++    const __m128i y1 = _mm_loadu_si128((const __m128i*)(Y + i +  4));
++    const __m128i x2 = _mm_loadu_si128((const __m128i*)(X + i +  8));
++    const __m128i y2 = _mm_loadu_si128((const __m128i*)(Y + i +  8));
++    const __m128i x3 = _mm_loadu_si128((const __m128i*)(X + i + 12));
++    const __m128i y3 = _mm_loadu_si128((const __m128i*)(Y + i + 12));
++    const __m128i x4 = _mm_packs_epi16(_mm_packs_epi32(x0, x1),
++                                       _mm_packs_epi32(x2, x3));
++    const __m128i y4 = _mm_packs_epi16(_mm_packs_epi32(y0, y1),
++                                       _mm_packs_epi32(y2, y3));
++    const int32_t mx = _mm_movemask_epi8(_mm_cmpgt_epi8(x4, zero));
++    int32_t my = _mm_movemask_epi8(_mm_cmpgt_epi8(y4, zero)) | mx;
++    while (my) {
++      const int32_t j = BitsCtz(my);
++      int xy;
++      if ((mx >> j) & 1) {
++        const int x = X[i + j];
++        sumXY += x;
++        retval -= VP8LFastSLog2(x);
++      }
++      xy = X[i + j] + Y[i + j];
++      sumX += xy;
++      retval -= VP8LFastSLog2(xy);
++      my &= my - 1;
+     }
+   }
+-
+-  // Sum up sumX_128 to get sumX.
+-  _mm_storeu_si128((__m128i*)tmp, sumX_128);
+-  sumX = tmp[3] + tmp[2] + tmp[1] + tmp[0];
+-
+-  // Sum up sumXY_128 to get sumXY.
+-  _mm_storeu_si128((__m128i*)tmp, sumXY_128);
+-  sumXY = tmp[3] + tmp[2] + tmp[1] + tmp[0];
+-
    retval += VP8LFastSLog2(sumX) + VP8LFastSLog2(sumXY);
    return (float)retval;
  }
-+#endif  // !(defined(__i386__) || defined(_M_IX86))
+-#undef ANALYZE_X_OR_Y
+-#undef ANALYZE_XY
 +
- #undef ANALYZE_X_OR_Y
- #undef ANALYZE_XY
++#else
++
++#define DONT_USE_COMBINED_SHANNON_ENTROPY_SSE2_FUNC   // won't be faster
++
++#endif
  
-@@ -460,20 +463,22 @@ static void PredictorSub0_SSE2(const uint32_t* in, const uint32_t* upper,
+ //------------------------------------------------------------------------------
+ 
+@@ -460,20 +439,22 @@ static void PredictorSub0_SSE2(const uint32_t* in, const uint32_t* upper,
    (void)upper;
  }
  
@@ -31820,18 +33158,516 @@ index e676f6f..90c2637 100644
  
  GENERATE_PREDICTOR_1(1, in[i - 1])       // Predictor1: L
  GENERATE_PREDICTOR_1(2, upper[i])        // Predictor2: T
-@@ -657,7 +662,12 @@ WEBP_TSAN_IGNORE_FUNCTION void VP8LEncDspInitSSE2(void) {
+@@ -657,7 +638,9 @@ WEBP_TSAN_IGNORE_FUNCTION void VP8LEncDspInitSSE2(void) {
    VP8LCollectColorRedTransforms = CollectColorRedTransforms_SSE2;
    VP8LAddVector = AddVector_SSE2;
    VP8LAddVectorEq = AddVectorEq_SSE2;
-+  // TODO(https://crbug.com/webp/499): this function produces different results
-+  // from the C code due to use of double/float resulting in output differences
-+  // when compared to -noasm.
-+#if !(defined(__i386__) || defined(_M_IX86))
++#if !defined(DONT_USE_COMBINED_SHANNON_ENTROPY_SSE2_FUNC)
    VP8LCombinedShannonEntropy = CombinedShannonEntropy_SSE2;
 +#endif
    VP8LVectorMismatch = VectorMismatch_SSE2;
    VP8LBundleColorMap = BundleColorMap_SSE2;
+ 
+diff --git a/src/3rdparty/libwebp/src/dsp/lossless_enc_sse41.c b/src/3rdparty/libwebp/src/dsp/lossless_enc_sse41.c
+index 719d8ed..ad358a6 100644
+--- a/src/3rdparty/libwebp/src/dsp/lossless_enc_sse41.c
++++ b/src/3rdparty/libwebp/src/dsp/lossless_enc_sse41.c
+@@ -44,46 +44,47 @@ static void SubtractGreenFromBlueAndRed_SSE41(uint32_t* argb_data,
+ //------------------------------------------------------------------------------
+ // Color Transform
+ 
+-#define SPAN 8
++#define MK_CST_16(HI, LO) \
++  _mm_set1_epi32((int)(((uint32_t)(HI) << 16) | ((LO) & 0xffff)))
++
+ static void CollectColorBlueTransforms_SSE41(const uint32_t* argb, int stride,
+                                              int tile_width, int tile_height,
+                                              int green_to_blue, int red_to_blue,
+                                              int histo[]) {
+-  const __m128i mults_r = _mm_set1_epi16(CST_5b(red_to_blue));
+-  const __m128i mults_g = _mm_set1_epi16(CST_5b(green_to_blue));
+-  const __m128i mask_g = _mm_set1_epi16((short)0xff00);   // green mask
+-  const __m128i mask_gb = _mm_set1_epi32(0xffff);         // green/blue mask
+-  const __m128i mask_b = _mm_set1_epi16(0x00ff);          // blue mask
+-  const __m128i shuffler_lo = _mm_setr_epi8(-1, 2, -1, 6, -1, 10, -1, 14, -1,
+-                                            -1, -1, -1, -1, -1, -1, -1);
+-  const __m128i shuffler_hi = _mm_setr_epi8(-1, -1, -1, -1, -1, -1, -1, -1, -1,
+-                                            2, -1, 6, -1, 10, -1, 14);
+-  int y;
+-  for (y = 0; y < tile_height; ++y) {
+-    const uint32_t* const src = argb + y * stride;
+-    int i, x;
+-    for (x = 0; x + SPAN <= tile_width; x += SPAN) {
+-      uint16_t values[SPAN];
+-      const __m128i in0 = _mm_loadu_si128((__m128i*)&src[x + 0]);
+-      const __m128i in1 = _mm_loadu_si128((__m128i*)&src[x + SPAN / 2]);
+-      const __m128i r0 = _mm_shuffle_epi8(in0, shuffler_lo);
+-      const __m128i r1 = _mm_shuffle_epi8(in1, shuffler_hi);
+-      const __m128i r = _mm_or_si128(r0, r1);         // r 0
+-      const __m128i gb0 = _mm_and_si128(in0, mask_gb);
+-      const __m128i gb1 = _mm_and_si128(in1, mask_gb);
+-      const __m128i gb = _mm_packus_epi32(gb0, gb1);  // g b
+-      const __m128i g = _mm_and_si128(gb, mask_g);    // g 0
+-      const __m128i A = _mm_mulhi_epi16(r, mults_r);  // x dbr
+-      const __m128i B = _mm_mulhi_epi16(g, mults_g);  // x dbg
+-      const __m128i C = _mm_sub_epi8(gb, B);          // x b'
+-      const __m128i D = _mm_sub_epi8(C, A);           // x b''
+-      const __m128i E = _mm_and_si128(D, mask_b);     // 0 b''
+-      _mm_storeu_si128((__m128i*)values, E);
+-      for (i = 0; i < SPAN; ++i) ++histo[values[i]];
++  const __m128i mult =
++      MK_CST_16(CST_5b(red_to_blue) + 256,CST_5b(green_to_blue));
++  const __m128i perm =
++      _mm_setr_epi8(-1, 1, -1, 2, -1, 5, -1, 6, -1, 9, -1, 10, -1, 13, -1, 14);
++  if (tile_width >= 4) {
++    int y;
++    for (y = 0; y < tile_height; ++y) {
++      const uint32_t* const src = argb + y * stride;
++      const __m128i A1 = _mm_loadu_si128((const __m128i*)src);
++      const __m128i B1 = _mm_shuffle_epi8(A1, perm);
++      const __m128i C1 = _mm_mulhi_epi16(B1, mult);
++      const __m128i D1 = _mm_sub_epi16(A1, C1);
++      __m128i E = _mm_add_epi16(_mm_srli_epi32(D1, 16), D1);
++      int x;
++      for (x = 4; x + 4 <= tile_width; x += 4) {
++        const __m128i A2 = _mm_loadu_si128((const __m128i*)(src + x));
++        __m128i B2, C2, D2;
++        ++histo[_mm_extract_epi8(E,  0)];
++        B2 = _mm_shuffle_epi8(A2, perm);
++        ++histo[_mm_extract_epi8(E,  4)];
++        C2 = _mm_mulhi_epi16(B2, mult);
++        ++histo[_mm_extract_epi8(E,  8)];
++        D2 = _mm_sub_epi16(A2, C2);
++        ++histo[_mm_extract_epi8(E, 12)];
++        E = _mm_add_epi16(_mm_srli_epi32(D2, 16), D2);
++      }
++      ++histo[_mm_extract_epi8(E,  0)];
++      ++histo[_mm_extract_epi8(E,  4)];
++      ++histo[_mm_extract_epi8(E,  8)];
++      ++histo[_mm_extract_epi8(E, 12)];
+     }
+   }
+   {
+-    const int left_over = tile_width & (SPAN - 1);
++    const int left_over = tile_width & 3;
+     if (left_over > 0) {
+       VP8LCollectColorBlueTransforms_C(argb + tile_width - left_over, stride,
+                                        left_over, tile_height,
+@@ -95,33 +96,37 @@ static void CollectColorBlueTransforms_SSE41(const uint32_t* argb, int stride,
+ static void CollectColorRedTransforms_SSE41(const uint32_t* argb, int stride,
+                                             int tile_width, int tile_height,
+                                             int green_to_red, int histo[]) {
+-  const __m128i mults_g = _mm_set1_epi16(CST_5b(green_to_red));
+-  const __m128i mask_g = _mm_set1_epi32(0x00ff00);  // green mask
+-  const __m128i mask = _mm_set1_epi16(0xff);
+-
+-  int y;
+-  for (y = 0; y < tile_height; ++y) {
+-    const uint32_t* const src = argb + y * stride;
+-    int i, x;
+-    for (x = 0; x + SPAN <= tile_width; x += SPAN) {
+-      uint16_t values[SPAN];
+-      const __m128i in0 = _mm_loadu_si128((__m128i*)&src[x + 0]);
+-      const __m128i in1 = _mm_loadu_si128((__m128i*)&src[x + SPAN / 2]);
+-      const __m128i g0 = _mm_and_si128(in0, mask_g);  // 0 0  | g 0
+-      const __m128i g1 = _mm_and_si128(in1, mask_g);
+-      const __m128i g = _mm_packus_epi32(g0, g1);     // g 0
+-      const __m128i A0 = _mm_srli_epi32(in0, 16);     // 0 0  | x r
+-      const __m128i A1 = _mm_srli_epi32(in1, 16);
+-      const __m128i A = _mm_packus_epi32(A0, A1);     // x r
+-      const __m128i B = _mm_mulhi_epi16(g, mults_g);  // x dr
+-      const __m128i C = _mm_sub_epi8(A, B);           // x r'
+-      const __m128i D = _mm_and_si128(C, mask);       // 0 r'
+-      _mm_storeu_si128((__m128i*)values, D);
+-      for (i = 0; i < SPAN; ++i) ++histo[values[i]];
++
++  const __m128i mult = MK_CST_16(0, CST_5b(green_to_red));
++  const __m128i mask_g = _mm_set1_epi32(0x0000ff00);
++  if (tile_width >= 4) {
++    int y;
++    for (y = 0; y < tile_height; ++y) {
++      const uint32_t* const src = argb + y * stride;
++      const __m128i A1 = _mm_loadu_si128((const __m128i*)src);
++      const __m128i B1 = _mm_and_si128(A1, mask_g);
++      const __m128i C1 = _mm_madd_epi16(B1, mult);
++      __m128i D = _mm_sub_epi16(A1, C1);
++      int x;
++      for (x = 4; x + 4 <= tile_width; x += 4) {
++        const __m128i A2 = _mm_loadu_si128((const __m128i*)(src + x));
++        __m128i B2, C2;
++        ++histo[_mm_extract_epi8(D,  2)];
++        B2 = _mm_and_si128(A2, mask_g);
++        ++histo[_mm_extract_epi8(D,  6)];
++        C2 = _mm_madd_epi16(B2, mult);
++        ++histo[_mm_extract_epi8(D, 10)];
++        ++histo[_mm_extract_epi8(D, 14)];
++        D = _mm_sub_epi16(A2, C2);
++      }
++      ++histo[_mm_extract_epi8(D,  2)];
++      ++histo[_mm_extract_epi8(D,  6)];
++      ++histo[_mm_extract_epi8(D, 10)];
++      ++histo[_mm_extract_epi8(D, 14)];
+     }
+   }
+   {
+-    const int left_over = tile_width & (SPAN - 1);
++    const int left_over = tile_width & 3;
+     if (left_over > 0) {
+       VP8LCollectColorRedTransforms_C(argb + tile_width - left_over, stride,
+                                       left_over, tile_height, green_to_red,
+@@ -130,6 +135,8 @@ static void CollectColorRedTransforms_SSE41(const uint32_t* argb, int stride,
+   }
+ }
+ 
++#undef MK_CST_16
++
+ //------------------------------------------------------------------------------
+ // Entry point
+ 
+diff --git a/src/3rdparty/libwebp/src/dsp/lossless_sse2.c b/src/3rdparty/libwebp/src/dsp/lossless_sse2.c
+index aef0cee..3a0eb44 100644
+--- a/src/3rdparty/libwebp/src/dsp/lossless_sse2.c
++++ b/src/3rdparty/libwebp/src/dsp/lossless_sse2.c
+@@ -18,7 +18,6 @@
+ #include "src/dsp/common_sse2.h"
+ #include "src/dsp/lossless.h"
+ #include "src/dsp/lossless_common.h"
+-#include <assert.h>
+ #include <emmintrin.h>
+ 
+ //------------------------------------------------------------------------------
+diff --git a/src/3rdparty/libwebp/src/dsp/lossless_sse41.c b/src/3rdparty/libwebp/src/dsp/lossless_sse41.c
+new file mode 100644
+index 0000000..b0d6daa
+--- /dev/null
++++ b/src/3rdparty/libwebp/src/dsp/lossless_sse41.c
+@@ -0,0 +1,132 @@
++// Copyright 2021 Google Inc. All Rights Reserved.
++//
++// Use of this source code is governed by a BSD-style license
++// that can be found in the COPYING file in the root of the source
++// tree. An additional intellectual property rights grant can be found
++// in the file PATENTS. All contributing project authors may
++// be found in the AUTHORS file in the root of the source tree.
++// -----------------------------------------------------------------------------
++//
++// SSE41 variant of methods for lossless decoder
++
++#include "src/dsp/dsp.h"
++
++#if defined(WEBP_USE_SSE41)
++
++#include "src/dsp/common_sse41.h"
++#include "src/dsp/lossless.h"
++#include "src/dsp/lossless_common.h"
++
++//------------------------------------------------------------------------------
++// Color-space conversion functions
++
++static void TransformColorInverse_SSE41(const VP8LMultipliers* const m,
++                                        const uint32_t* const src,
++                                        int num_pixels, uint32_t* dst) {
++// sign-extended multiplying constants, pre-shifted by 5.
++#define CST(X)  (((int16_t)(m->X << 8)) >> 5)   // sign-extend
++  const __m128i mults_rb = _mm_set1_epi32((uint32_t)CST(green_to_red_) << 16 |
++                                          (CST(green_to_blue_) & 0xffff));
++  const __m128i mults_b2 = _mm_set1_epi32(CST(red_to_blue_));
++#undef CST
++  const __m128i mask_ag = _mm_set1_epi32(0xff00ff00);
++  const __m128i perm1 = _mm_setr_epi8(-1, 1, -1, 1, -1, 5, -1, 5,
++                                      -1, 9, -1, 9, -1, 13, -1, 13);
++  const __m128i perm2 = _mm_setr_epi8(-1, 2, -1, -1, -1, 6, -1, -1,
++                                      -1, 10, -1, -1, -1, 14, -1, -1);
++  int i;
++  for (i = 0; i + 4 <= num_pixels; i += 4) {
++    const __m128i A = _mm_loadu_si128((const __m128i*)(src + i));
++    const __m128i B = _mm_shuffle_epi8(A, perm1); // argb -> g0g0
++    const __m128i C = _mm_mulhi_epi16(B, mults_rb);
++    const __m128i D = _mm_add_epi8(A, C);
++    const __m128i E = _mm_shuffle_epi8(D, perm2);
++    const __m128i F = _mm_mulhi_epi16(E, mults_b2);
++    const __m128i G = _mm_add_epi8(D, F);
++    const __m128i out = _mm_blendv_epi8(G, A, mask_ag);
++    _mm_storeu_si128((__m128i*)&dst[i], out);
++  }
++  // Fall-back to C-version for left-overs.
++  if (i != num_pixels) {
++    VP8LTransformColorInverse_C(m, src + i, num_pixels - i, dst + i);
++  }
++}
++
++//------------------------------------------------------------------------------
++
++#define ARGB_TO_RGB_SSE41 do {                        \
++  while (num_pixels >= 16) {                          \
++    const __m128i in0 = _mm_loadu_si128(in + 0);      \
++    const __m128i in1 = _mm_loadu_si128(in + 1);      \
++    const __m128i in2 = _mm_loadu_si128(in + 2);      \
++    const __m128i in3 = _mm_loadu_si128(in + 3);      \
++    const __m128i a0 = _mm_shuffle_epi8(in0, perm0);  \
++    const __m128i a1 = _mm_shuffle_epi8(in1, perm1);  \
++    const __m128i a2 = _mm_shuffle_epi8(in2, perm2);  \
++    const __m128i a3 = _mm_shuffle_epi8(in3, perm3);  \
++    const __m128i b0 = _mm_blend_epi16(a0, a1, 0xc0); \
++    const __m128i b1 = _mm_blend_epi16(a1, a2, 0xf0); \
++    const __m128i b2 = _mm_blend_epi16(a2, a3, 0xfc); \
++    _mm_storeu_si128(out + 0, b0);                    \
++    _mm_storeu_si128(out + 1, b1);                    \
++    _mm_storeu_si128(out + 2, b2);                    \
++    in += 4;                                          \
++    out += 3;                                         \
++    num_pixels -= 16;                                 \
++  }                                                   \
++} while (0)
++
++static void ConvertBGRAToRGB_SSE41(const uint32_t* src, int num_pixels,
++                                   uint8_t* dst) {
++  const __m128i* in = (const __m128i*)src;
++  __m128i* out = (__m128i*)dst;
++  const __m128i perm0 = _mm_setr_epi8(2, 1, 0, 6, 5, 4, 10, 9,
++                                      8, 14, 13, 12, -1, -1, -1, -1);
++  const __m128i perm1 = _mm_shuffle_epi32(perm0, 0x39);
++  const __m128i perm2 = _mm_shuffle_epi32(perm0, 0x4e);
++  const __m128i perm3 = _mm_shuffle_epi32(perm0, 0x93);
++
++  ARGB_TO_RGB_SSE41;
++
++  // left-overs
++  if (num_pixels > 0) {
++    VP8LConvertBGRAToRGB_C((const uint32_t*)in, num_pixels, (uint8_t*)out);
++  }
++}
++
++static void ConvertBGRAToBGR_SSE41(const uint32_t* src,
++                                   int num_pixels, uint8_t* dst) {
++  const __m128i* in = (const __m128i*)src;
++  __m128i* out = (__m128i*)dst;
++  const __m128i perm0 = _mm_setr_epi8(0, 1, 2, 4, 5, 6, 8, 9, 10,
++                                      12, 13, 14, -1, -1, -1, -1);
++  const __m128i perm1 = _mm_shuffle_epi32(perm0, 0x39);
++  const __m128i perm2 = _mm_shuffle_epi32(perm0, 0x4e);
++  const __m128i perm3 = _mm_shuffle_epi32(perm0, 0x93);
++
++  ARGB_TO_RGB_SSE41;
++
++  // left-overs
++  if (num_pixels > 0) {
++    VP8LConvertBGRAToBGR_C((const uint32_t*)in, num_pixels, (uint8_t*)out);
++  }
++}
++
++#undef ARGB_TO_RGB_SSE41
++
++//------------------------------------------------------------------------------
++// Entry point
++
++extern void VP8LDspInitSSE41(void);
++
++WEBP_TSAN_IGNORE_FUNCTION void VP8LDspInitSSE41(void) {
++  VP8LTransformColorInverse = TransformColorInverse_SSE41;
++  VP8LConvertBGRAToRGB = ConvertBGRAToRGB_SSE41;
++  VP8LConvertBGRAToBGR = ConvertBGRAToBGR_SSE41;
++}
++
++#else  // !WEBP_USE_SSE41
++
++WEBP_DSP_INIT_STUB(VP8LDspInitSSE41)
++
++#endif  // WEBP_USE_SSE41
+diff --git a/src/3rdparty/libwebp/src/dsp/rescaler.c b/src/3rdparty/libwebp/src/dsp/rescaler.c
+index c5a01e8..14620ce 100644
+--- a/src/3rdparty/libwebp/src/dsp/rescaler.c
++++ b/src/3rdparty/libwebp/src/dsp/rescaler.c
+@@ -38,8 +38,9 @@ void WebPRescalerImportRowExpand_C(WebPRescaler* const wrk,
+     int x_out = channel;
+     // simple bilinear interpolation
+     int accum = wrk->x_add;
+-    int left = src[x_in];
+-    int right = (wrk->src_width > 1) ? src[x_in + x_stride] : left;
++    rescaler_t left = (rescaler_t)src[x_in];
++    rescaler_t right =
++        (wrk->src_width > 1) ? (rescaler_t)src[x_in + x_stride] : left;
+     x_in += x_stride;
+     while (1) {
+       wrk->frow[x_out] = right * wrk->x_add + (left - right) * accum;
+@@ -50,7 +51,7 @@ void WebPRescalerImportRowExpand_C(WebPRescaler* const wrk,
+         left = right;
+         x_in += x_stride;
+         assert(x_in < wrk->src_width * x_stride);
+-        right = src[x_in];
++        right = (rescaler_t)src[x_in];
+         accum += wrk->x_add;
+       }
+     }
+@@ -213,7 +214,7 @@ WEBP_DSP_INIT_FUNC(WebPRescalerDspInit) {
+   WebPRescalerImportRowShrink = WebPRescalerImportRowShrink_C;
+ 
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       WebPRescalerDspInitSSE2();
+     }
+@@ -235,7 +236,7 @@ WEBP_DSP_INIT_FUNC(WebPRescalerDspInit) {
+ #endif
+   }
+ 
+-#if defined(WEBP_USE_NEON)
++#if defined(WEBP_HAVE_NEON)
+   if (WEBP_NEON_OMIT_C_CODE ||
+       (VP8GetCPUInfo != NULL && VP8GetCPUInfo(kNEON))) {
+     WebPRescalerDspInitNEON();
+diff --git a/src/3rdparty/libwebp/src/dsp/ssim.c b/src/3rdparty/libwebp/src/dsp/ssim.c
+index 989ce82..f85c2e6 100644
+--- a/src/3rdparty/libwebp/src/dsp/ssim.c
++++ b/src/3rdparty/libwebp/src/dsp/ssim.c
+@@ -150,7 +150,7 @@ WEBP_DSP_INIT_FUNC(VP8SSIMDspInit) {
+ #endif
+ 
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       VP8SSIMDspInitSSE2();
+     }
+diff --git a/src/3rdparty/libwebp/src/dsp/upsampling.c b/src/3rdparty/libwebp/src/dsp/upsampling.c
+index 9b60da5..87f771f 100644
+--- a/src/3rdparty/libwebp/src/dsp/upsampling.c
++++ b/src/3rdparty/libwebp/src/dsp/upsampling.c
+@@ -233,12 +233,12 @@ WEBP_DSP_INIT_FUNC(WebPInitYUV444Converters) {
+   WebPYUV444Converters[MODE_rgbA_4444] = WebPYuv444ToRgba4444_C;
+ 
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       WebPInitYUV444ConvertersSSE2();
+     }
+ #endif
+-#if defined(WEBP_USE_SSE41)
++#if defined(WEBP_HAVE_SSE41)
+     if (VP8GetCPUInfo(kSSE4_1)) {
+       WebPInitYUV444ConvertersSSE41();
+     }
+@@ -278,12 +278,12 @@ WEBP_DSP_INIT_FUNC(WebPInitUpsamplers) {
+ 
+   // If defined, use CPUInfo() to overwrite some pointers with faster versions.
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       WebPInitUpsamplersSSE2();
+     }
+ #endif
+-#if defined(WEBP_USE_SSE41)
++#if defined(WEBP_HAVE_SSE41)
+     if (VP8GetCPUInfo(kSSE4_1)) {
+       WebPInitUpsamplersSSE41();
+     }
+@@ -300,7 +300,7 @@ WEBP_DSP_INIT_FUNC(WebPInitUpsamplers) {
+ #endif
+   }
+ 
+-#if defined(WEBP_USE_NEON)
++#if defined(WEBP_HAVE_NEON)
+   if (WEBP_NEON_OMIT_C_CODE ||
+       (VP8GetCPUInfo != NULL && VP8GetCPUInfo(kNEON))) {
+     WebPInitUpsamplersNEON();
+diff --git a/src/3rdparty/libwebp/src/dsp/yuv.c b/src/3rdparty/libwebp/src/dsp/yuv.c
+index 14e67fc..48466f8 100644
+--- a/src/3rdparty/libwebp/src/dsp/yuv.c
++++ b/src/3rdparty/libwebp/src/dsp/yuv.c
+@@ -90,16 +90,16 @@ WEBP_DSP_INIT_FUNC(WebPInitSamplers) {
+ 
+   // If defined, use CPUInfo() to overwrite some pointers with faster versions.
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       WebPInitSamplersSSE2();
+     }
+-#endif  // WEBP_USE_SSE2
+-#if defined(WEBP_USE_SSE41)
++#endif  // WEBP_HAVE_SSE2
++#if defined(WEBP_HAVE_SSE41)
+     if (VP8GetCPUInfo(kSSE4_1)) {
+       WebPInitSamplersSSE41();
+     }
+-#endif  // WEBP_USE_SSE41
++#endif  // WEBP_HAVE_SSE41
+ #if defined(WEBP_USE_MIPS32)
+     if (VP8GetCPUInfo(kMIPS32)) {
+       WebPInitSamplersMIPS32();
+@@ -276,26 +276,26 @@ WEBP_DSP_INIT_FUNC(WebPInitConvertARGBToYUV) {
+ #endif
+ 
+   if (VP8GetCPUInfo != NULL) {
+-#if defined(WEBP_USE_SSE2)
++#if defined(WEBP_HAVE_SSE2)
+     if (VP8GetCPUInfo(kSSE2)) {
+       WebPInitConvertARGBToYUVSSE2();
+       WebPInitSharpYUVSSE2();
+     }
+-#endif  // WEBP_USE_SSE2
+-#if defined(WEBP_USE_SSE41)
++#endif  // WEBP_HAVE_SSE2
++#if defined(WEBP_HAVE_SSE41)
+     if (VP8GetCPUInfo(kSSE4_1)) {
+       WebPInitConvertARGBToYUVSSE41();
+     }
+-#endif  // WEBP_USE_SSE41
++#endif  // WEBP_HAVE_SSE41
+   }
+ 
+-#if defined(WEBP_USE_NEON)
++#if defined(WEBP_HAVE_NEON)
+   if (WEBP_NEON_OMIT_C_CODE ||
+       (VP8GetCPUInfo != NULL && VP8GetCPUInfo(kNEON))) {
+     WebPInitConvertARGBToYUVNEON();
+     WebPInitSharpYUVNEON();
+   }
+-#endif  // WEBP_USE_NEON
++#endif  // WEBP_HAVE_NEON
+ 
+   assert(WebPConvertARGBToY != NULL);
+   assert(WebPConvertARGBToUV != NULL);
+diff --git a/src/3rdparty/libwebp/src/enc/alpha_enc.c b/src/3rdparty/libwebp/src/enc/alpha_enc.c
+index dce9ca9..0b54f3e 100644
+--- a/src/3rdparty/libwebp/src/enc/alpha_enc.c
++++ b/src/3rdparty/libwebp/src/enc/alpha_enc.c
+@@ -303,7 +303,7 @@ static int EncodeAlpha(VP8Encoder* const enc,
+   int ok = 1;
+   const int reduce_levels = (quality < 100);
+ 
+-  // quick sanity checks
++  // quick correctness checks
+   assert((uint64_t)data_size == (uint64_t)width * height);  // as per spec
+   assert(enc != NULL && pic != NULL && pic->a != NULL);
+   assert(output != NULL && output_size != NULL);
+@@ -361,7 +361,7 @@ static int EncodeAlpha(VP8Encoder* const enc,
+ //------------------------------------------------------------------------------
+ // Main calls
+ 
+-static int CompressAlphaJob(void* arg1, void* dummy) {
++static int CompressAlphaJob(void* arg1, void* unused) {
+   VP8Encoder* const enc = (VP8Encoder*)arg1;
+   const WebPConfig* config = enc->config_;
+   uint8_t* alpha_data = NULL;
+@@ -375,13 +375,13 @@ static int CompressAlphaJob(void* arg1, void* dummy) {
+                    filter, effort_level, &alpha_data, &alpha_size)) {
+     return 0;
+   }
+-  if (alpha_size != (uint32_t)alpha_size) {  // Sanity check.
++  if (alpha_size != (uint32_t)alpha_size) {  // Soundness check.
+     WebPSafeFree(alpha_data);
+     return 0;
+   }
+   enc->alpha_data_size_ = (uint32_t)alpha_size;
+   enc->alpha_data_ = alpha_data;
+-  (void)dummy;
++  (void)unused;
+   return 1;
+ }
  
 diff --git a/src/3rdparty/libwebp/src/enc/analysis_enc.c b/src/3rdparty/libwebp/src/enc/analysis_enc.c
 index 687757a..ebb7842 100644
@@ -32337,7 +34173,7 @@ index 1aec376..af538d8 100644
      if (enc->max_i4_header_bits_ > 0 && size_p0 > PARTITION0_SIZE_LIMIT) {
        ++num_pass_left;
 diff --git a/src/3rdparty/libwebp/src/enc/histogram_enc.c b/src/3rdparty/libwebp/src/enc/histogram_enc.c
-index a4e6bf3..edc6e4f 100644
+index a4e6bf3..38a0ceb 100644
 --- a/src/3rdparty/libwebp/src/enc/histogram_enc.c
 +++ b/src/3rdparty/libwebp/src/enc/histogram_enc.c
 @@ -208,6 +208,7 @@ void VP8LHistogramAddSinglePixOrCopy(VP8LHistogram* const histo,
@@ -32348,6 +34184,58 @@ index a4e6bf3..edc6e4f 100644
      ++histo->literal_[literal_ix];
    } else {
      int code, extra_bits;
+@@ -1170,13 +1171,15 @@ static void RemoveEmptyHistograms(VP8LHistogramSet* const image_histo) {
+ int VP8LGetHistoImageSymbols(int xsize, int ysize,
+                              const VP8LBackwardRefs* const refs,
+                              int quality, int low_effort,
+-                             int histo_bits, int cache_bits,
++                             int histogram_bits, int cache_bits,
+                              VP8LHistogramSet* const image_histo,
+                              VP8LHistogram* const tmp_histo,
+                              uint16_t* const histogram_symbols) {
+   int ok = 0;
+-  const int histo_xsize = histo_bits ? VP8LSubSampleSize(xsize, histo_bits) : 1;
+-  const int histo_ysize = histo_bits ? VP8LSubSampleSize(ysize, histo_bits) : 1;
++  const int histo_xsize =
++      histogram_bits ? VP8LSubSampleSize(xsize, histogram_bits) : 1;
++  const int histo_ysize =
++      histogram_bits ? VP8LSubSampleSize(ysize, histogram_bits) : 1;
+   const int image_histo_raw_size = histo_xsize * histo_ysize;
+   VP8LHistogramSet* const orig_histo =
+       VP8LAllocateHistogramSet(image_histo_raw_size, cache_bits);
+@@ -1192,7 +1195,7 @@ int VP8LGetHistoImageSymbols(int xsize, int ysize,
+   if (orig_histo == NULL || map_tmp == NULL) goto Error;
+ 
+   // Construct the histograms from backward references.
+-  HistogramBuild(xsize, histo_bits, refs, orig_histo);
++  HistogramBuild(xsize, histogram_bits, refs, orig_histo);
+   // Copies the histograms and computes its bit_cost.
+   // histogram_symbols is optimized
+   HistogramCopyAndAnalyze(orig_histo, image_histo, &num_used,
+diff --git a/src/3rdparty/libwebp/src/enc/histogram_enc.h b/src/3rdparty/libwebp/src/enc/histogram_enc.h
+index 54c2d21..c3428b5 100644
+--- a/src/3rdparty/libwebp/src/enc/histogram_enc.h
++++ b/src/3rdparty/libwebp/src/enc/histogram_enc.h
+@@ -64,8 +64,8 @@ void VP8LHistogramCreate(VP8LHistogram* const p,
+                          const VP8LBackwardRefs* const refs,
+                          int palette_code_bits);
+ 
+-// Return the size of the histogram for a given palette_code_bits.
+-int VP8LGetHistogramSize(int palette_code_bits);
++// Return the size of the histogram for a given cache_bits.
++int VP8LGetHistogramSize(int cache_bits);
+ 
+ // Set the palette_code_bits and reset the stats.
+ // If init_arrays is true, the arrays are also filled with 0's.
+@@ -110,7 +110,7 @@ int VP8LGetHistoImageSymbols(int xsize, int ysize,
+                              const VP8LBackwardRefs* const refs,
+                              int quality, int low_effort,
+                              int histogram_bits, int cache_bits,
+-                             VP8LHistogramSet* const image_in,
++                             VP8LHistogramSet* const image_histo,
+                              VP8LHistogram* const tmp_histo,
+                              uint16_t* const histogram_symbols);
+ 
 diff --git a/src/3rdparty/libwebp/src/enc/picture_csp_enc.c b/src/3rdparty/libwebp/src/enc/picture_csp_enc.c
 index 718e014..35eede9 100644
 --- a/src/3rdparty/libwebp/src/enc/picture_csp_enc.c
@@ -32394,6 +34282,105 @@ index 718e014..35eede9 100644
    assert(2 * GAMMA_TO_LINEAR_BITS < 32);  // we use uint32_t intermediate values
    if (!kGammaTablesSOk) {
      int v;
+diff --git a/src/3rdparty/libwebp/src/enc/picture_rescale_enc.c b/src/3rdparty/libwebp/src/enc/picture_rescale_enc.c
+index 58a6ae7..a75f5d9 100644
+--- a/src/3rdparty/libwebp/src/enc/picture_rescale_enc.c
++++ b/src/3rdparty/libwebp/src/enc/picture_rescale_enc.c
+@@ -164,22 +164,25 @@ int WebPPictureCrop(WebPPicture* pic,
+ //------------------------------------------------------------------------------
+ // Simple picture rescaler
+ 
+-static void RescalePlane(const uint8_t* src,
+-                         int src_width, int src_height, int src_stride,
+-                         uint8_t* dst,
+-                         int dst_width, int dst_height, int dst_stride,
+-                         rescaler_t* const work,
+-                         int num_channels) {
++static int RescalePlane(const uint8_t* src,
++                        int src_width, int src_height, int src_stride,
++                        uint8_t* dst,
++                        int dst_width, int dst_height, int dst_stride,
++                        rescaler_t* const work,
++                        int num_channels) {
+   WebPRescaler rescaler;
+   int y = 0;
+-  WebPRescalerInit(&rescaler, src_width, src_height,
+-                   dst, dst_width, dst_height, dst_stride,
+-                   num_channels, work);
++  if (!WebPRescalerInit(&rescaler, src_width, src_height,
++                        dst, dst_width, dst_height, dst_stride,
++                        num_channels, work)) {
++    return 0;
++  }
+   while (y < src_height) {
+     y += WebPRescalerImport(&rescaler, src_height - y,
+                             src + y * src_stride, src_stride);
+     WebPRescalerExport(&rescaler);
+   }
++  return 1;
+ }
+ 
+ static void AlphaMultiplyARGB(WebPPicture* const pic, int inverse) {
+@@ -222,25 +225,28 @@ int WebPPictureRescale(WebPPicture* pic, int width, int height) {
+     // If present, we need to rescale alpha first (for AlphaMultiplyY).
+     if (pic->a != NULL) {
+       WebPInitAlphaProcessing();
+-      RescalePlane(pic->a, prev_width, prev_height, pic->a_stride,
+-                   tmp.a, width, height, tmp.a_stride, work, 1);
++      if (!RescalePlane(pic->a, prev_width, prev_height, pic->a_stride,
++                        tmp.a, width, height, tmp.a_stride, work, 1)) {
++        return 0;
++      }
+     }
+ 
+     // We take transparency into account on the luma plane only. That's not
+     // totally exact blending, but still is a good approximation.
+     AlphaMultiplyY(pic, 0);
+-    RescalePlane(pic->y, prev_width, prev_height, pic->y_stride,
+-                 tmp.y, width, height, tmp.y_stride, work, 1);
++    if (!RescalePlane(pic->y, prev_width, prev_height, pic->y_stride,
++                      tmp.y, width, height, tmp.y_stride, work, 1) ||
++        !RescalePlane(pic->u,
++                      HALVE(prev_width), HALVE(prev_height), pic->uv_stride,
++                      tmp.u,
++                      HALVE(width), HALVE(height), tmp.uv_stride, work, 1) ||
++        !RescalePlane(pic->v,
++                      HALVE(prev_width), HALVE(prev_height), pic->uv_stride,
++                      tmp.v,
++                      HALVE(width), HALVE(height), tmp.uv_stride, work, 1)) {
++      return 0;
++    }
+     AlphaMultiplyY(&tmp, 1);
+-
+-    RescalePlane(pic->u,
+-                 HALVE(prev_width), HALVE(prev_height), pic->uv_stride,
+-                 tmp.u,
+-                 HALVE(width), HALVE(height), tmp.uv_stride, work, 1);
+-    RescalePlane(pic->v,
+-                 HALVE(prev_width), HALVE(prev_height), pic->uv_stride,
+-                 tmp.v,
+-                 HALVE(width), HALVE(height), tmp.uv_stride, work, 1);
+   } else {
+     work = (rescaler_t*)WebPSafeMalloc(2ULL * width * 4, sizeof(*work));
+     if (work == NULL) {
+@@ -252,11 +258,12 @@ int WebPPictureRescale(WebPPicture* pic, int width, int height) {
+     // the premultiplication afterward (while preserving the alpha channel).
+     WebPInitAlphaProcessing();
+     AlphaMultiplyARGB(pic, 0);
+-    RescalePlane((const uint8_t*)pic->argb, prev_width, prev_height,
+-                 pic->argb_stride * 4,
+-                 (uint8_t*)tmp.argb, width, height,
+-                 tmp.argb_stride * 4,
+-                 work, 4);
++    if (!RescalePlane((const uint8_t*)pic->argb, prev_width, prev_height,
++                      pic->argb_stride * 4,
++                      (uint8_t*)tmp.argb, width, height,
++                      tmp.argb_stride * 4, work, 4)) {
++      return 0;
++    }
+     AlphaMultiplyARGB(&tmp, 1);
+   }
+   WebPPictureFree(pic);
 diff --git a/src/3rdparty/libwebp/src/enc/picture_tools_enc.c b/src/3rdparty/libwebp/src/enc/picture_tools_enc.c
 index d0e8a49..38cb015 100644
 --- a/src/3rdparty/libwebp/src/enc/picture_tools_enc.c
@@ -32443,20 +34430,45 @@ index d0e8a49..38cb015 100644
  //------------------------------------------------------------------------------
  // Blend color and remove transparency info
  
+diff --git a/src/3rdparty/libwebp/src/enc/syntax_enc.c b/src/3rdparty/libwebp/src/enc/syntax_enc.c
+index a9e5a6c..e18cf65 100644
+--- a/src/3rdparty/libwebp/src/enc/syntax_enc.c
++++ b/src/3rdparty/libwebp/src/enc/syntax_enc.c
+@@ -349,7 +349,7 @@ int VP8EncWrite(VP8Encoder* const enc) {
+                                        (enc->alpha_data_size_ & 1);
+     riff_size += CHUNK_HEADER_SIZE + padded_alpha_size;
+   }
+-  // Sanity check.
++  // RIFF size should fit in 32-bits.
+   if (riff_size > 0xfffffffeU) {
+     return WebPEncodingSetError(pic, VP8_ENC_ERROR_FILE_TOO_BIG);
+   }
 diff --git a/src/3rdparty/libwebp/src/enc/vp8i_enc.h b/src/3rdparty/libwebp/src/enc/vp8i_enc.h
-index fedcaee..0e35562 100644
+index fedcaee..67e9509 100644
 --- a/src/3rdparty/libwebp/src/enc/vp8i_enc.h
 +++ b/src/3rdparty/libwebp/src/enc/vp8i_enc.h
-@@ -31,7 +31,7 @@ extern "C" {
+@@ -31,8 +31,8 @@ extern "C" {
  
  // version numbers
  #define ENC_MAJ_VERSION 1
 -#define ENC_MIN_VERSION 1
+-#define ENC_REV_VERSION 0
 +#define ENC_MIN_VERSION 2
- #define ENC_REV_VERSION 0
++#define ENC_REV_VERSION 1
  
  enum { MAX_LF_LEVELS = 64,       // Maximum loop filter level
-@@ -505,9 +505,9 @@ int WebPPictureAllocARGB(WebPPicture* const picture, int width, int height);
+        MAX_VARIABLE_LEVEL = 67,  // last (inclusive) level with variable cost
+@@ -286,8 +286,7 @@ int VP8IteratorNext(VP8EncIterator* const it);
+ // save the yuv_out_ boundary values to top_/left_ arrays for next iterations.
+ void VP8IteratorSaveBoundary(VP8EncIterator* const it);
+ // Report progression based on macroblock rows. Return 0 for user-abort request.
+-int VP8IteratorProgress(const VP8EncIterator* const it,
+-                        int final_delta_percent);
++int VP8IteratorProgress(const VP8EncIterator* const it, int delta);
+ // Intra4x4 iterations
+ void VP8IteratorStartI4(VP8EncIterator* const it);
+ // returns true if not done.
+@@ -505,9 +504,9 @@ int WebPPictureAllocARGB(WebPPicture* const picture, int width, int height);
  // Returns false in case of error (invalid param, out-of-memory).
  int WebPPictureAllocYUVA(WebPPicture* const picture, int width, int height);
  
@@ -32470,10 +34482,292 @@ index fedcaee..0e35562 100644
  //------------------------------------------------------------------------------
  
 diff --git a/src/3rdparty/libwebp/src/enc/vp8l_enc.c b/src/3rdparty/libwebp/src/enc/vp8l_enc.c
-index 2efd403..0b44ebe 100644
+index 2efd403..e330e71 100644
 --- a/src/3rdparty/libwebp/src/enc/vp8l_enc.c
 +++ b/src/3rdparty/libwebp/src/enc/vp8l_enc.c
-@@ -144,7 +144,8 @@ typedef enum {
+@@ -65,25 +65,22 @@ static WEBP_INLINE void SwapColor(uint32_t* const col1, uint32_t* const col2) {
+   *col2 = tmp;
+ }
+ 
+-static void GreedyMinimizeDeltas(uint32_t palette[], int num_colors) {
+-  // Find greedily always the closest color of the predicted color to minimize
+-  // deltas in the palette. This reduces storage needs since the
+-  // palette is stored with delta encoding.
+-  uint32_t predict = 0x00000000;
+-  int i, k;
+-  for (i = 0; i < num_colors; ++i) {
+-    int best_ix = i;
+-    uint32_t best_score = ~0U;
+-    for (k = i; k < num_colors; ++k) {
+-      const uint32_t cur_score = PaletteColorDistance(palette[k], predict);
+-      if (best_score > cur_score) {
+-        best_score = cur_score;
+-        best_ix = k;
+-      }
++static WEBP_INLINE int SearchColorNoIdx(const uint32_t sorted[], uint32_t color,
++                                        int num_colors) {
++  int low = 0, hi = num_colors;
++  if (sorted[low] == color) return low;  // loop invariant: sorted[low] != color
++  while (1) {
++    const int mid = (low + hi) >> 1;
++    if (sorted[mid] == color) {
++      return mid;
++    } else if (sorted[mid] < color) {
++      low = mid;
++    } else {
++      hi = mid;
+     }
+-    SwapColor(&palette[best_ix], &palette[i]);
+-    predict = palette[i];
+   }
++  assert(0);
++  return 0;
+ }
+ 
+ // The palette has been sorted by alpha. This function checks if the other
+@@ -92,7 +89,8 @@ static void GreedyMinimizeDeltas(uint32_t palette[], int num_colors) {
+ // no benefit to re-organize them greedily. A monotonic development
+ // would be spotted in green-only situations (like lossy alpha) or gray-scale
+ // images.
+-static int PaletteHasNonMonotonousDeltas(uint32_t palette[], int num_colors) {
++static int PaletteHasNonMonotonousDeltas(const uint32_t* const palette,
++                                         int num_colors) {
+   uint32_t predict = 0x000000;
+   int i;
+   uint8_t sign_found = 0x00;
+@@ -115,28 +113,215 @@ static int PaletteHasNonMonotonousDeltas(uint32_t palette[], int num_colors) {
+   return (sign_found & (sign_found << 1)) != 0;  // two consequent signs.
+ }
+ 
++static void PaletteSortMinimizeDeltas(const uint32_t* const palette_sorted,
++                                      int num_colors, uint32_t* const palette) {
++  uint32_t predict = 0x00000000;
++  int i, k;
++  memcpy(palette, palette_sorted, num_colors * sizeof(*palette));
++  if (!PaletteHasNonMonotonousDeltas(palette_sorted, num_colors)) return;
++  // Find greedily always the closest color of the predicted color to minimize
++  // deltas in the palette. This reduces storage needs since the
++  // palette is stored with delta encoding.
++  for (i = 0; i < num_colors; ++i) {
++    int best_ix = i;
++    uint32_t best_score = ~0U;
++    for (k = i; k < num_colors; ++k) {
++      const uint32_t cur_score = PaletteColorDistance(palette[k], predict);
++      if (best_score > cur_score) {
++        best_score = cur_score;
++        best_ix = k;
++      }
++    }
++    SwapColor(&palette[best_ix], &palette[i]);
++    predict = palette[i];
++  }
++}
++
++// Sort palette in increasing order and prepare an inverse mapping array.
++static void PrepareMapToPalette(const uint32_t palette[], uint32_t num_colors,
++                                uint32_t sorted[], uint32_t idx_map[]) {
++  uint32_t i;
++  memcpy(sorted, palette, num_colors * sizeof(*sorted));
++  qsort(sorted, num_colors, sizeof(*sorted), PaletteCompareColorsForQsort);
++  for (i = 0; i < num_colors; ++i) {
++    idx_map[SearchColorNoIdx(sorted, palette[i], num_colors)] = i;
++  }
++}
++
+ // -----------------------------------------------------------------------------
+-// Palette
++// Modified Zeng method from "A Survey on Palette Reordering
++// Methods for Improving the Compression of Color-Indexed Images" by Armando J.
++// Pinho and Antonio J. R. Neves.
++
++// Finds the biggest cooccurrence in the matrix.
++static void CoOccurrenceFindMax(const uint32_t* const cooccurrence,
++                                uint32_t num_colors, uint8_t* const c1,
++                                uint8_t* const c2) {
++  // Find the index that is most frequently located adjacent to other
++  // (different) indexes.
++  uint32_t best_sum = 0u;
++  uint32_t i, j, best_cooccurrence;
++  *c1 = 0u;
++  for (i = 0; i < num_colors; ++i) {
++    uint32_t sum = 0;
++    for (j = 0; j < num_colors; ++j) sum += cooccurrence[i * num_colors + j];
++    if (sum > best_sum) {
++      best_sum = sum;
++      *c1 = i;
++    }
++  }
++  // Find the index that is most frequently found adjacent to *c1.
++  *c2 = 0u;
++  best_cooccurrence = 0u;
++  for (i = 0; i < num_colors; ++i) {
++    if (cooccurrence[*c1 * num_colors + i] > best_cooccurrence) {
++      best_cooccurrence = cooccurrence[*c1 * num_colors + i];
++      *c2 = i;
++    }
++  }
++  assert(*c1 != *c2);
++}
+ 
+-// If number of colors in the image is less than or equal to MAX_PALETTE_SIZE,
+-// creates a palette and returns true, else returns false.
+-static int AnalyzeAndCreatePalette(const WebPPicture* const pic,
+-                                   int low_effort,
+-                                   uint32_t palette[MAX_PALETTE_SIZE],
+-                                   int* const palette_size) {
+-  const int num_colors = WebPGetColorPalette(pic, palette);
+-  if (num_colors > MAX_PALETTE_SIZE) {
+-    *palette_size = 0;
+-    return 0;
++// Builds the cooccurrence matrix
++static WebPEncodingError CoOccurrenceBuild(const WebPPicture* const pic,
++                                           const uint32_t* const palette,
++                                           uint32_t num_colors,
++                                           uint32_t* cooccurrence) {
++  uint32_t *lines, *line_top, *line_current, *line_tmp;
++  int x, y;
++  const uint32_t* src = pic->argb;
++  uint32_t prev_pix = ~src[0];
++  uint32_t prev_idx = 0u;
++  uint32_t idx_map[MAX_PALETTE_SIZE] = {0};
++  uint32_t palette_sorted[MAX_PALETTE_SIZE];
++  lines = (uint32_t*)WebPSafeMalloc(2 * pic->width, sizeof(*lines));
++  if (lines == NULL) return VP8_ENC_ERROR_OUT_OF_MEMORY;
++  line_top = &lines[0];
++  line_current = &lines[pic->width];
++  PrepareMapToPalette(palette, num_colors, palette_sorted, idx_map);
++  for (y = 0; y < pic->height; ++y) {
++    for (x = 0; x < pic->width; ++x) {
++      const uint32_t pix = src[x];
++      if (pix != prev_pix) {
++        prev_idx = idx_map[SearchColorNoIdx(palette_sorted, pix, num_colors)];
++        prev_pix = pix;
++      }
++      line_current[x] = prev_idx;
++      // 4-connectivity is what works best as mentioned in "On the relation
++      // between Memon's and the modified Zeng's palette reordering methods".
++      if (x > 0 && prev_idx != line_current[x - 1]) {
++        const uint32_t left_idx = line_current[x - 1];
++        ++cooccurrence[prev_idx * num_colors + left_idx];
++        ++cooccurrence[left_idx * num_colors + prev_idx];
++      }
++      if (y > 0 && prev_idx != line_top[x]) {
++        const uint32_t top_idx = line_top[x];
++        ++cooccurrence[prev_idx * num_colors + top_idx];
++        ++cooccurrence[top_idx * num_colors + prev_idx];
++      }
++    }
++    line_tmp = line_top;
++    line_top = line_current;
++    line_current = line_tmp;
++    src += pic->argb_stride;
++  }
++  WebPSafeFree(lines);
++  return VP8_ENC_OK;
++}
++
++struct Sum {
++  uint8_t index;
++  uint32_t sum;
++};
++
++// Implements the modified Zeng method from "A Survey on Palette Reordering
++// Methods for Improving the Compression of Color-Indexed Images" by Armando J.
++// Pinho and Antonio J. R. Neves.
++static WebPEncodingError PaletteSortModifiedZeng(
++    const WebPPicture* const pic, const uint32_t* const palette_sorted,
++    uint32_t num_colors, uint32_t* const palette) {
++  uint32_t i, j, ind;
++  uint8_t remapping[MAX_PALETTE_SIZE];
++  uint32_t* cooccurrence;
++  struct Sum sums[MAX_PALETTE_SIZE];
++  uint32_t first, last;
++  uint32_t num_sums;
++  // TODO(vrabaud) check whether one color images should use palette or not.
++  if (num_colors <= 1) return VP8_ENC_OK;
++  // Build the co-occurrence matrix.
++  cooccurrence =
++      (uint32_t*)WebPSafeCalloc(num_colors * num_colors, sizeof(*cooccurrence));
++  if (cooccurrence == NULL) return VP8_ENC_ERROR_OUT_OF_MEMORY;
++  if (CoOccurrenceBuild(pic, palette_sorted, num_colors, cooccurrence) !=
++      VP8_ENC_OK) {
++    WebPSafeFree(cooccurrence);
++    return VP8_ENC_ERROR_OUT_OF_MEMORY;
++  }
++
++  // Initialize the mapping list with the two best indices.
++  CoOccurrenceFindMax(cooccurrence, num_colors, &remapping[0], &remapping[1]);
++
++  // We need to append and prepend to the list of remapping. To this end, we
++  // actually define the next start/end of the list as indices in a vector (with
++  // a wrap around when the end is reached).
++  first = 0;
++  last = 1;
++  num_sums = num_colors - 2;  // -2 because we know the first two values
++  if (num_sums > 0) {
++    // Initialize the sums with the first two remappings and find the best one
++    struct Sum* best_sum = &sums[0];
++    best_sum->index = 0u;
++    best_sum->sum = 0u;
++    for (i = 0, j = 0; i < num_colors; ++i) {
++      if (i == remapping[0] || i == remapping[1]) continue;
++      sums[j].index = i;
++      sums[j].sum = cooccurrence[i * num_colors + remapping[0]] +
++                    cooccurrence[i * num_colors + remapping[1]];
++      if (sums[j].sum > best_sum->sum) best_sum = &sums[j];
++      ++j;
++    }
++
++    while (num_sums > 0) {
++      const uint8_t best_index = best_sum->index;
++      // Compute delta to know if we need to prepend or append the best index.
++      int32_t delta = 0;
++      const int32_t n = num_colors - num_sums;
++      for (ind = first, j = 0; (ind + j) % num_colors != last + 1; ++j) {
++        const uint16_t l_j = remapping[(ind + j) % num_colors];
++        delta += (n - 1 - 2 * (int32_t)j) *
++                 (int32_t)cooccurrence[best_index * num_colors + l_j];
++      }
++      if (delta > 0) {
++        first = (first == 0) ? num_colors - 1 : first - 1;
++        remapping[first] = best_index;
++      } else {
++        ++last;
++        remapping[last] = best_index;
++      }
++      // Remove best_sum from sums.
++      *best_sum = sums[num_sums - 1];
++      --num_sums;
++      // Update all the sums and find the best one.
++      best_sum = &sums[0];
++      for (i = 0; i < num_sums; ++i) {
++        sums[i].sum += cooccurrence[best_index * num_colors + sums[i].index];
++        if (sums[i].sum > best_sum->sum) best_sum = &sums[i];
++      }
++    }
+   }
+-  *palette_size = num_colors;
+-  qsort(palette, num_colors, sizeof(*palette), PaletteCompareColorsForQsort);
+-  if (!low_effort && PaletteHasNonMonotonousDeltas(palette, num_colors)) {
+-    GreedyMinimizeDeltas(palette, num_colors);
++  assert((last + 1) % num_colors == first);
++  WebPSafeFree(cooccurrence);
++
++  // Re-map the palette.
++  for (i = 0; i < num_colors; ++i) {
++    palette[i] = palette_sorted[remapping[(first + i) % num_colors]];
+   }
+-  return 1;
++  return VP8_ENC_OK;
+ }
+ 
++// -----------------------------------------------------------------------------
++// Palette
++
+ // These five modes are evaluated and their respective entropy is computed.
+ typedef enum {
+   kDirect = 0,
+@@ -144,9 +329,17 @@ typedef enum {
    kSubGreen = 2,
    kSpatialSubGreen = 3,
    kPalette = 4,
@@ -32482,8 +34776,17 @@ index 2efd403..0b44ebe 100644
 +  kNumEntropyIx = 6
  } EntropyIx;
  
++typedef enum {
++  kSortedDefault = 0,
++  kMinimizeDelta = 1,
++  kModifiedZeng = 2,
++  kUnusedPalette = 3,
++} PaletteSorting;
++
  typedef enum {
-@@ -354,11 +355,15 @@ static int GetTransformBits(int method, int histo_bits) {
+   kHistoAlpha = 0,
+   kHistoAlphaPred,
+@@ -354,14 +547,21 @@ static int GetTransformBits(int method, int histo_bits) {
  }
  
  // Set of parameters to be used in each iteration of the cruncher.
@@ -32497,12 +34800,19 @@ index 2efd403..0b44ebe 100644
    int entropy_idx_;
 -  int lz77s_types_to_try_[CRUNCH_CONFIGS_LZ77_MAX];
 -  int lz77s_types_to_try_size_;
++  PaletteSorting palette_sorting_type_;
 +  CrunchSubConfig sub_configs_[CRUNCH_SUBCONFIGS_MAX];
 +  int sub_configs_size_;
  } CrunchConfig;
  
- #define CRUNCH_CONFIGS_MAX kNumEntropyIx
-@@ -376,6 +381,9 @@ static int EncoderAnalyze(VP8LEncoder* const enc,
+-#define CRUNCH_CONFIGS_MAX kNumEntropyIx
++// +2 because we add a palette sorting configuration for kPalette and
++// kPaletteAndSpatial.
++#define CRUNCH_CONFIGS_MAX (kNumEntropyIx + 2)
+ 
+ static int EncoderAnalyze(VP8LEncoder* const enc,
+                           CrunchConfig crunch_configs[CRUNCH_CONFIGS_MAX],
+@@ -376,11 +576,20 @@ static int EncoderAnalyze(VP8LEncoder* const enc,
    int i;
    int use_palette;
    int n_lz77s;
@@ -32511,8 +34821,31 @@ index 2efd403..0b44ebe 100644
 +  int do_no_cache = 0;
    assert(pic != NULL && pic->argb != NULL);
  
-   use_palette =
-@@ -402,10 +410,13 @@ static int EncoderAnalyze(VP8LEncoder* const enc,
+-  use_palette =
+-      AnalyzeAndCreatePalette(pic, low_effort,
+-                              enc->palette_, &enc->palette_size_);
++  // Check whether a palette is possible.
++  enc->palette_size_ = WebPGetColorPalette(pic, enc->palette_sorted_);
++  use_palette = (enc->palette_size_ <= MAX_PALETTE_SIZE);
++  if (!use_palette) {
++    enc->palette_size_ = 0;
++  } else {
++    qsort(enc->palette_sorted_, enc->palette_size_,
++          sizeof(*enc->palette_sorted_), PaletteCompareColorsForQsort);
++  }
+ 
+   // Empirical bit sizes.
+   enc->histo_bits_ = GetHistoBits(method, use_palette,
+@@ -390,6 +599,8 @@ static int EncoderAnalyze(VP8LEncoder* const enc,
+   if (low_effort) {
+     // AnalyzeEntropy is somewhat slow.
+     crunch_configs[0].entropy_idx_ = use_palette ? kPalette : kSpatialSubGreen;
++    crunch_configs[0].palette_sorting_type_ =
++        use_palette ? kSortedDefault : kUnusedPalette;
+     n_lz77s = 1;
+     *crunch_configs_size = 1;
+   } else {
+@@ -402,29 +613,59 @@ static int EncoderAnalyze(VP8LEncoder* const enc,
        return 0;
      }
      if (method == 6 && config->quality == 100) {
@@ -32525,12 +34858,29 @@ index 2efd403..0b44ebe 100644
 +        // a palette.
 +        if ((i != kPalette && i != kPaletteAndSpatial) || use_palette) {
            assert(*crunch_configs_size < CRUNCH_CONFIGS_MAX);
-           crunch_configs[(*crunch_configs_size)++].entropy_idx_ = i;
+-          crunch_configs[(*crunch_configs_size)++].entropy_idx_ = i;
++          crunch_configs[(*crunch_configs_size)].entropy_idx_ = i;
++          if (use_palette && (i == kPalette || i == kPaletteAndSpatial)) {
++            crunch_configs[(*crunch_configs_size)].palette_sorting_type_ =
++                kMinimizeDelta;
++            ++*crunch_configs_size;
++            // Also add modified Zeng's method.
++            crunch_configs[(*crunch_configs_size)].entropy_idx_ = i;
++            crunch_configs[(*crunch_configs_size)].palette_sorting_type_ =
++                kModifiedZeng;
++          } else {
++            crunch_configs[(*crunch_configs_size)].palette_sorting_type_ =
++                kUnusedPalette;
++          }
++          ++*crunch_configs_size;
          }
-@@ -414,17 +425,28 @@ static int EncoderAnalyze(VP8LEncoder* const enc,
+       }
+     } else {
        // Only choose the guessed best transform.
        *crunch_configs_size = 1;
        crunch_configs[0].entropy_idx_ = min_entropy_ix;
++      crunch_configs[0].palette_sorting_type_ =
++          use_palette ? kMinimizeDelta : kUnusedPalette;
 +      if (config->quality >= 75 && method == 5) {
 +        // Test with and without color cache.
 +        do_no_cache = 1;
@@ -32538,6 +34888,7 @@ index 2efd403..0b44ebe 100644
 +        if (min_entropy_ix == kPalette) {
 +          *crunch_configs_size = 2;
 +          crunch_configs[1].entropy_idx_ = kPaletteAndSpatial;
++          crunch_configs[1].palette_sorting_type_ = kMinimizeDelta;
 +        }
 +      }
      }
@@ -32559,7 +34910,7 @@ index 2efd403..0b44ebe 100644
    }
    return 1;
  }
-@@ -440,7 +462,7 @@ static int EncoderInit(VP8LEncoder* const enc) {
+@@ -440,7 +681,7 @@ static int EncoderInit(VP8LEncoder* const enc) {
    int i;
    if (!VP8LHashChainInit(&enc->hash_chain_, pix_cnt)) return 0;
  
@@ -32568,7 +34919,7 @@ index 2efd403..0b44ebe 100644
  
    return 1;
  }
-@@ -769,13 +791,10 @@ static WebPEncodingError StoreImageToBitMask(
+@@ -769,13 +1010,10 @@ static WebPEncodingError StoreImageToBitMask(
  }
  
  // Special case of EncodeImageInternal() for cache-bits=0, histo_bits=31
@@ -32586,7 +34937,7 @@ index 2efd403..0b44ebe 100644
    int i;
    int max_tokens = 0;
    WebPEncodingError err = VP8_ENC_OK;
-@@ -798,13 +817,11 @@ static WebPEncodingError EncodeImageNoHuffman(VP8LBitWriter* const bw,
+@@ -798,13 +1036,11 @@ static WebPEncodingError EncodeImageNoHuffman(VP8LBitWriter* const bw,
      err = VP8_ENC_ERROR_OUT_OF_MEMORY;
      goto Error;
    }
@@ -32605,7 +34956,7 @@ index 2efd403..0b44ebe 100644
    histogram_image = VP8LAllocateHistogramSet(1, cache_bits);
    if (histogram_image == NULL) {
      err = VP8_ENC_ERROR_OUT_OF_MEMORY;
-@@ -860,11 +877,11 @@ static WebPEncodingError EncodeImageNoHuffman(VP8LBitWriter* const bw,
+@@ -860,11 +1096,11 @@ static WebPEncodingError EncodeImageNoHuffman(VP8LBitWriter* const bw,
  
  static WebPEncodingError EncodeImageInternal(
      VP8LBitWriter* const bw, const uint32_t* const argb,
@@ -32619,7 +34970,7 @@ index 2efd403..0b44ebe 100644
    const uint32_t histogram_image_xysize =
        VP8LSubSampleSize(width, histogram_bits) *
        VP8LSubSampleSize(height, histogram_bits);
-@@ -876,103 +893,103 @@ static WebPEncodingError EncodeImageInternal(
+@@ -876,103 +1112,103 @@ static WebPEncodingError EncodeImageInternal(
        3ULL * CODE_LENGTH_CODES, sizeof(*huff_tree));
    HuffmanTreeToken* tokens = NULL;
    HuffmanTreeCode* huffman_codes = NULL;
@@ -32798,7 +35149,7 @@ index 2efd403..0b44ebe 100644
        VP8LPutBits(bw, write_histogram_image, 1);
        if (write_histogram_image) {
          uint32_t* const histogram_argb =
-@@ -980,10 +997,7 @@ static WebPEncodingError EncodeImageInternal(
+@@ -980,10 +1216,7 @@ static WebPEncodingError EncodeImageInternal(
                                        sizeof(*histogram_argb));
          int max_index = 0;
          uint32_t i;
@@ -32810,7 +35161,7 @@ index 2efd403..0b44ebe 100644
          for (i = 0; i < histogram_image_xysize; ++i) {
            const int symbol_index = histogram_symbols[i] & 0xffff;
            histogram_argb[i] = (symbol_index << 8);
-@@ -995,65 +1009,64 @@ static WebPEncodingError EncodeImageInternal(
+@@ -995,65 +1228,64 @@ static WebPEncodingError EncodeImageInternal(
  
          VP8LPutBits(bw, histogram_bits - 2, 3);
          err = EncodeImageNoHuffman(
@@ -32915,7 +35266,7 @@ index 2efd403..0b44ebe 100644
    if (huffman_codes != NULL) {
      WebPSafeFree(huffman_codes->codes);
      WebPSafeFree(huffman_codes);
-@@ -1095,8 +1108,7 @@ static WebPEncodingError ApplyPredictFilter(const VP8LEncoder* const enc,
+@@ -1095,8 +1327,7 @@ static WebPEncodingError ApplyPredictFilter(const VP8LEncoder* const enc,
    VP8LPutBits(bw, pred_bits - 2, 3);
    return EncodeImageNoHuffman(
        bw, enc->transform_data_, (VP8LHashChain*)&enc->hash_chain_,
@@ -32925,7 +35276,7 @@ index 2efd403..0b44ebe 100644
        quality, low_effort);
  }
  
-@@ -1116,8 +1128,7 @@ static WebPEncodingError ApplyCrossColorFilter(const VP8LEncoder* const enc,
+@@ -1116,8 +1347,7 @@ static WebPEncodingError ApplyCrossColorFilter(const VP8LEncoder* const enc,
    VP8LPutBits(bw, ccolor_transform_bits - 2, 3);
    return EncodeImageNoHuffman(
        bw, enc->transform_data_, (VP8LHashChain*)&enc->hash_chain_,
@@ -32935,7 +35286,48 @@ index 2efd403..0b44ebe 100644
        quality, low_effort);
  }
  
-@@ -1464,8 +1475,8 @@ static WebPEncodingError EncodePalette(VP8LBitWriter* const bw, int low_effort,
+@@ -1272,22 +1502,6 @@ static WebPEncodingError MakeInputImageCopy(VP8LEncoder* const enc) {
+ 
+ // -----------------------------------------------------------------------------
+ 
+-static WEBP_INLINE int SearchColorNoIdx(const uint32_t sorted[], uint32_t color,
+-                                        int hi) {
+-  int low = 0;
+-  if (sorted[low] == color) return low;  // loop invariant: sorted[low] != color
+-  while (1) {
+-    const int mid = (low + hi) >> 1;
+-    if (sorted[mid] == color) {
+-      return mid;
+-    } else if (sorted[mid] < color) {
+-      low = mid;
+-    } else {
+-      hi = mid;
+-    }
+-  }
+-}
+-
+ #define APPLY_PALETTE_GREEDY_MAX 4
+ 
+ static WEBP_INLINE uint32_t SearchColorGreedy(const uint32_t palette[],
+@@ -1322,17 +1536,6 @@ static WEBP_INLINE uint32_t ApplyPaletteHash2(uint32_t color) {
+          (32 - PALETTE_INV_SIZE_BITS);
+ }
+ 
+-// Sort palette in increasing order and prepare an inverse mapping array.
+-static void PrepareMapToPalette(const uint32_t palette[], int num_colors,
+-                                uint32_t sorted[], uint32_t idx_map[]) {
+-  int i;
+-  memcpy(sorted, palette, num_colors * sizeof(*sorted));
+-  qsort(sorted, num_colors, sizeof(*sorted), PaletteCompareColorsForQsort);
+-  for (i = 0; i < num_colors; ++i) {
+-    idx_map[SearchColorNoIdx(sorted, palette[i], num_colors)] = i;
+-  }
+-}
+-
+ // Use 1 pixel cache for ARGB pixels.
+ #define APPLY_PALETTE_FOR(COLOR_INDEX) do {         \
+   uint32_t prev_pix = palette[0];                   \
+@@ -1464,8 +1667,8 @@ static WebPEncodingError EncodePalette(VP8LBitWriter* const bw, int low_effort,
    }
    tmp_palette[0] = palette[0];
    return EncodeImageNoHuffman(bw, tmp_palette, &enc->hash_chain_,
@@ -32946,7 +35338,7 @@ index 2efd403..0b44ebe 100644
  }
  
  // -----------------------------------------------------------------------------
-@@ -1491,7 +1502,7 @@ static void VP8LEncoderDelete(VP8LEncoder* enc) {
+@@ -1491,7 +1694,7 @@ static void VP8LEncoderDelete(VP8LEncoder* enc) {
    if (enc != NULL) {
      int i;
      VP8LHashChainClear(&enc->hash_chain_);
@@ -32955,7 +35347,7 @@ index 2efd403..0b44ebe 100644
      ClearTransformBuffer(enc);
      WebPSafeFree(enc);
    }
-@@ -1541,7 +1552,7 @@ static int EncodeStreamHook(void* input, void* data2) {
+@@ -1541,7 +1744,7 @@ static int EncodeStreamHook(void* input, void* data2) {
    int data_size = 0;
    int use_delta_palette = 0;
    int idx;
@@ -32964,7 +35356,7 @@ index 2efd403..0b44ebe 100644
    VP8LBitWriter bw_init = *bw, bw_best;
    (void)data2;
  
-@@ -1553,11 +1564,13 @@ static int EncodeStreamHook(void* input, void* data2) {
+@@ -1553,12 +1756,15 @@ static int EncodeStreamHook(void* input, void* data2) {
  
    for (idx = 0; idx < num_crunch_configs; ++idx) {
      const int entropy_idx = crunch_configs[idx].entropy_idx_;
@@ -32975,13 +35367,36 @@ index 2efd403..0b44ebe 100644
          (entropy_idx == kSubGreen) || (entropy_idx == kSpatialSubGreen);
 -    enc->use_predict_ =
 -        (entropy_idx == kSpatial) || (entropy_idx == kSpatialSubGreen);
+-    if (low_effort) {
 +    enc->use_predict_ = (entropy_idx == kSpatial) ||
 +                        (entropy_idx == kSpatialSubGreen) ||
 +                        (entropy_idx == kPaletteAndSpatial);
-     if (low_effort) {
++    // When using a palette, R/B==0, hence no need to test for cross-color.
++    if (low_effort || enc->use_palette_) {
        enc->use_cross_color_ = 0;
      } else {
-@@ -1640,7 +1653,7 @@ static int EncodeStreamHook(void* input, void* data2) {
+       enc->use_cross_color_ = red_and_blue_always_zero ? 0 : enc->use_predict_;
+@@ -1590,6 +1796,19 @@ static int EncodeStreamHook(void* input, void* data2) {
+ 
+     // Encode palette
+     if (enc->use_palette_) {
++      if (crunch_configs[idx].palette_sorting_type_ == kSortedDefault) {
++        // Nothing to do, we have already sorted the palette.
++        memcpy(enc->palette_, enc->palette_sorted_,
++               enc->palette_size_ * sizeof(*enc->palette_));
++      } else if (crunch_configs[idx].palette_sorting_type_ == kMinimizeDelta) {
++        PaletteSortMinimizeDeltas(enc->palette_sorted_, enc->palette_size_,
++                                  enc->palette_);
++      } else {
++        assert(crunch_configs[idx].palette_sorting_type_ == kModifiedZeng);
++        err = PaletteSortModifiedZeng(enc->pic_, enc->palette_sorted_,
++                                      enc->palette_size_, enc->palette_);
++        if (err != VP8_ENC_OK) goto Error;
++      }
+       err = EncodePalette(bw, low_effort, enc);
+       if (err != VP8_ENC_OK) goto Error;
+       err = MapImageFromPalette(enc, use_delta_palette);
+@@ -1640,7 +1859,7 @@ static int EncodeStreamHook(void* input, void* data2) {
      if (err != VP8_ENC_OK) goto Error;
  
      // If we are better than what we already have.
@@ -32990,7 +35405,16 @@ index 2efd403..0b44ebe 100644
        best_size = VP8LBitWriterNumBytes(bw);
        // Store the BitWriter.
        VP8LBitWriterSwap(bw, &bw_best);
-@@ -1816,7 +1829,7 @@ Error:
+@@ -1754,6 +1973,8 @@ WebPEncodingError VP8LEncodeStream(const WebPConfig* const config,
+         enc_side->palette_size_ = enc_main->palette_size_;
+         memcpy(enc_side->palette_, enc_main->palette_,
+                sizeof(enc_main->palette_));
++        memcpy(enc_side->palette_sorted_, enc_main->palette_sorted_,
++               sizeof(enc_main->palette_sorted_));
+         param->enc_ = enc_side;
+       }
+       // Create the workers.
+@@ -1816,7 +2037,7 @@ Error:
  }
  
  #undef CRUNCH_CONFIGS_MAX
@@ -33000,11 +35424,15 @@ index 2efd403..0b44ebe 100644
  int VP8LEncodeImage(const WebPConfig* const config,
                      const WebPPicture* const picture) {
 diff --git a/src/3rdparty/libwebp/src/enc/vp8li_enc.h b/src/3rdparty/libwebp/src/enc/vp8li_enc.h
-index d2d0fc5..94210ce 100644
+index d2d0fc5..00de489 100644
 --- a/src/3rdparty/libwebp/src/enc/vp8li_enc.h
 +++ b/src/3rdparty/libwebp/src/enc/vp8li_enc.h
-@@ -71,7 +71,7 @@ typedef struct {
+@@ -69,9 +69,11 @@ typedef struct {
+   int use_palette_;
+   int palette_size_;
    uint32_t palette_[MAX_PALETTE_SIZE];
++  // Sorted version of palette_ for cache purposes.
++  uint32_t palette_sorted_[MAX_PALETTE_SIZE];
  
    // Some 'scratch' (potentially large) objects.
 -  struct VP8LBackwardRefs refs_[3];  // Backward Refs array for temporaries.
@@ -33025,23 +35453,109 @@ index 9f4b10c..ce2db2e 100644
      }
  
      ok = VP8LEncodeImage(config, pic);  // Sets pic->error in case of problem.
+diff --git a/src/3rdparty/libwebp/src/mux/anim_encode.c b/src/3rdparty/libwebp/src/mux/anim_encode.c
+index 7be9906..7078d9a 100644
+--- a/src/3rdparty/libwebp/src/mux/anim_encode.c
++++ b/src/3rdparty/libwebp/src/mux/anim_encode.c
+@@ -248,9 +248,6 @@ WebPAnimEncoder* WebPAnimEncoderNewInternal(
+ 
+   enc = (WebPAnimEncoder*)WebPSafeCalloc(1, sizeof(*enc));
+   if (enc == NULL) return NULL;
+-  // sanity inits, so we can call WebPAnimEncoderDelete():
+-  enc->encoded_frames_ = NULL;
+-  enc->mux_ = NULL;
+   MarkNoError(enc);
+ 
+   // Dimensions and options.
+@@ -421,7 +418,7 @@ static void MinimizeChangeRectangle(const WebPPicture* const src,
+   const int max_allowed_diff_lossy = QualityToMaxDiff(quality);
+   const int max_allowed_diff = is_lossless ? 0 : max_allowed_diff_lossy;
+ 
+-  // Sanity checks.
++  // Assumption/correctness checks.
+   assert(src->width == dst->width && src->height == dst->height);
+   assert(rect->x_offset_ + rect->width_ <= dst->width);
+   assert(rect->y_offset_ + rect->height_ <= dst->height);
+@@ -949,7 +946,8 @@ static int IncreasePreviousDuration(WebPAnimEncoder* const enc, int duration) {
+   int new_duration;
+ 
+   assert(enc->count_ >= 1);
+-  assert(prev_enc_frame->sub_frame_.duration ==
++  assert(!prev_enc_frame->is_key_frame_ ||
++         prev_enc_frame->sub_frame_.duration ==
+          prev_enc_frame->key_frame_.duration);
+   assert(prev_enc_frame->sub_frame_.duration ==
+          (prev_enc_frame->sub_frame_.duration & (MAX_DURATION - 1)));
+@@ -966,7 +964,7 @@ static int IncreasePreviousDuration(WebPAnimEncoder* const enc, int duration) {
+       0x10, 0x88, 0x88, 0x08
+     };
+     const WebPData lossless_1x1 = {
+-        lossless_1x1_bytes, sizeof(lossless_1x1_bytes)
++      lossless_1x1_bytes, sizeof(lossless_1x1_bytes)
+     };
+     const uint8_t lossy_1x1_bytes[] = {
+       0x52, 0x49, 0x46, 0x46, 0x40, 0x00, 0x00, 0x00, 0x57, 0x45, 0x42, 0x50,
+@@ -1358,6 +1356,12 @@ int WebPAnimEncoderAdd(WebPAnimEncoder* enc, WebPPicture* frame, int timestamp,
+     if (!IncreasePreviousDuration(enc, (int)prev_frame_duration)) {
+       return 0;
+     }
++    // IncreasePreviousDuration() may add a frame to avoid exceeding
++    // MAX_DURATION which could cause CacheFrame() to over read encoded_frames_
++    // before the next flush.
++    if (enc->count_ == enc->size_ && !FlushFrames(enc)) {
++      return 0;
++    }
+   } else {
+     enc->first_timestamp_ = timestamp;
+   }
+diff --git a/src/3rdparty/libwebp/src/mux/muxedit.c b/src/3rdparty/libwebp/src/mux/muxedit.c
+index ccf14b2..02c3ede 100644
+--- a/src/3rdparty/libwebp/src/mux/muxedit.c
++++ b/src/3rdparty/libwebp/src/mux/muxedit.c
+@@ -235,7 +235,6 @@ WebPMuxError WebPMuxSetImage(WebPMux* mux, const WebPData* bitstream,
+   WebPMuxImage wpi;
+   WebPMuxError err;
+ 
+-  // Sanity checks.
+   if (mux == NULL || bitstream == NULL || bitstream->bytes == NULL ||
+       bitstream->size > MAX_CHUNK_PAYLOAD) {
+     return WEBP_MUX_INVALID_ARGUMENT;
+@@ -267,7 +266,6 @@ WebPMuxError WebPMuxPushFrame(WebPMux* mux, const WebPMuxFrameInfo* info,
+   WebPMuxImage wpi;
+   WebPMuxError err;
+ 
+-  // Sanity checks.
+   if (mux == NULL || info == NULL) return WEBP_MUX_INVALID_ARGUMENT;
+ 
+   if (info->id != WEBP_CHUNK_ANMF) return WEBP_MUX_INVALID_ARGUMENT;
 diff --git a/src/3rdparty/libwebp/src/mux/muxi.h b/src/3rdparty/libwebp/src/mux/muxi.h
-index ad3e1bd..2289822 100644
+index ad3e1bd..330da66 100644
 --- a/src/3rdparty/libwebp/src/mux/muxi.h
 +++ b/src/3rdparty/libwebp/src/mux/muxi.h
-@@ -28,7 +28,7 @@ extern "C" {
+@@ -28,8 +28,8 @@ extern "C" {
  // Defines and constants.
  
  #define MUX_MAJ_VERSION 1
 -#define MUX_MIN_VERSION 1
+-#define MUX_REV_VERSION 0
 +#define MUX_MIN_VERSION 2
- #define MUX_REV_VERSION 0
++#define MUX_REV_VERSION 1
  
  // Chunk object.
+ typedef struct WebPChunk WebPChunk;
 diff --git a/src/3rdparty/libwebp/src/mux/muxread.c b/src/3rdparty/libwebp/src/mux/muxread.c
-index ae3b876..0101fde 100644
+index ae3b876..8005039 100644
 --- a/src/3rdparty/libwebp/src/mux/muxread.c
 +++ b/src/3rdparty/libwebp/src/mux/muxread.c
+@@ -56,7 +56,7 @@ static WebPMuxError ChunkVerifyAndAssign(WebPChunk* chunk,
+   uint32_t chunk_size;
+   WebPData chunk_data;
+ 
+-  // Sanity checks.
++  // Correctness checks.
+   if (data_size < CHUNK_HEADER_SIZE) return WEBP_MUX_NOT_ENOUGH_DATA;
+   chunk_size = GetLE32(data + TAG_SIZE);
+   if (chunk_size > MAX_CHUNK_PAYLOAD) return WEBP_MUX_BAD_DATA;
 @@ -155,7 +155,6 @@ static int MuxImageParse(const WebPChunk* const chunk, int copy_data,
          break;
        default:
@@ -33050,7 +35564,15 @@ index ae3b876..0101fde 100644
      }
      subchunk_size = ChunkDiskSize(&subchunk);
      bytes += subchunk_size;
-@@ -264,7 +263,6 @@ WebPMux* WebPMuxCreateInternal(const WebPData* bitstream, int copy_data,
+@@ -187,7 +186,6 @@ WebPMux* WebPMuxCreateInternal(const WebPData* bitstream, int copy_data,
+   WebPChunk** chunk_list_ends[WEBP_CHUNK_NIL + 1] = { NULL };
+   ChunkInit(&chunk);
+ 
+-  // Sanity checks.
+   if (WEBP_ABI_IS_INCOMPATIBLE(version, WEBP_MUX_ABI_VERSION)) {
+     return NULL;  // version mismatch
+   }
+@@ -264,7 +262,6 @@ WebPMux* WebPMuxCreateInternal(const WebPData* bitstream, int copy_data,
          if (!MuxImageParse(&chunk, copy_data, wpi)) goto Err;
          ChunkRelease(&chunk);
          goto PushImage;
@@ -33058,11 +35580,382 @@ index ae3b876..0101fde 100644
        default:  // A non-image chunk.
          if (wpi->is_partial_) goto Err;  // Encountered a non-image chunk before
                                           // getting all chunks of an image.
+@@ -483,7 +480,6 @@ WebPMuxError WebPMuxGetFrame(
+   WebPMuxError err;
+   WebPMuxImage* wpi;
+ 
+-  // Sanity checks.
+   if (mux == NULL || frame == NULL) {
+     return WEBP_MUX_INVALID_ARGUMENT;
+   }
+diff --git a/src/3rdparty/libwebp/src/utils/bit_reader_inl_utils.h b/src/3rdparty/libwebp/src/utils/bit_reader_inl_utils.h
+index 46b3880..404b9a6 100644
+--- a/src/3rdparty/libwebp/src/utils/bit_reader_inl_utils.h
++++ b/src/3rdparty/libwebp/src/utils/bit_reader_inl_utils.h
+@@ -55,7 +55,7 @@ void VP8LoadFinalBytes(VP8BitReader* const br);
+ 
+ // makes sure br->value_ has at least BITS bits worth of data
+ static WEBP_UBSAN_IGNORE_UNDEF WEBP_INLINE
+-void VP8LoadNewBytes(VP8BitReader* const br) {
++void VP8LoadNewBytes(VP8BitReader* WEBP_RESTRICT const br) {
+   assert(br != NULL && br->buf_ != NULL);
+   // Read 'BITS' bits at a time if possible.
+   if (br->buf_ < br->buf_max_) {
+@@ -104,7 +104,7 @@ void VP8LoadNewBytes(VP8BitReader* const br) {
+ }
+ 
+ // Read a bit with proba 'prob'. Speed-critical function!
+-static WEBP_INLINE int VP8GetBit(VP8BitReader* const br,
++static WEBP_INLINE int VP8GetBit(VP8BitReader* WEBP_RESTRICT const br,
+                                  int prob, const char label[]) {
+   // Don't move this declaration! It makes a big speed difference to store
+   // 'range' *before* calling VP8LoadNewBytes(), even if this function doesn't
+@@ -137,7 +137,8 @@ static WEBP_INLINE int VP8GetBit(VP8BitReader* const br,
+ 
+ // simplified version of VP8GetBit() for prob=0x80 (note shift is always 1 here)
+ static WEBP_UBSAN_IGNORE_UNSIGNED_OVERFLOW WEBP_INLINE
+-int VP8GetSigned(VP8BitReader* const br, int v, const char label[]) {
++int VP8GetSigned(VP8BitReader* WEBP_RESTRICT const br, int v,
++                 const char label[]) {
+   if (br->bits_ < 0) {
+     VP8LoadNewBytes(br);
+   }
+@@ -155,7 +156,7 @@ int VP8GetSigned(VP8BitReader* const br, int v, const char label[]) {
+   }
+ }
+ 
+-static WEBP_INLINE int VP8GetBitAlt(VP8BitReader* const br,
++static WEBP_INLINE int VP8GetBitAlt(VP8BitReader* WEBP_RESTRICT const br,
+                                     int prob, const char label[]) {
+   // Don't move this declaration! It makes a big speed difference to store
+   // 'range' *before* calling VP8LoadNewBytes(), even if this function doesn't
+diff --git a/src/3rdparty/libwebp/src/utils/bit_writer_utils.c b/src/3rdparty/libwebp/src/utils/bit_writer_utils.c
+index bef0e31..2f40850 100644
+--- a/src/3rdparty/libwebp/src/utils/bit_writer_utils.c
++++ b/src/3rdparty/libwebp/src/utils/bit_writer_utils.c
+@@ -278,7 +278,7 @@ void VP8LPutBitsFlushBits(VP8LBitWriter* const bw) {
+   // If needed, make some room by flushing some bits out.
+   if (bw->cur_ + VP8L_WRITER_BYTES > bw->end_) {
+     const uint64_t extra_size = (bw->end_ - bw->buf_) + MIN_EXTRA_SIZE;
+-    if (extra_size != (size_t)extra_size ||
++    if (!CheckSizeOverflow(extra_size) ||
+         !VP8LBitWriterResize(bw, (size_t)extra_size)) {
+       bw->cur_ = bw->buf_;
+       bw->error_ = 1;
+@@ -314,7 +314,7 @@ void VP8LPutBitsInternal(VP8LBitWriter* const bw, uint32_t bits, int n_bits) {
+     while (used >= VP8L_WRITER_BITS) {
+       if (bw->cur_ + VP8L_WRITER_BYTES > bw->end_) {
+         const uint64_t extra_size = (bw->end_ - bw->buf_) + MIN_EXTRA_SIZE;
+-        if (extra_size != (size_t)extra_size ||
++        if (!CheckSizeOverflow(extra_size) ||
+             !VP8LBitWriterResize(bw, (size_t)extra_size)) {
+           bw->cur_ = bw->buf_;
+           bw->error_ = 1;
+diff --git a/src/3rdparty/libwebp/src/utils/color_cache_utils.c b/src/3rdparty/libwebp/src/utils/color_cache_utils.c
+index b09f538..7b5222b 100644
+--- a/src/3rdparty/libwebp/src/utils/color_cache_utils.c
++++ b/src/3rdparty/libwebp/src/utils/color_cache_utils.c
+@@ -20,22 +20,22 @@
+ //------------------------------------------------------------------------------
+ // VP8LColorCache.
+ 
+-int VP8LColorCacheInit(VP8LColorCache* const cc, int hash_bits) {
++int VP8LColorCacheInit(VP8LColorCache* const color_cache, int hash_bits) {
+   const int hash_size = 1 << hash_bits;
+-  assert(cc != NULL);
++  assert(color_cache != NULL);
+   assert(hash_bits > 0);
+-  cc->colors_ = (uint32_t*)WebPSafeCalloc((uint64_t)hash_size,
+-                                          sizeof(*cc->colors_));
+-  if (cc->colors_ == NULL) return 0;
+-  cc->hash_shift_ = 32 - hash_bits;
+-  cc->hash_bits_ = hash_bits;
++  color_cache->colors_ = (uint32_t*)WebPSafeCalloc(
++      (uint64_t)hash_size, sizeof(*color_cache->colors_));
++  if (color_cache->colors_ == NULL) return 0;
++  color_cache->hash_shift_ = 32 - hash_bits;
++  color_cache->hash_bits_ = hash_bits;
+   return 1;
+ }
+ 
+-void VP8LColorCacheClear(VP8LColorCache* const cc) {
+-  if (cc != NULL) {
+-    WebPSafeFree(cc->colors_);
+-    cc->colors_ = NULL;
++void VP8LColorCacheClear(VP8LColorCache* const color_cache) {
++  if (color_cache != NULL) {
++    WebPSafeFree(color_cache->colors_);
++    color_cache->colors_ = NULL;
+   }
+ }
+ 
+diff --git a/src/3rdparty/libwebp/src/utils/huffman_encode_utils.c b/src/3rdparty/libwebp/src/utils/huffman_encode_utils.c
+index 6f3b1bb..fd7a47d 100644
+--- a/src/3rdparty/libwebp/src/utils/huffman_encode_utils.c
++++ b/src/3rdparty/libwebp/src/utils/huffman_encode_utils.c
+@@ -404,8 +404,7 @@ static void ConvertBitDepthsToSymbols(HuffmanTreeCode* const tree) {
+ // Main entry point
+ 
+ void VP8LCreateHuffmanTree(uint32_t* const histogram, int tree_depth_limit,
+-                           uint8_t* const buf_rle,
+-                           HuffmanTree* const huff_tree,
++                           uint8_t* const buf_rle, HuffmanTree* const huff_tree,
+                            HuffmanTreeCode* const huff_code) {
+   const int num_symbols = huff_code->num_symbols;
+   memset(buf_rle, 0, num_symbols * sizeof(*buf_rle));
+diff --git a/src/3rdparty/libwebp/src/utils/huffman_encode_utils.h b/src/3rdparty/libwebp/src/utils/huffman_encode_utils.h
+index 3e6763c..3f7f1d8 100644
+--- a/src/3rdparty/libwebp/src/utils/huffman_encode_utils.h
++++ b/src/3rdparty/libwebp/src/utils/huffman_encode_utils.h
+@@ -51,7 +51,7 @@ int VP8LCreateCompressedHuffmanTree(const HuffmanTreeCode* const tree,
+ // huffman code tree.
+ void VP8LCreateHuffmanTree(uint32_t* const histogram, int tree_depth_limit,
+                            uint8_t* const buf_rle, HuffmanTree* const huff_tree,
+-                           HuffmanTreeCode* const tree);
++                           HuffmanTreeCode* const huff_code);
+ 
+ #ifdef __cplusplus
+ }
+diff --git a/src/3rdparty/libwebp/src/utils/rescaler_utils.c b/src/3rdparty/libwebp/src/utils/rescaler_utils.c
+index 4bcae24..a0581a1 100644
+--- a/src/3rdparty/libwebp/src/utils/rescaler_utils.c
++++ b/src/3rdparty/libwebp/src/utils/rescaler_utils.c
+@@ -12,66 +12,74 @@
+ // Author: Skal (pascal.massimino@gmail.com)
+ 
+ #include <assert.h>
++#include <limits.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include "src/dsp/dsp.h"
+ #include "src/utils/rescaler_utils.h"
++#include "src/utils/utils.h"
+ 
+ //------------------------------------------------------------------------------
+ 
+-void WebPRescalerInit(WebPRescaler* const wrk, int src_width, int src_height,
+-                      uint8_t* const dst,
+-                      int dst_width, int dst_height, int dst_stride,
+-                      int num_channels, rescaler_t* const work) {
++int WebPRescalerInit(WebPRescaler* const rescaler,
++                     int src_width, int src_height,
++                     uint8_t* const dst,
++                     int dst_width, int dst_height, int dst_stride,
++                     int num_channels, rescaler_t* const work) {
+   const int x_add = src_width, x_sub = dst_width;
+   const int y_add = src_height, y_sub = dst_height;
+-  wrk->x_expand = (src_width < dst_width);
+-  wrk->y_expand = (src_height < dst_height);
+-  wrk->src_width = src_width;
+-  wrk->src_height = src_height;
+-  wrk->dst_width = dst_width;
+-  wrk->dst_height = dst_height;
+-  wrk->src_y = 0;
+-  wrk->dst_y = 0;
+-  wrk->dst = dst;
+-  wrk->dst_stride = dst_stride;
+-  wrk->num_channels = num_channels;
++  const uint64_t total_size = 2ull * dst_width * num_channels * sizeof(*work);
++  if (!CheckSizeOverflow(total_size)) return 0;
++
++  rescaler->x_expand = (src_width < dst_width);
++  rescaler->y_expand = (src_height < dst_height);
++  rescaler->src_width = src_width;
++  rescaler->src_height = src_height;
++  rescaler->dst_width = dst_width;
++  rescaler->dst_height = dst_height;
++  rescaler->src_y = 0;
++  rescaler->dst_y = 0;
++  rescaler->dst = dst;
++  rescaler->dst_stride = dst_stride;
++  rescaler->num_channels = num_channels;
+ 
+   // for 'x_expand', we use bilinear interpolation
+-  wrk->x_add = wrk->x_expand ? (x_sub - 1) : x_add;
+-  wrk->x_sub = wrk->x_expand ? (x_add - 1) : x_sub;
+-  if (!wrk->x_expand) {  // fx_scale is not used otherwise
+-    wrk->fx_scale = WEBP_RESCALER_FRAC(1, wrk->x_sub);
++  rescaler->x_add = rescaler->x_expand ? (x_sub - 1) : x_add;
++  rescaler->x_sub = rescaler->x_expand ? (x_add - 1) : x_sub;
++  if (!rescaler->x_expand) {  // fx_scale is not used otherwise
++    rescaler->fx_scale = WEBP_RESCALER_FRAC(1, rescaler->x_sub);
+   }
+   // vertical scaling parameters
+-  wrk->y_add = wrk->y_expand ? y_add - 1 : y_add;
+-  wrk->y_sub = wrk->y_expand ? y_sub - 1 : y_sub;
+-  wrk->y_accum = wrk->y_expand ? wrk->y_sub : wrk->y_add;
+-  if (!wrk->y_expand) {
++  rescaler->y_add = rescaler->y_expand ? y_add - 1 : y_add;
++  rescaler->y_sub = rescaler->y_expand ? y_sub - 1 : y_sub;
++  rescaler->y_accum = rescaler->y_expand ? rescaler->y_sub : rescaler->y_add;
++  if (!rescaler->y_expand) {
+     // This is WEBP_RESCALER_FRAC(dst_height, x_add * y_add) without the cast.
+-    // Its value is <= WEBP_RESCALER_ONE, because dst_height <= wrk->y_add, and
+-    // wrk->x_add >= 1;
+-    const uint64_t ratio =
+-        (uint64_t)dst_height * WEBP_RESCALER_ONE / (wrk->x_add * wrk->y_add);
++    // Its value is <= WEBP_RESCALER_ONE, because dst_height <= rescaler->y_add
++    // and rescaler->x_add >= 1;
++    const uint64_t num = (uint64_t)dst_height * WEBP_RESCALER_ONE;
++    const uint64_t den = (uint64_t)rescaler->x_add * rescaler->y_add;
++    const uint64_t ratio = num / den;
+     if (ratio != (uint32_t)ratio) {
+       // When ratio == WEBP_RESCALER_ONE, we can't represent the ratio with the
+       // current fixed-point precision. This happens when src_height ==
+-      // wrk->y_add (which == src_height), and wrk->x_add == 1.
++      // rescaler->y_add (which == src_height), and rescaler->x_add == 1.
+       // => We special-case fxy_scale = 0, in WebPRescalerExportRow().
+-      wrk->fxy_scale = 0;
++      rescaler->fxy_scale = 0;
+     } else {
+-      wrk->fxy_scale = (uint32_t)ratio;
++      rescaler->fxy_scale = (uint32_t)ratio;
+     }
+-    wrk->fy_scale = WEBP_RESCALER_FRAC(1, wrk->y_sub);
++    rescaler->fy_scale = WEBP_RESCALER_FRAC(1, rescaler->y_sub);
+   } else {
+-    wrk->fy_scale = WEBP_RESCALER_FRAC(1, wrk->x_add);
+-    // wrk->fxy_scale is unused here.
++    rescaler->fy_scale = WEBP_RESCALER_FRAC(1, rescaler->x_add);
++    // rescaler->fxy_scale is unused here.
+   }
+-  wrk->irow = work;
+-  wrk->frow = work + num_channels * dst_width;
+-  memset(work, 0, 2 * dst_width * num_channels * sizeof(*work));
++  rescaler->irow = work;
++  rescaler->frow = work + num_channels * dst_width;
++  memset(work, 0, (size_t)total_size);
+ 
+   WebPRescalerDspInit();
++  return 1;
+ }
+ 
+ int WebPRescalerGetScaledDimensions(int src_width, int src_height,
+@@ -82,6 +90,7 @@ int WebPRescalerGetScaledDimensions(int src_width, int src_height,
+   {
+     int width = *scaled_width;
+     int height = *scaled_height;
++    const int max_size = INT_MAX / 2;
+ 
+     // if width is unspecified, scale original proportionally to height ratio.
+     if (width == 0 && src_height > 0) {
+@@ -94,7 +103,7 @@ int WebPRescalerGetScaledDimensions(int src_width, int src_height,
+           (int)(((uint64_t)src_height * width + src_width - 1) / src_width);
+     }
+     // Check if the overall dimensions still make sense.
+-    if (width <= 0 || height <= 0) {
++    if (width <= 0 || height <= 0 || width > max_size || height > max_size) {
+       return 0;
+     }
+ 
+@@ -107,31 +116,34 @@ int WebPRescalerGetScaledDimensions(int src_width, int src_height,
+ //------------------------------------------------------------------------------
+ // all-in-one calls
+ 
+-int WebPRescaleNeededLines(const WebPRescaler* const wrk, int max_num_lines) {
+-  const int num_lines = (wrk->y_accum + wrk->y_sub - 1) / wrk->y_sub;
++int WebPRescaleNeededLines(const WebPRescaler* const rescaler,
++                           int max_num_lines) {
++  const int num_lines =
++      (rescaler->y_accum + rescaler->y_sub - 1) / rescaler->y_sub;
+   return (num_lines > max_num_lines) ? max_num_lines : num_lines;
+ }
+ 
+-int WebPRescalerImport(WebPRescaler* const wrk, int num_lines,
++int WebPRescalerImport(WebPRescaler* const rescaler, int num_lines,
+                        const uint8_t* src, int src_stride) {
+   int total_imported = 0;
+-  while (total_imported < num_lines && !WebPRescalerHasPendingOutput(wrk)) {
+-    if (wrk->y_expand) {
+-      rescaler_t* const tmp = wrk->irow;
+-      wrk->irow = wrk->frow;
+-      wrk->frow = tmp;
++  while (total_imported < num_lines &&
++         !WebPRescalerHasPendingOutput(rescaler)) {
++    if (rescaler->y_expand) {
++      rescaler_t* const tmp = rescaler->irow;
++      rescaler->irow = rescaler->frow;
++      rescaler->frow = tmp;
+     }
+-    WebPRescalerImportRow(wrk, src);
+-    if (!wrk->y_expand) {     // Accumulate the contribution of the new row.
++    WebPRescalerImportRow(rescaler, src);
++    if (!rescaler->y_expand) {    // Accumulate the contribution of the new row.
+       int x;
+-      for (x = 0; x < wrk->num_channels * wrk->dst_width; ++x) {
+-        wrk->irow[x] += wrk->frow[x];
++      for (x = 0; x < rescaler->num_channels * rescaler->dst_width; ++x) {
++        rescaler->irow[x] += rescaler->frow[x];
+       }
+     }
+-    ++wrk->src_y;
++    ++rescaler->src_y;
+     src += src_stride;
+     ++total_imported;
+-    wrk->y_accum -= wrk->y_sub;
++    rescaler->y_accum -= rescaler->y_sub;
+   }
+   return total_imported;
+ }
+diff --git a/src/3rdparty/libwebp/src/utils/rescaler_utils.h b/src/3rdparty/libwebp/src/utils/rescaler_utils.h
+index ca41e42..ef201ef 100644
+--- a/src/3rdparty/libwebp/src/utils/rescaler_utils.h
++++ b/src/3rdparty/libwebp/src/utils/rescaler_utils.h
+@@ -47,12 +47,13 @@ struct WebPRescaler {
+ };
+ 
+ // Initialize a rescaler given scratch area 'work' and dimensions of src & dst.
+-void WebPRescalerInit(WebPRescaler* const rescaler,
+-                      int src_width, int src_height,
+-                      uint8_t* const dst,
+-                      int dst_width, int dst_height, int dst_stride,
+-                      int num_channels,
+-                      rescaler_t* const work);
++// Returns false in case of error.
++int WebPRescalerInit(WebPRescaler* const rescaler,
++                     int src_width, int src_height,
++                     uint8_t* const dst,
++                     int dst_width, int dst_height, int dst_stride,
++                     int num_channels,
++                     rescaler_t* const work);
+ 
+ // If either 'scaled_width' or 'scaled_height' (but not both) is 0 the value
+ // will be calculated preserving the aspect ratio, otherwise the values are
 diff --git a/src/3rdparty/libwebp/src/utils/utils.c b/src/3rdparty/libwebp/src/utils/utils.c
-index 764f752..6080e19 100644
+index 764f752..9e464c1 100644
 --- a/src/3rdparty/libwebp/src/utils/utils.c
 +++ b/src/3rdparty/libwebp/src/utils/utils.c
-@@ -231,7 +231,7 @@ void WebPFree(void* ptr) {
+@@ -101,6 +101,9 @@ static void Increment(int* const v) {
+ #if defined(MALLOC_LIMIT)
+     {
+       const char* const malloc_limit_str = getenv("MALLOC_LIMIT");
++#if MALLOC_LIMIT > 1
++      mem_limit = (size_t)MALLOC_LIMIT;
++#endif
+       if (malloc_limit_str != NULL) {
+         mem_limit = atoi(malloc_limit_str);
+       }
+@@ -169,16 +172,16 @@ static int CheckSizeArgumentsOverflow(uint64_t nmemb, size_t size) {
+   const uint64_t total_size = nmemb * size;
+   if (nmemb == 0) return 1;
+   if ((uint64_t)size > WEBP_MAX_ALLOCABLE_MEMORY / nmemb) return 0;
+-  if (total_size != (size_t)total_size) return 0;
++  if (!CheckSizeOverflow(total_size)) return 0;
+ #if defined(PRINT_MEM_INFO) && defined(MALLOC_FAIL_AT)
+   if (countdown_to_fail > 0 && --countdown_to_fail == 0) {
+     return 0;    // fake fail!
+   }
+ #endif
+-#if defined(MALLOC_LIMIT)
++#if defined(PRINT_MEM_INFO) && defined(MALLOC_LIMIT)
+   if (mem_limit > 0) {
+     const uint64_t new_total_mem = (uint64_t)total_mem + total_size;
+-    if (new_total_mem != (size_t)new_total_mem ||
++    if (!CheckSizeOverflow(new_total_mem) ||
+         new_total_mem > mem_limit) {
+       return 0;   // fake fail!
+     }
+@@ -231,7 +234,7 @@ void WebPFree(void* ptr) {
  void WebPCopyPlane(const uint8_t* src, int src_stride,
                     uint8_t* dst, int dst_stride, int width, int height) {
    assert(src != NULL && dst != NULL);
@@ -33071,8 +35964,76 @@ index 764f752..6080e19 100644
    while (height-- > 0) {
      memcpy(dst, src, width);
      src += src_stride;
+diff --git a/src/3rdparty/libwebp/src/utils/utils.h b/src/3rdparty/libwebp/src/utils/utils.h
+index 2a3ec92..ef04f10 100644
+--- a/src/3rdparty/libwebp/src/utils/utils.h
++++ b/src/3rdparty/libwebp/src/utils/utils.h
+@@ -42,6 +42,10 @@ extern "C" {
+ #endif
+ #endif  // WEBP_MAX_ALLOCABLE_MEMORY
+ 
++static WEBP_INLINE int CheckSizeOverflow(uint64_t size) {
++  return size == (size_t)size;
++}
++
+ // size-checking safe malloc/calloc: verify that the requested size is not too
+ // large, or return NULL. You don't need to call these for constructs like
+ // malloc(sizeof(foo)), but only if there's picture-dependent size involved
+@@ -107,24 +111,33 @@ static WEBP_INLINE void PutLE32(uint8_t* const data, uint32_t val) {
+   PutLE16(data + 2, (int)(val >> 16));
+ }
+ 
+-// Returns (int)floor(log2(n)). n must be > 0.
+ // use GNU builtins where available.
+ #if defined(__GNUC__) && \
+     ((__GNUC__ == 3 && __GNUC_MINOR__ >= 4) || __GNUC__ >= 4)
++// Returns (int)floor(log2(n)). n must be > 0.
+ static WEBP_INLINE int BitsLog2Floor(uint32_t n) {
+   return 31 ^ __builtin_clz(n);
+ }
++// counts the number of trailing zero
++static WEBP_INLINE int BitsCtz(uint32_t n) { return __builtin_ctz(n); }
+ #elif defined(_MSC_VER) && _MSC_VER > 1310 && \
+       (defined(_M_X64) || defined(_M_IX86))
+ #include <intrin.h>
+ #pragma intrinsic(_BitScanReverse)
++#pragma intrinsic(_BitScanForward)
+ 
+ static WEBP_INLINE int BitsLog2Floor(uint32_t n) {
+-  unsigned long first_set_bit;
++  unsigned long first_set_bit;  // NOLINT (runtime/int)
+   _BitScanReverse(&first_set_bit, n);
+   return first_set_bit;
+ }
+-#else   // default: use the C-version.
++static WEBP_INLINE int BitsCtz(uint32_t n) {
++  unsigned long first_set_bit;  // NOLINT (runtime/int)
++  _BitScanForward(&first_set_bit, n);
++  return first_set_bit;
++}
++#else   // default: use the (slow) C-version.
++#define WEBP_HAVE_SLOW_CLZ_CTZ   // signal that the Clz/Ctz function are slow
+ // Returns 31 ^ clz(n) = log2(n). This is the default C-implementation, either
+ // based on table or not. Can be used as fallback if clz() is not available.
+ #define WEBP_NEED_LOG_TABLE_8BIT
+@@ -139,6 +152,15 @@ static WEBP_INLINE int WebPLog2FloorC(uint32_t n) {
+ }
+ 
+ static WEBP_INLINE int BitsLog2Floor(uint32_t n) { return WebPLog2FloorC(n); }
++
++static WEBP_INLINE int BitsCtz(uint32_t n) {
++  int i;
++  for (i = 0; i < 32; ++i, n >>= 1) {
++    if (n & 1) return i;
++  }
++  return 32;
++}
++
+ #endif
+ 
+ //------------------------------------------------------------------------------
 diff --git a/src/3rdparty/libwebp/src/webp/config.h b/src/3rdparty/libwebp/src/webp/config.h
-index 6f5d153..29cf0e6 100644
+index 6f5d153..21e013a 100644
 --- a/src/3rdparty/libwebp/src/webp/config.h
 +++ b/src/3rdparty/libwebp/src/webp/config.h
 @@ -81,7 +81,7 @@
@@ -33080,7 +36041,7 @@ index 6f5d153..29cf0e6 100644
  
  /* Define to the full name and version of this package. */
 -#define PACKAGE_STRING "libwebp 1.1.0"
-+#define PACKAGE_STRING "libwebp 1.2.0"
++#define PACKAGE_STRING "libwebp 1.2.1"
  
  /* Define to the one symbol short name of this package. */
  #define PACKAGE_TARNAME "libwebp"
@@ -33089,7 +36050,7 @@ index 6f5d153..29cf0e6 100644
  
  /* Define to the version of this package. */
 -#define PACKAGE_VERSION "1.1.0"
-+#define PACKAGE_VERSION "1.2.0"
++#define PACKAGE_VERSION "1.2.1"
  
  /* Define to necessary symbol if this constant uses a non-standard name on
     your system. */
@@ -33098,7 +36059,7 @@ index 6f5d153..29cf0e6 100644
  
  /* Version number of package */
 -#define VERSION "1.1.0"
-+#define VERSION "1.2.0"
++#define VERSION "1.2.1"
  
  /* Enable experimental code */
  /* #undef WEBP_EXPERIMENTAL_FEATURES */
@@ -33512,3 +36473,209 @@ index bf4bc36..ac8956c 100644
          for (int x = w - 1; x >= 0; --x) {
              dst[x * 4 + 3] = 0xffff;
              dst[x * 4 + 2] = dst[x * 3 + 2];
+diff --git a/src/plugins/imageformats/webp/CMakeLists.txt b/src/plugins/imageformats/webp/CMakeLists.txt
+new file mode 100644
+index 0000000..ceef4b0
+--- /dev/null
++++ b/src/plugins/imageformats/webp/CMakeLists.txt
+@@ -0,0 +1,200 @@
++# Generated from webp.pro.
++
++#####################################################################
++## QWebpPlugin Plugin:
++#####################################################################
++
++qt_internal_add_plugin(QWebpPlugin
++    OUTPUT_NAME qwebp
++    PLUGIN_TYPE imageformats
++    SOURCES
++        main.cpp
++        qwebphandler.cpp qwebphandler_p.h
++    LIBRARIES
++        Qt::Core
++        Qt::Gui
++)
++
++#### Keys ignored in scope 1:.:.:webp.pro:<TRUE>:
++# OTHER_FILES = "webp.json"
++# QT_FOR_CONFIG = "imageformats-private"
++
++## Scopes:
++#####################################################################
++
++qt_internal_extend_target(QWebpPlugin CONDITION QT_FEATURE_system_webp
++    LIBRARIES
++        WrapWebP::WrapWebP
++)
++
++qt_internal_extend_target(QWebpPlugin CONDITION NOT QT_FEATURE_system_webp
++    SOURCES
++        ../../../3rdparty/libwebp/src/dec/alpha_dec.c
++        ../../../3rdparty/libwebp/src/dec/buffer_dec.c
++        ../../../3rdparty/libwebp/src/dec/frame_dec.c
++        ../../../3rdparty/libwebp/src/dec/idec_dec.c
++        ../../../3rdparty/libwebp/src/dec/io_dec.c
++        ../../../3rdparty/libwebp/src/dec/quant_dec.c
++        ../../../3rdparty/libwebp/src/dec/tree_dec.c
++        ../../../3rdparty/libwebp/src/dec/vp8_dec.c
++        ../../../3rdparty/libwebp/src/dec/vp8l_dec.c
++        ../../../3rdparty/libwebp/src/dec/webp_dec.c
++        ../../../3rdparty/libwebp/src/demux/anim_decode.c
++        ../../../3rdparty/libwebp/src/demux/demux.c
++        ../../../3rdparty/libwebp/src/dsp/alpha_processing.c
++        ../../../3rdparty/libwebp/src/dsp/alpha_processing_mips_dsp_r2.c
++        ../../../3rdparty/libwebp/src/dsp/alpha_processing_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/alpha_processing_sse41.c
++        ../../../3rdparty/libwebp/src/dsp/cost.c
++        ../../../3rdparty/libwebp/src/dsp/cost_mips32.c
++        ../../../3rdparty/libwebp/src/dsp/cost_mips_dsp_r2.c
++        ../../../3rdparty/libwebp/src/dsp/cost_neon.c
++        ../../../3rdparty/libwebp/src/dsp/cost_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/cpu.c
++        ../../../3rdparty/libwebp/src/dsp/dec.c
++        ../../../3rdparty/libwebp/src/dsp/dec_clip_tables.c
++        ../../../3rdparty/libwebp/src/dsp/dec_mips32.c
++        ../../../3rdparty/libwebp/src/dsp/dec_mips_dsp_r2.c
++        ../../../3rdparty/libwebp/src/dsp/dec_msa.c
++        ../../../3rdparty/libwebp/src/dsp/dec_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/dec_sse41.c
++        ../../../3rdparty/libwebp/src/dsp/enc.c
++        ../../../3rdparty/libwebp/src/dsp/enc_mips32.c
++        ../../../3rdparty/libwebp/src/dsp/enc_mips_dsp_r2.c
++        ../../../3rdparty/libwebp/src/dsp/enc_msa.c
++        ../../../3rdparty/libwebp/src/dsp/enc_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/enc_sse41.c
++        ../../../3rdparty/libwebp/src/dsp/filters.c
++        ../../../3rdparty/libwebp/src/dsp/filters_mips_dsp_r2.c
++        ../../../3rdparty/libwebp/src/dsp/filters_msa.c
++        ../../../3rdparty/libwebp/src/dsp/filters_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/lossless.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_enc.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_enc_mips32.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_enc_mips_dsp_r2.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_enc_msa.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_enc_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_enc_sse41.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_mips_dsp_r2.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_sse41.c
++        ../../../3rdparty/libwebp/src/dsp/rescaler.c
++        ../../../3rdparty/libwebp/src/dsp/rescaler_mips32.c
++        ../../../3rdparty/libwebp/src/dsp/rescaler_mips_dsp_r2.c
++        ../../../3rdparty/libwebp/src/dsp/rescaler_msa.c
++        ../../../3rdparty/libwebp/src/dsp/rescaler_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/ssim.c
++        ../../../3rdparty/libwebp/src/dsp/ssim_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/upsampling.c
++        ../../../3rdparty/libwebp/src/dsp/upsampling_mips_dsp_r2.c
++        ../../../3rdparty/libwebp/src/dsp/upsampling_msa.c
++        ../../../3rdparty/libwebp/src/dsp/upsampling_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/upsampling_sse41.c
++        ../../../3rdparty/libwebp/src/dsp/yuv.c
++        ../../../3rdparty/libwebp/src/dsp/yuv_mips32.c
++        ../../../3rdparty/libwebp/src/dsp/yuv_mips_dsp_r2.c
++        ../../../3rdparty/libwebp/src/dsp/yuv_sse2.c
++        ../../../3rdparty/libwebp/src/dsp/yuv_sse41.c
++        ../../../3rdparty/libwebp/src/enc/alpha_enc.c
++        ../../../3rdparty/libwebp/src/enc/analysis_enc.c
++        ../../../3rdparty/libwebp/src/enc/backward_references_cost_enc.c
++        ../../../3rdparty/libwebp/src/enc/backward_references_enc.c
++        ../../../3rdparty/libwebp/src/enc/config_enc.c
++        ../../../3rdparty/libwebp/src/enc/cost_enc.c
++        ../../../3rdparty/libwebp/src/enc/filter_enc.c
++        ../../../3rdparty/libwebp/src/enc/frame_enc.c
++        ../../../3rdparty/libwebp/src/enc/histogram_enc.c
++        ../../../3rdparty/libwebp/src/enc/iterator_enc.c
++        ../../../3rdparty/libwebp/src/enc/near_lossless_enc.c
++        ../../../3rdparty/libwebp/src/enc/picture_csp_enc.c
++        ../../../3rdparty/libwebp/src/enc/picture_enc.c
++        ../../../3rdparty/libwebp/src/enc/picture_psnr_enc.c
++        ../../../3rdparty/libwebp/src/enc/picture_rescale_enc.c
++        ../../../3rdparty/libwebp/src/enc/picture_tools_enc.c
++        ../../../3rdparty/libwebp/src/enc/predictor_enc.c
++        ../../../3rdparty/libwebp/src/enc/quant_enc.c
++        ../../../3rdparty/libwebp/src/enc/syntax_enc.c
++        ../../../3rdparty/libwebp/src/enc/token_enc.c
++        ../../../3rdparty/libwebp/src/enc/tree_enc.c
++        ../../../3rdparty/libwebp/src/enc/vp8l_enc.c
++        ../../../3rdparty/libwebp/src/enc/webp_enc.c
++        ../../../3rdparty/libwebp/src/mux/anim_encode.c
++        ../../../3rdparty/libwebp/src/mux/muxedit.c
++        ../../../3rdparty/libwebp/src/mux/muxinternal.c
++        ../../../3rdparty/libwebp/src/mux/muxread.c
++        ../../../3rdparty/libwebp/src/utils/bit_reader_utils.c
++        ../../../3rdparty/libwebp/src/utils/bit_writer_utils.c
++        ../../../3rdparty/libwebp/src/utils/color_cache_utils.c
++        ../../../3rdparty/libwebp/src/utils/filters_utils.c
++        ../../../3rdparty/libwebp/src/utils/huffman_encode_utils.c
++        ../../../3rdparty/libwebp/src/utils/huffman_utils.c
++        ../../../3rdparty/libwebp/src/utils/quant_levels_dec_utils.c
++        ../../../3rdparty/libwebp/src/utils/quant_levels_utils.c
++        ../../../3rdparty/libwebp/src/utils/random_utils.c
++        ../../../3rdparty/libwebp/src/utils/rescaler_utils.c
++        ../../../3rdparty/libwebp/src/utils/thread_utils.c
++        ../../../3rdparty/libwebp/src/utils/utils.c
++    INCLUDE_DIRECTORIES
++        ../../../3rdparty/libwebp
++        ../../../3rdparty/libwebp/src
++        ../../../3rdparty/libwebp/src/dec
++        ../../../3rdparty/libwebp/src/dsp
++        ../../../3rdparty/libwebp/src/enc
++        ../../../3rdparty/libwebp/src/mux
++        ../../../3rdparty/libwebp/src/utils
++        ../../../3rdparty/libwebp/src/webp
++)
++
++qt_internal_extend_target(QWebpPlugin CONDITION ANDROID AND NOT ANDROID_EMBEDDED AND NOT QT_FEATURE_system_webp
++    SOURCES
++        ${CMAKE_ANDROID_NDK}/sources/android/cpufeatures/cpu-features.c   # special case
++    INCLUDE_DIRECTORIES
++        ${CMAKE_ANDROID_NDK}/sources/android/cpufeatures                  # special case
++)
++
++# special case begin
++set(neon_sources
++        ../../../3rdparty/libwebp/src/dsp/alpha_processing_neon.c
++        ../../../3rdparty/libwebp/src/dsp/dec_neon.c
++        ../../../3rdparty/libwebp/src/dsp/enc_neon.c
++        ../../../3rdparty/libwebp/src/dsp/filters_neon.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_enc_neon.c
++        ../../../3rdparty/libwebp/src/dsp/lossless_neon.c
++        ../../../3rdparty/libwebp/src/dsp/rescaler_neon.c
++        ../../../3rdparty/libwebp/src/dsp/upsampling_neon.c
++        ../../../3rdparty/libwebp/src/dsp/yuv_neon.c
++)
++
++if(NOT QT_FEATURE_system_webp)
++    if(ANDROID)
++        qt_internal_extend_target(QWebpPlugin
++            CONDITION (CMAKE_ANDROID_ARM_NEON OR CMAKE_ANDROID_ARCH_ABI STREQUAL "arm64-v8a")
++            SOURCES ${neon_sources}
++        )
++    else()
++        # For universal macOS and iOS, and other platforms that support neon
++        qt_internal_add_simd_part(QWebpPlugin SIMD neon SOURCES ${neon_sources})
++    endif()
++endif()
++# special case end
++
++#### Keys ignored in scope 6:.:../../../3rdparty:../../../3rdparty/libwebp.pri:INTEGRITY:
++# QMAKE_CFLAGS = "-c99"
++
++#### Keys ignored in scope 12:.:../../../3rdparty:../../../3rdparty/libwebp.pri:else:
++# QMAKE_EXTRA_COMPILERS = "neon_comp"
++# neon_comp.commands = "$$QMAKE_CC" "-c" "$(CFLAGS)" "$$QMAKE_CFLAGS_NEON" "$(INCPATH)" "${QMAKE_FILE_IN}"
++# neon_comp.dependency_type = "TYPE_C"
++# neon_comp.input = "SOURCES_FOR_NEON"
++# neon_comp.name = "compiling[neon]" "${QMAKE_FILE_IN}"
++# neon_comp.output = "${QMAKE_VAR_OBJECTS_DIR}${QMAKE_FILE_BASE}$${firstQMAKE_EXT_OBJ}"
++# neon_comp.variable_out = "OBJECTS"
++
++#### Keys ignored in scope 13:.:../../../3rdparty:../../../3rdparty/libwebp.pri:MSVC:
++# neon_comp.commands = "-Fo${QMAKE_FILE_OUT}"
++
++#### Keys ignored in scope 14:.:../../../3rdparty:../../../3rdparty/libwebp.pri:else:
++# neon_comp.commands = "-o" "${QMAKE_FILE_OUT}"
++
++#### Keys ignored in scope 15:.:../../../3rdparty:../../../3rdparty/libwebp.pri:silent:
++# neon_comp.commands = "@echo" "compiling[neon]" "${QMAKE_FILE_IN}" "&&"
